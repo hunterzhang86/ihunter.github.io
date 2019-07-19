@@ -1,0 +1,453 @@
+
+ <!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+  <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
+  <meta charset="UTF-8">
+  
+    <title>HBase常用命令总结 | Hunter的个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Hunter Zhang">
+    
+    <meta name="description" content="查看有哪些表list查看HBase的状态status创建表create_namespace ‘sogou’create ‘sogou:search_detail’, {NAME =&amp;gt; ‘detail’},  {NAME =&amp;gt; ‘detail2’}查看表的结构describe ‘sogou">
+    
+    
+    <meta name="keywords" content>
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="Hunter的个人博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/favicon.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/favicon.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hunter的个人博客">Hunter的个人博客</a></h1>
+				<h2 class="blog-motto">Follow your heart</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:www.ihunter.me">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody">
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/10/31/hbase-example/" title="HBase常用命令总结" itemprop="url">HBase常用命令总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+
+		<p>查看有哪些表<br>list<br>查看HBase的状态<br>status<br>创建表<br>create_namespace ‘sogou’<br>create ‘sogou:search_detail’, {NAME =&gt; ‘detail’},  {NAME =&gt; ‘detail2’}<br>查看表的结构<br>describe ‘sogou:search_detail’<br>删除表<br>disable ‘sogou:search_detail’<br>drop ‘sogou:search_detail’<br>说明： 删除表之前必须disable表<br>删除表中所有数据<br>truncate ‘sogou:search_detail’<br>修改表的结构<br>alter ‘sogou:search_detail’, {NAME =&gt; ‘detail’, TTL =&gt; ‘1024’},  {NAME =&gt; ‘detail2’, METHOD =&gt; ‘delete’}<br>新增数据<br>put ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’, ‘陋习’, ‘detail:retOrder’, ‘2’, ‘detail:cliOrder’, ‘1’, ‘detail:url’, ‘<a href="http://www.ihunter.me&#39;">www.ihunter.me&#39;</a><br>查询单条数据<br>get ‘sogou:search_detail’ ‘rowKey001’<br>get ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’<br>查询多条数据<br>scan ‘sogou:search_detail’, {LIMIT =&gt; 10}<br>统计表中数据的行数<br>count ‘sogou:search_detail’ {INTERVAL =&gt; 100, CACHE =&gt; 500}<br>删除数据<br>delete ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’<br>deteteall ‘sogou:search_detail’, ‘rowKey001’</p>
+
+	</div>
+
+	
+
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Hbase/">Hbase</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Hbase/">Hbase</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.ihunter.me/2017/10/31/hbase-example/" data-title="HBase常用命令总结 | Hunter的个人博客" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+
+
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/10/31/guava-thread-listen/" title="Guava中实现线程异步回调机制探索">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Guava中实现线程异步回调机制探索</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/10/31/config-hexo-in-windows/"  title="Windows下配置Hexo博客的方法">
+ <strong>下一篇：</strong><br/> 
+ <span>Windows下配置Hexo博客的方法
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+	<div id="article-comment">
+			
+
+
+<section id="comments" class="comment">
+  <div id="container"></div>
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: "Tue Oct 31 2017 20:38:17 GMT+0800",
+      owner: "hunterzhang86",
+      repo: "blog_comments",
+      oauth: {
+        client_id: "e97ca5b8d3242b2f0d7e",
+        client_secret: "6cf8fa9c842289c5c1e4e3f8427e4e730a66b4a6"
+      }
+    });
+
+    gitment.render('article-comment');
+  </script>
+</section>
+
+	</div>
+	
+	</article>
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+  <iframe width="100%" height="120" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=120&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1837936962&verifier=09f6bcc5&dpc=1"></iframe>
+</div>
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+			<li><a href="/categories/Hbase/" title="Hbase">Hbase<sup>1</sup></a></li>
+		
+			<li><a href="/categories/总结/" title="总结">总结<sup>11</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Shadowsocks/" title="Shadowsocks">Shadowsocks<sup>2</sup></a></li>
+		
+			<li><a href="/tags/总结/" title="总结">总结<sup>2</sup></a></li>
+		
+			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
+		
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Hbase/" title="Hbase">Hbase<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            <a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a>
+          </li>
+        
+          <li>
+            <a href="http://www.ihunter.me" target="_blank" title="Hunter的时光机器">Hunter的时光机器</a>
+          </li>
+        
+          <li>
+            <a href="https://www.digitalocean.com/?refcode=ca6e33dd0964" target="_blank" title="DigitalOcean">DigitalOcean</a>
+          </li>
+        
+          <li>
+            <a href="https://www.linode.com/?r=218734ebc6cd68f661f596d887a106fa038e0b86" target="_blank" title="Linode">Linode</a>
+          </li>
+        
+          <li>
+            <a href="http://ifb.me" target="_blank" title="Facebook">Facebook</a>
+          </li>
+        
+    </ul>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/http://weibo.com/zzbolg" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="https://hexo.io/" target="_blank" title="hexo">Hexo</a> and Theme by <a href="https://github.com/hunterzhang86/hunter" target="_blank" title="Hunter">Hunter</a> © 2019
+		
+		<a href="http://www.ihunter.me/about" target="_blank" title="Hunter Zhang">Hunter Zhang</a>
+		
+
+		<!-- Analytics Begin -->
+		
+
+
+
+
+		<!-- Analytics End -->
+
+		</p>
+</div></footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+  </body>
+</html>
