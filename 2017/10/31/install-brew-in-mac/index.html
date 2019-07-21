@@ -6,14 +6,13 @@
   <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
   <meta charset="UTF-8">
   
-    <title>使用手机搭建shadowsocks代理的简便方法 | Hunter的个人博客</title>
+    <title>mac上安装telnet | Hunter的个人博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Hunter Zhang">
     
-    <meta name="description" content="一、在Google Cloud创建一个VM实例
-二、搭建shadowsocks代理
-123456781、修改root密码$ sudo passwd 2、切换到root用户$ su - root3、安装shadowsocks# apt update &amp;amp;&amp;amp; apt upgrade# ap">
+    <meta name="description" content="安装brew：
+123ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;  中途会提示回车继续Press RETURN to continue or a">
     
     
     <meta name="keywords" content>
@@ -72,7 +71,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/install_shadowsocks_in_google_cloud/" title="使用手机搭建shadowsocks代理的简便方法" itemprop="url">使用手机搭建shadowsocks代理的简便方法</a>
+      <a href="/2017/10/31/install-brew-in-mac/" title="mac上安装telnet" itemprop="url">mac上安装telnet</a>
   </h1>
   <p class="article-author">By
        
@@ -86,12 +85,11 @@
 	<div class="article-content">
 		
 
-		<p>一、在Google Cloud创建一个VM实例</p>
-<p>二、搭建shadowsocks代理</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、修改root密码</span><br><span class="line">$ sudo passwd </span><br><span class="line">2、切换到root用户</span><br><span class="line">$ su - root</span><br><span class="line">3、安装shadowsocks</span><br><span class="line"># apt update &amp;&amp; apt upgrade</span><br><span class="line"># apt install docker.io</span><br><span class="line"># docker run -d -p 1989:1989 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1989 -k $&#123;password&#125; -m aes-256-cfb</span><br></pre></td></tr></table></figure>
+		<p>安装brew：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;  </span><br><span class="line">中途会提示回车继续</span><br><span class="line">Press RETURN to continue or any other key to abort</span><br></pre></td></tr></table></figure>
 
-<p>三、配置对应端口防火墙<br>依次点击 “产品和服务” -&gt; “VPC服务” -&gt; “防火墙规则” -&gt; “创建防火墙规则”，其中IP地址范围填0.0.0.0/0, 协议/端口填tcp:1989, 保存并提交</p>
-
+<p>安装telnet：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install telnet</span><br></pre></td></tr></table></figure>
 	</div>
 
 	
@@ -107,7 +105,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Shadowsocks/">Shadowsocks</a>
+  <span></span> <a href="/tags/Linux/">Linux</a>
   </div>
 
 </div>
@@ -116,7 +114,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ihunter.me/2017/10/31/install_shadowsocks_in_google_cloud/" data-title="使用手机搭建shadowsocks代理的简便方法 | Hunter的个人博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ihunter.me/2017/10/31/install-brew-in-mac/" data-title="mac上安装telnet | Hunter的个人博客" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,18 +128,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/10/31/guava-thread-listen/" title="Guava中实现线程异步回调机制探索">
+ <a href="/2017/10/31/hbase-example/" title="HBase常用命令总结">
   <strong>上一篇：</strong><br/>
   <span>
-  Guava中实现线程异步回调机制探索</span>
+  HBase常用命令总结</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/10/31/java-class-code-block-load-order/"  title="Java代码块的加载顺序总结">
+<a href="/2017/10/31/get_topn_count_with_redis/"  title="使用Redis实现实时展示页面访问量排名的方法">
  <strong>下一篇：</strong><br/> 
- <span>Java代码块的加载顺序总结
+ <span>使用Redis实现实时展示页面访问量排名的方法
 </span>
 </a>
 </div>

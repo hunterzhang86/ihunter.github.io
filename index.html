@@ -70,6 +70,77 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2019/07/21/install-ftp-indebian/" title="在Debian上搭建ftp服务器" itemprop="url">在Debian上搭建ftp服务器</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2019-07-21T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-21</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install vsftpd</span><br></pre></td></tr></table></figure>
+
+<p>sudo vi /etc/vsftpd.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"># Example config file /etc/vsftpd.conf</span><br><span class="line">#</span><br><span class="line"># The default compiled in settings are fairly paranoid. This sample file</span><br><span class="line"># loosens things up a bit, to make the ftp daemon more usable.</span><br><span class="line"># Please see vsftpd.conf.5 for all compiled in defaults.</span><br><span class="line">#</span><br><span class="line"># READ THIS: This example file is NOT an exhaustive list of vsftpd options.</span><br><span class="line"># Please read the vsftpd.conf.5 manual page to get a full idea of vsftpd&apos;s</span><br><span class="line"># capabilities.</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># Run standalone?  vsftpd can run either from an inetd or as a standalone</span><br><span class="line"># daemon started from an initscript.</span><br><span class="line">listen=NO</span><br><span class="line">#</span><br><span class="line"># This directive enables listening on IPv6 sockets. By default, listening</span><br><span class="line"># on the IPv6 &quot;any&quot; address (::) will accept connections from both IPv6</span><br><span class="line"># and IPv4 clients. It is not necessary to listen on *both* IPv4 and IPv6</span><br><span class="line"># sockets. If you want that (perhaps because you want to listen on specific</span><br><span class="line"># addresses) then you must run two copies of vsftpd with two configuration</span><br><span class="line"># files.</span><br><span class="line">listen_ipv6=YES</span><br><span class="line">#</span><br><span class="line"># Allow anonymous FTP? (Disabled by default).</span><br><span class="line">anonymous_enable=NO</span><br><span class="line">#</span><br><span class="line"># Uncomment this to allow local users to log in.</span><br><span class="line">local_enable=YES</span><br><span class="line">#</span><br><span class="line"># Uncomment this to enable any form of FTP write command.</span><br><span class="line">write_enable=YES</span><br><span class="line">#</span><br><span class="line"># Default umask for local users is 077. You may wish to change this to 022,</span><br><span class="line"># if your users expect that (022 is used by most other ftpd&apos;s)</span><br><span class="line">#local_umask=022</span><br><span class="line">#</span><br><span class="line"># Uncomment this to allow the anonymous FTP user to upload files. This only</span><br><span class="line"># has an effect if the above global write enable is activated. Also, you will</span><br><span class="line"># obviously need to create a directory writable by the FTP user.</span><br><span class="line">#anon_upload_enable=YES</span><br><span class="line">#</span><br><span class="line"># Uncomment this if you want the anonymous FTP user to be able to create</span><br><span class="line"># new directories.</span><br><span class="line">#anon_mkdir_write_enable=YES</span><br><span class="line">#</span><br><span class="line"># Activate directory messages - messages given to remote users when they</span><br><span class="line"># go into a certain directory.</span><br><span class="line">dirmessage_enable=YES</span><br><span class="line">#</span><br><span class="line"># If enabled, vsftpd will display directory listings with the time</span><br><span class="line"># in  your  local  time  zone.  The default is to display GMT. The</span><br><span class="line"># times returned by the MDTM FTP command are also affected by this</span><br><span class="line"># option.</span><br><span class="line">use_localtime=YES</span><br><span class="line">#</span><br><span class="line"># Activate logging of uploads/downloads.</span><br><span class="line">xferlog_enable=YES</span><br><span class="line">#</span><br><span class="line"># Make sure PORT transfer connections originate from port 20 (ftp-data).</span><br><span class="line">connect_from_port_20=YES</span><br><span class="line">#</span><br><span class="line"># If you want, you can arrange for uploaded anonymous files to be owned by</span><br><span class="line"># a different user. Note! Using &quot;root&quot; for uploaded files is not</span><br><span class="line"># recommended!</span><br><span class="line">#chown_uploads=YES</span><br><span class="line">#chown_username=whoever</span><br><span class="line">#</span><br><span class="line"># You may override where the log file goes if you like. The default is shown</span><br><span class="line"># below.</span><br><span class="line">#xferlog_file=/var/log/vsftpd.log</span><br><span class="line">#</span><br><span class="line"># If you want, you can have your log file in standard ftpd xferlog format.</span><br><span class="line"># Note that the default log file location is /var/log/xferlog in this case.</span><br><span class="line">#xferlog_std_format=YES</span><br><span class="line">#</span><br><span class="line"># You may change the default value for timing out an idle session.</span><br><span class="line">#idle_session_timeout=600</span><br><span class="line">#</span><br><span class="line"># You may change the default value for timing out a data connection.</span><br><span class="line">#data_connection_timeout=120</span><br><span class="line">#</span><br><span class="line"># It is recommended that you define on your system a unique user which the</span><br><span class="line"># ftp server can use as a totally isolated and unprivileged user.</span><br><span class="line">#nopriv_user=ftpsecure</span><br><span class="line">#</span><br><span class="line"># Enable this and the server will recognise asynchronous ABOR requests. Not</span><br><span class="line"># recommended for security (the code is non-trivial). Not enabling it,</span><br><span class="line"># however, may confuse older FTP clients.</span><br><span class="line">#async_abor_enable=YES</span><br><span class="line">#</span><br><span class="line"># By default the server will pretend to allow ASCII mode but in fact ignore</span><br><span class="line"># the request. Turn on the below options to have the server actually do ASCII</span><br><span class="line"># mangling on files when in ASCII mode.</span><br><span class="line"># Beware that on some FTP servers, ASCII support allows a denial of service</span><br><span class="line"># attack (DoS) via the command &quot;SIZE /big/file&quot; in ASCII mode. vsftpd</span><br><span class="line"># predicted this attack and has always been safe, reporting the size of the</span><br><span class="line"># raw file.</span><br><span class="line"># ASCII mangling is a horrible feature of the protocol.</span><br><span class="line">#ascii_upload_enable=YES</span><br><span class="line">#ascii_download_enable=YES</span><br><span class="line">#</span><br><span class="line"># You may fully customise the login banner string:</span><br><span class="line">#ftpd_banner=Welcome to blah FTP service.</span><br><span class="line">#</span><br><span class="line"># You may specify a file of disallowed anonymous e-mail addresses. Apparently</span><br><span class="line"># useful for combatting certain DoS attacks.</span><br><span class="line">#deny_email_enable=YES</span><br><span class="line"># (default follows)</span><br><span class="line">#banned_email_file=/etc/vsftpd.banned_emails</span><br><span class="line">#</span><br><span class="line"># You may restrict local users to their home directories.  See the FAQ for</span><br><span class="line"># the possible risks in this before using chroot_local_user or</span><br><span class="line"># chroot_list_enable below.</span><br><span class="line">#chroot_local_user=YES</span><br><span class="line">#</span><br><span class="line"># You may specify an explicit list of local users to chroot() to their home</span><br><span class="line"># directory. If chroot_local_user is YES, then this list becomes a list of</span><br><span class="line"># users to NOT chroot().</span><br><span class="line"># (Warning! chroot&apos;ing can be very dangerous. If using chroot, make sure that</span><br><span class="line"># the user does not have write access to the top level directory within the</span><br><span class="line"># chroot)</span><br><span class="line">chroot_local_user=YES</span><br><span class="line">chroot_list_enable=YES</span><br><span class="line">user_sub_token=$USER</span><br><span class="line">local_root=/home/$USER/ftp</span><br><span class="line">allow_writeable_chroot=YES</span><br><span class="line"># (default follows)</span><br><span class="line">chroot_list_file=/etc/vsftpd.chroot_list</span><br><span class="line">#</span><br><span class="line"># You may activate the &quot;-R&quot; option to the builtin ls. This is disabled by</span><br><span class="line"># default to avoid remote users being able to cause excessive I/O on large</span><br><span class="line"># sites. However, some broken FTP clients such as &quot;ncftp&quot; and &quot;mirror&quot; assume</span><br><span class="line"># the presence of the &quot;-R&quot; option, so there is a strong case for enabling it.</span><br><span class="line">#ls_recurse_enable=YES</span><br><span class="line">#</span><br><span class="line"># Customization</span><br><span class="line">#</span><br><span class="line"># Some of vsftpd&apos;s settings don&apos;t fit the filesystem layout by</span><br><span class="line"># default.</span><br><span class="line">#</span><br><span class="line"># This option should be the name of a directory which is empty.  Also, the</span><br><span class="line"># directory should not be writable by the ftp user. This directory is used</span><br><span class="line"># as a secure chroot() jail at times vsftpd does not require filesystem</span><br><span class="line"># access.</span><br><span class="line">secure_chroot_dir=/var/run/vsftpd/empty</span><br><span class="line">#</span><br><span class="line"># This string is the name of the PAM service vsftpd will use.</span><br><span class="line">pam_service_name=vsftpd</span><br><span class="line">#</span><br><span class="line"># This option specifies the location of the RSA certificate to use for SSL</span><br><span class="line"># encrypted connections.</span><br><span class="line">rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem</span><br><span class="line">rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key</span><br><span class="line">ssl_enable=YES</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># Uncomment this to indicate that vsftpd use a utf8 filesystem.</span><br><span class="line">utf8_filesystem=YES</span><br></pre></td></tr></table></figure>
+
+<p>修改/etc/vsftpd.chroot_list</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/vsftpd.chroot_list</span><br></pre></td></tr></table></figure>
+
+<p>重启FTP服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start vsftpd 或 service vsftpd start</span><br><span class="line">systemctl restart vsftpd 或 service vsftpd restart</span><br></pre></td></tr></table></figure>
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/FTP/">FTP</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2019/07/21/install-ftp-indebian/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2019/07/20/install-linux-in-old-computer/" title="如何将一台老电脑改造为docker服务器" itemprop="url">如何将一台老电脑改造为docker服务器</a>
   </h1>
   <p class="article-author">By
@@ -146,7 +217,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/install_shadowsocks_in_google_cloud/" title="使用手机搭建shadowsocks代理的简便方法" itemprop="url">使用手机搭建shadowsocks代理的简便方法</a>
+      <a href="/2017/10/31/install_shadowsocks_in_linode/" title="使用手机搭建shadowsocks代理的简便方法" itemprop="url">使用手机搭建shadowsocks代理的简便方法</a>
   </h1>
   <p class="article-author">By
        
@@ -159,12 +230,11 @@
 </header>
     <div class="article-content">
         
-        <p>一、在Google Cloud创建一个VM实例</p>
-<p>二、搭建shadowsocks代理</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、修改root密码</span><br><span class="line">$ sudo passwd </span><br><span class="line">2、切换到root用户</span><br><span class="line">$ su - root</span><br><span class="line">3、安装shadowsocks</span><br><span class="line"># apt update &amp;&amp; apt upgrade</span><br><span class="line"># apt install docker.io</span><br><span class="line"># docker run -d -p 1989:1989 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1989 -k $&#123;password&#125; -m aes-256-cfb</span><br></pre></td></tr></table></figure>
-
-<p>三、配置对应端口防火墙<br>依次点击 “产品和服务” -&gt; “VPC服务” -&gt; “防火墙规则” -&gt; “创建防火墙规则”，其中IP地址范围填0.0.0.0/0, 协议/端口填tcp:1989, 保存并提交</p>
-
+        <p>1、在手机上下载Linode软件、SSH连接工具（比如Termius）</p>
+<p>2、新建一个5美元的Ubuntu 16.04的VPS（如果没有账号请先注册）</p>
+<p>3、使用SSH连接工具连上购买的VPS</p>
+<p>4、搭建shadowsocks代理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># apt update &amp;&amp; apt upgrade</span><br><span class="line"># apt install docker.io</span><br><span class="line"># docker run -d -p 1989:1989 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1989 -k &#123;password&#125; -m aes-256-cfb</span><br></pre></td></tr></table></figure>
         
 
         <p class="article-more-link">
@@ -193,7 +263,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/install_shadowsocks_in_google_cloud/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/install_shadowsocks_in_linode/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -213,7 +283,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/guava-thread-listen/" title="Guava中实现线程异步回调机制探索" itemprop="url">Guava中实现线程异步回调机制探索</a>
+      <a href="/2017/10/31/how-to-implements-kafka-exactly-once/" title="实现Kafka消息刚好传递一次(Exactly-Once)的方法" itemprop="url">实现Kafka消息刚好传递一次(Exactly-Once)的方法</a>
   </h1>
   <p class="article-author">By
        
@@ -226,12 +296,15 @@
 </header>
     <div class="article-content">
         
-        <p>这几天有了解到Guava的LinsteningExecutorService可以设置线程执行完成后的回调方法, 联系到我们在进行多线程编程的时候都需要去拿到这个返回值做回调，所以很感兴趣Guava是怎实现这个机制的，遂调查了一下Guava的源码。</p>
-<p>Guava里面实现线程回调也非常简单, 核心的逻辑就是新建一个Futures.CallbackListener的线程，这个线程会通过future.get阻塞拿到线程的返回值，拿到返回值之后就调用用户设置的onSuccess方法。</p>
-<p>如果在线程的执行过程中发生异常，则会调用用户设置的onFailure方法，将线程执行的异常信息返回给用户。</p>
-<p>核心逻辑的源代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> V value;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    value = getDone(future);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">    callback.onFailure(e.getCause());</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (RuntimeException | Error e) &#123;</span><br><span class="line">    callback.onFailure(e);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  callback.onSuccess(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>术语释疑<br>at-least-once<br>至少传递一次，如果broker在收到消息后，发送ack之前失败，且生产者设置了重试，这种情况下可能会产生重复的数据。<br>at-most-once<br>最多传递一次，如果生产者在发送消息失败后没有设置重试，虽然不会产生重复数据，但有可能丢失数据。<br>exactly-once<br>刚好传递一次，即使producer重试发送消息，消息也会保证最多一次地传递给最终consumer。<br>Producer配置<br>config    current default value    proposed default value<br>enable.idempotence    false    true<br>acks    1    all<br>max.in.flight.requests.per.connection    5    2<br>retries    0    MAX_INT<br>transactional.id        根据实际情况自定义<br>其他的参数比较好理解，max.in.flight.requests.per.connection参数表示限制客户端在单个连接上能够同时发送的未响应请求的个数，是kafka为了提高吞吐量的一个参数。如果要实现Exactly-once语义，需要将值由默认的5设置成2, 主要是因为如果配置成 &gt; 2, kafka将不能保证消息的顺序，而如果设置成1则对kafka的吞吐量有一定影响。</p>
+<p>Producer配置代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">producer.initTransactions();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    producer.beginTransaction();</span><br><span class="line">    producer.send(record1);</span><br><span class="line">    producer.send(record2);</span><br><span class="line">    producer.commitTransaction();</span><br><span class="line">&#125; <span class="keyword">catch</span>(ProducerFencedException e) &#123;</span><br><span class="line">    producer.close();</span><br><span class="line">&#125; <span class="keyword">catch</span>(KafkaException e) &#123;</span><br><span class="line">    producer.abortTransaction();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>Consumer配置<br>config    current default value    proposed default value<br>isolation    read_uhcommitted    read_committed<br>enable.auto.commit        false<br>Consumer示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">records = consumer.poll(<span class="number">100</span>);</span><br><span class="line"><span class="keyword">for</span>(ConsumerRecord record: records)&#123;</span><br><span class="line">    processor.process(record);</span><br><span class="line">    consumer.commitSync();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明</p>
+<p>commit语句放在process语句前面还是后面取决于业务，如果process已经实现了幂等性，可以将commit放在process后面，且可以在当前所有的records处理完成之后再一起commit；<br>而如果处理消息没有实现幂等性，且消息多处理一次可能会影响业务的功能(考虑极端情况，在处理的过程中jvm直接被杀掉了)，则建议将commit语句放在process语句前面；<br>如果极端情况下，有一条消息没有处理可能会对业务造成影响，则需要业务实现事务来持久化已经处理成功的offset，在消费者因为异常情况被杀掉再重启之后，消费者可以通过持久化的数据知道需要从哪一条消息开始处理。<br>参考文献<br>(Make exactly once in order delivery per partition the default producer setting)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]</a><br>(Exactly Once Delivery and Transactional Messaging)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]</a><br>(Exactly-once Semantics are Possible: Here’s How Kafka Does it)[<a href="https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]" target="_blank" rel="noopener">https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]</a></p>
 
         
 
@@ -250,7 +323,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Guava/">Guava</a>
+  <span></span> <a href="/tags/Kafka/">Kafka</a>
   </div>
 
 </div>
@@ -261,7 +334,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/guava-thread-listen/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/how-to-implements-kafka-exactly-once/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -344,7 +417,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/how-to-implements-kafka-exactly-once/" title="实现Kafka消息刚好传递一次(Exactly-Once)的方法" itemprop="url">实现Kafka消息刚好传递一次(Exactly-Once)的方法</a>
+      <a href="/2017/10/31/install-brew-in-mac/" title="mac上安装telnet" itemprop="url">mac上安装telnet</a>
   </h1>
   <p class="article-author">By
        
@@ -357,15 +430,83 @@
 </header>
     <div class="article-content">
         
-        <p>术语释疑<br>at-least-once<br>至少传递一次，如果broker在收到消息后，发送ack之前失败，且生产者设置了重试，这种情况下可能会产生重复的数据。<br>at-most-once<br>最多传递一次，如果生产者在发送消息失败后没有设置重试，虽然不会产生重复数据，但有可能丢失数据。<br>exactly-once<br>刚好传递一次，即使producer重试发送消息，消息也会保证最多一次地传递给最终consumer。<br>Producer配置<br>config    current default value    proposed default value<br>enable.idempotence    false    true<br>acks    1    all<br>max.in.flight.requests.per.connection    5    2<br>retries    0    MAX_INT<br>transactional.id        根据实际情况自定义<br>其他的参数比较好理解，max.in.flight.requests.per.connection参数表示限制客户端在单个连接上能够同时发送的未响应请求的个数，是kafka为了提高吞吐量的一个参数。如果要实现Exactly-once语义，需要将值由默认的5设置成2, 主要是因为如果配置成 &gt; 2, kafka将不能保证消息的顺序，而如果设置成1则对kafka的吞吐量有一定影响。</p>
-<p>Producer配置代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">producer.initTransactions();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    producer.beginTransaction();</span><br><span class="line">    producer.send(record1);</span><br><span class="line">    producer.send(record2);</span><br><span class="line">    producer.commitTransaction();</span><br><span class="line">&#125; <span class="keyword">catch</span>(ProducerFencedException e) &#123;</span><br><span class="line">    producer.close();</span><br><span class="line">&#125; <span class="keyword">catch</span>(KafkaException e) &#123;</span><br><span class="line">    producer.abortTransaction();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>安装brew：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;  </span><br><span class="line">中途会提示回车继续</span><br><span class="line">Press RETURN to continue or any other key to abort</span><br></pre></td></tr></table></figure>
 
-<p>Consumer配置<br>config    current default value    proposed default value<br>isolation    read_uhcommitted    read_committed<br>enable.auto.commit        false<br>Consumer示例代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">records = consumer.poll(<span class="number">100</span>);</span><br><span class="line"><span class="keyword">for</span>(ConsumerRecord record: records)&#123;</span><br><span class="line">    processor.process(record);</span><br><span class="line">    consumer.commitSync();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>安装telnet：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install telnet</span><br></pre></td></tr></table></figure>
+        
 
-<p>说明</p>
-<p>commit语句放在process语句前面还是后面取决于业务，如果process已经实现了幂等性，可以将commit放在process后面，且可以在当前所有的records处理完成之后再一起commit；<br>而如果处理消息没有实现幂等性，且消息多处理一次可能会影响业务的功能(考虑极端情况，在处理的过程中jvm直接被杀掉了)，则建议将commit语句放在process语句前面；<br>如果极端情况下，有一条消息没有处理可能会对业务造成影响，则需要业务实现事务来持久化已经处理成功的offset，在消费者因为异常情况被杀掉再重启之后，消费者可以通过持久化的数据知道需要从哪一条消息开始处理。<br>参考文献<br>(Make exactly once in order delivery per partition the default producer setting)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]</a><br>(Exactly Once Delivery and Transactional Messaging)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]</a><br>(Exactly-once Semantics are Possible: Here’s How Kafka Does it)[<a href="https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]" target="_blank" rel="noopener">https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]</a></p>
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Linux/">Linux</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/install-brew-in-mac/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/10/31/get_topn_count_with_redis/" title="使用Redis实现实时展示页面访问量排名的方法" itemprop="url">使用Redis实现实时展示页面访问量排名的方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最近有一个需求，需要实时展示页面访问量排名，主要的实现思路如下。</p>
+<h5 id="为什么使用redis存储实时统计的数据？"><a href="#为什么使用redis存储实时统计的数据？" class="headerlink" title="为什么使用redis存储实时统计的数据？"></a>为什么使用redis存储实时统计的数据？</h5><p>1、实时统计的数据属于查多写少的类型<br>2、Redis的SortedSet数据结构天然可以非常快的得出topn的数据</p>
+<h5 id="如何使用redis存储Spark的实时统计数据？"><a href="#如何使用redis存储Spark的实时统计数据？" class="headerlink" title="如何使用redis存储Spark的实时统计数据？"></a>如何使用redis存储Spark的实时统计数据？</h5><p>(1)考虑到Spark直接操作Redis的话，各个组件之间的耦合会比较严重，所以我们将Spark的实时统计数据先推到kafka里面，然后不断的取出kafka的数据插入到redis中。</p>
+<p>(2)进一步的，如果把所有的统计结果都放到redis里面的话，由于数据量比较大可能会对redis的性能有比较大的压力，而实际上我们需要查看的统计结果是有限的，所以只需要将topn的数据存放的redis中即可，可以根据当前的实时数据统计情况，设置插入的阈值，从而减少redis的性能压力。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#取出当前排名1k的统计值，获取当前插入数据的阈值</span><br><span class="line">ZREVRANGE title_count 1000 1000 WITHSCORES</span><br></pre></td></tr></table></figure>
+
+<h5 id="如何删除超时的统计数据？"><a href="#如何删除超时的统计数据？" class="headerlink" title="如何删除超时的统计数据？"></a>如何删除超时的统计数据？</h5><p>既然是实时的统计数据，如果没有删除超时数据的机制，统计的结果实时上就变成了历史单位时间段的排名了，所以需要定时删除超时的统计数据。</p>
+<p>但其实redis中SortedSet中的子元素是不能设置超时时间的，所以我们使用了另外一个SortedSet来存储子元素的插入时间，然后定时去扫描有没有子元素已经超时，超时的子元素集会在原始的统计表中被清理掉。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查询超时的元素集，其中1534562250为超时的时间戳阈值</span><br><span class="line">ZREVRANGEBYSCORE title_count_ttl 0 1534562250</span><br><span class="line">#删除超时的元素集</span><br><span class="line">ZREM title_count baidu.com bing.com</span><br></pre></td></tr></table></figure>
+
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>整个方案在删除超时统计数据上还是有一些瑕疵，毕竟这个SortedSet TTL的实现方案需要插入两次数据，如果朋友们有更好的解决方案欢迎一起讨论，谢谢。</p>
 
         
 
@@ -384,7 +525,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Kafka/">Kafka</a>
+  <span></span> <a href="/tags/Redis/">Redis</a>
   </div>
 
 </div>
@@ -395,7 +536,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/how-to-implements-kafka-exactly-once/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/get_topn_count_with_redis/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -493,7 +634,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/get_topn_count_with_redis/" title="使用Redis实现实时展示页面访问量排名的方法" itemprop="url">使用Redis实现实时展示页面访问量排名的方法</a>
+      <a href="/2017/10/31/guava-thread-listen/" title="Guava中实现线程异步回调机制探索" itemprop="url">Guava中实现线程异步回调机制探索</a>
   </h1>
   <p class="article-author">By
        
@@ -506,17 +647,12 @@
 </header>
     <div class="article-content">
         
-        <p>最近有一个需求，需要实时展示页面访问量排名，主要的实现思路如下。</p>
-<h5 id="为什么使用redis存储实时统计的数据？"><a href="#为什么使用redis存储实时统计的数据？" class="headerlink" title="为什么使用redis存储实时统计的数据？"></a>为什么使用redis存储实时统计的数据？</h5><p>1、实时统计的数据属于查多写少的类型<br>2、Redis的SortedSet数据结构天然可以非常快的得出topn的数据</p>
-<h5 id="如何使用redis存储Spark的实时统计数据？"><a href="#如何使用redis存储Spark的实时统计数据？" class="headerlink" title="如何使用redis存储Spark的实时统计数据？"></a>如何使用redis存储Spark的实时统计数据？</h5><p>(1)考虑到Spark直接操作Redis的话，各个组件之间的耦合会比较严重，所以我们将Spark的实时统计数据先推到kafka里面，然后不断的取出kafka的数据插入到redis中。</p>
-<p>(2)进一步的，如果把所有的统计结果都放到redis里面的话，由于数据量比较大可能会对redis的性能有比较大的压力，而实际上我们需要查看的统计结果是有限的，所以只需要将topn的数据存放的redis中即可，可以根据当前的实时数据统计情况，设置插入的阈值，从而减少redis的性能压力。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#取出当前排名1k的统计值，获取当前插入数据的阈值</span><br><span class="line">ZREVRANGE title_count 1000 1000 WITHSCORES</span><br></pre></td></tr></table></figure>
+        <p>这几天有了解到Guava的LinsteningExecutorService可以设置线程执行完成后的回调方法, 联系到我们在进行多线程编程的时候都需要去拿到这个返回值做回调，所以很感兴趣Guava是怎实现这个机制的，遂调查了一下Guava的源码。</p>
+<p>Guava里面实现线程回调也非常简单, 核心的逻辑就是新建一个Futures.CallbackListener的线程，这个线程会通过future.get阻塞拿到线程的返回值，拿到返回值之后就调用用户设置的onSuccess方法。</p>
+<p>如果在线程的执行过程中发生异常，则会调用用户设置的onFailure方法，将线程执行的异常信息返回给用户。</p>
+<p>核心逻辑的源代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> V value;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    value = getDone(future);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">    callback.onFailure(e.getCause());</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (RuntimeException | Error e) &#123;</span><br><span class="line">    callback.onFailure(e);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  callback.onSuccess(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h5 id="如何删除超时的统计数据？"><a href="#如何删除超时的统计数据？" class="headerlink" title="如何删除超时的统计数据？"></a>如何删除超时的统计数据？</h5><p>既然是实时的统计数据，如果没有删除超时数据的机制，统计的结果实时上就变成了历史单位时间段的排名了，所以需要定时删除超时的统计数据。</p>
-<p>但其实redis中SortedSet中的子元素是不能设置超时时间的，所以我们使用了另外一个SortedSet来存储子元素的插入时间，然后定时去扫描有没有子元素已经超时，超时的子元素集会在原始的统计表中被清理掉。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查询超时的元素集，其中1534562250为超时的时间戳阈值</span><br><span class="line">ZREVRANGEBYSCORE title_count_ttl 0 1534562250</span><br><span class="line">#删除超时的元素集</span><br><span class="line">ZREM title_count baidu.com bing.com</span><br></pre></td></tr></table></figure>
-
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>整个方案在删除超时统计数据上还是有一些瑕疵，毕竟这个SortedSet TTL的实现方案需要插入两次数据，如果朋友们有更好的解决方案欢迎一起讨论，谢谢。</p>
 
         
 
@@ -535,7 +671,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Redis/">Redis</a>
+  <span></span> <a href="/tags/Guava/">Guava</a>
   </div>
 
 </div>
@@ -546,7 +682,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/get_topn_count_with_redis/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/guava-thread-listen/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -566,7 +702,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/java-class-code-block-load-order/" title="Java代码块的加载顺序总结" itemprop="url">Java代码块的加载顺序总结</a>
+      <a href="/2017/10/31/install_shadowsocks_in_google_cloud/" title="使用手机搭建shadowsocks代理的简便方法" itemprop="url">使用手机搭建shadowsocks代理的简便方法</a>
   </h1>
   <p class="article-author">By
        
@@ -579,76 +715,12 @@
 </header>
     <div class="article-content">
         
-        <p>1、父类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;<br>2、子类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;<br>3、父类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;<br>4、子类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;<br>5、执行子类的构造方法;</p>
-<p><em>说明</em></p>
-<p>构造代码块: 直接在类中定义且没有加static关键字的代码块称为构造代码块;</p>
+        <p>一、在Google Cloud创建一个VM实例</p>
+<p>二、搭建shadowsocks代理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、修改root密码</span><br><span class="line">$ sudo passwd </span><br><span class="line">2、切换到root用户</span><br><span class="line">$ su - root</span><br><span class="line">3、安装shadowsocks</span><br><span class="line"># apt update &amp;&amp; apt upgrade</span><br><span class="line"># apt install docker.io</span><br><span class="line"># docker run -d -p 1989:1989 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1989 -k $&#123;password&#125; -m aes-256-cfb</span><br></pre></td></tr></table></figure>
 
-        
+<p>三、配置对应端口防火墙<br>依次点击 “产品和服务” -&gt; “VPC服务” -&gt; “防火墙规则” -&gt; “创建防火墙规则”，其中IP地址范围填0.0.0.0/0, 协议/端口填tcp:1989, 保存并提交</p>
 
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Java/">Java</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/java-class-code-block-load-order/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/10/31/install_shadowsocks_in_linode/" title="使用手机搭建shadowsocks代理的简便方法" itemprop="url">使用手机搭建shadowsocks代理的简便方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>1、在手机上下载Linode软件、SSH连接工具（比如Termius）</p>
-<p>2、新建一个5美元的Ubuntu 16.04的VPS（如果没有账号请先注册）</p>
-<p>3、使用SSH连接工具连上购买的VPS</p>
-<p>4、搭建shadowsocks代理</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># apt update &amp;&amp; apt upgrade</span><br><span class="line"># apt install docker.io</span><br><span class="line"># docker run -d -p 1989:1989 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1989 -k &#123;password&#125; -m aes-256-cfb</span><br></pre></td></tr></table></figure>
         
 
         <p class="article-more-link">
@@ -677,73 +749,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/install_shadowsocks_in_linode/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/10/31/learn-from-others/" title="见贤思齐" itemprop="url">见贤思齐</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>老板最近写了一封邮件寻找加西亚，这篇文章很火，上了很多网站的头条，看了老板的文章感觉这传说中的孔令贤是一个很牛的人，在2014年被连升过3级，所以在网上搜到了他的博客，没想到他当时的状态和我类似（当然，我距离他的水平有一定距离），都是内心惶恐，做了越来越多管理的活，每天忙于向领导汇报、揣摩领导心思，已经很难完全静下心来钻研技术了。</p>
-<p>我司现在导向其实非常鼓励大家技术转管理，带领大家走向成功，但当这种导向太过突出的时候，员工都已经将重心放到如何技术转管理上，真正的技术专家越来越少，软件的水平也就可想而知了。说白了就是指挥的人越来越多，干活的越来越少，真正写代码的大都是新员工、合作方兄弟。现在干脆连代码review都很少做了，遇到有责任心的兄弟还好，遇到那种责任心和技术都不太好的兄弟，代码简直不忍直视，说是小学生写得代码也不为过。所以在这种状况下，线上问题不断，兄弟们不断加班，然后最奇葩的事情是，真正做的质量好，可以早点下班的兄弟因为要陪着大家加班，最后也变得不注重代码质量，最后通通混指标了事。</p>
-<p>其实我很佩服孔令贤，因为他懂得自己真正想要什么，并付出行动去实现目标。公司破格给他提了三级，基本是坐上了火箭的状态，可以想象在我司会有很好的前途，但是依然能够走出舒适区，去追求真正自己喜欢的东西，非常的难能可贵。我虽然没有他那样的水平，但我也不想未来把自己变成一个只会每天扯皮，不断要求同事加班的领导。所以见贤思齐，趁着自己年纪还不大，争取在未来半年找到一个更有挑战性的岗位，实现自己更大的价值。</p>
-<p>最后，见贤思齐，希望自己也能够多写博客，利用github给的这么好的平台，把在公司写博客的热情拿出来，提高自己，也照亮他人。</p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/总结/">总结</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/learn-from-others/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/install_shadowsocks_in_google_cloud/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -782,9 +788,9 @@
 		
 			<li><a href="/categories/Hbase/" title="Hbase">Hbase<sup>1</sup></a></li>
 		
-			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
-			<li><a href="/categories/总结/" title="总结">总结<sup>10</sup></a></li>
+			<li><a href="/categories/总结/" title="总结">总结<sup>11</sup></a></li>
 		
 		</ul>
 </div>
@@ -795,25 +801,27 @@
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/Shadowsocks/" title="Shadowsocks">Shadowsocks<sup>2</sup></a></li>
+			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
 			<li><a href="/tags/总结/" title="总结">总结<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			<li><a href="/tags/Shadowsocks/" title="Shadowsocks">Shadowsocks<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Hbase/" title="Hbase">Hbase<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+		
+			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
 		
 		</ul>
 </div>
