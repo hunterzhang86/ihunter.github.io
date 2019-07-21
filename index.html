@@ -83,10 +83,10 @@
 </header>
     <div class="article-content">
         
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install vsftpd</span><br></pre></td></tr></table></figure>
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install vsftpd</span><br><span class="line">sudo vi /etc/vsftpd.conf</span><br></pre></td></tr></table></figure>
 
-<p>sudo vi /etc/vsftpd.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"># Example config file /etc/vsftpd.conf</span><br><span class="line">#</span><br><span class="line"># The default compiled in settings are fairly paranoid. This sample file</span><br><span class="line"># loosens things up a bit, to make the ftp daemon more usable.</span><br><span class="line"># Please see vsftpd.conf.5 for all compiled in defaults.</span><br><span class="line">#</span><br><span class="line"># READ THIS: This example file is NOT an exhaustive list of vsftpd options.</span><br><span class="line"># Please read the vsftpd.conf.5 manual page to get a full idea of vsftpd&apos;s</span><br><span class="line"># capabilities.</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># Run standalone?  vsftpd can run either from an inetd or as a standalone</span><br><span class="line"># daemon started from an initscript.</span><br><span class="line">listen=NO</span><br><span class="line">#</span><br><span class="line"># This directive enables listening on IPv6 sockets. By default, listening</span><br><span class="line"># on the IPv6 &quot;any&quot; address (::) will accept connections from both IPv6</span><br><span class="line"># and IPv4 clients. It is not necessary to listen on *both* IPv4 and IPv6</span><br><span class="line"># sockets. If you want that (perhaps because you want to listen on specific</span><br><span class="line"># addresses) then you must run two copies of vsftpd with two configuration</span><br><span class="line"># files.</span><br><span class="line">listen_ipv6=YES</span><br><span class="line">#</span><br><span class="line"># Allow anonymous FTP? (Disabled by default).</span><br><span class="line">anonymous_enable=NO</span><br><span class="line">#</span><br><span class="line"># Uncomment this to allow local users to log in.</span><br><span class="line">local_enable=YES</span><br><span class="line">#</span><br><span class="line"># Uncomment this to enable any form of FTP write command.</span><br><span class="line">write_enable=YES</span><br><span class="line">#</span><br><span class="line"># Default umask for local users is 077. You may wish to change this to 022,</span><br><span class="line"># if your users expect that (022 is used by most other ftpd&apos;s)</span><br><span class="line">#local_umask=022</span><br><span class="line">#</span><br><span class="line"># Uncomment this to allow the anonymous FTP user to upload files. This only</span><br><span class="line"># has an effect if the above global write enable is activated. Also, you will</span><br><span class="line"># obviously need to create a directory writable by the FTP user.</span><br><span class="line">#anon_upload_enable=YES</span><br><span class="line">#</span><br><span class="line"># Uncomment this if you want the anonymous FTP user to be able to create</span><br><span class="line"># new directories.</span><br><span class="line">#anon_mkdir_write_enable=YES</span><br><span class="line">#</span><br><span class="line"># Activate directory messages - messages given to remote users when they</span><br><span class="line"># go into a certain directory.</span><br><span class="line">dirmessage_enable=YES</span><br><span class="line">#</span><br><span class="line"># If enabled, vsftpd will display directory listings with the time</span><br><span class="line"># in  your  local  time  zone.  The default is to display GMT. The</span><br><span class="line"># times returned by the MDTM FTP command are also affected by this</span><br><span class="line"># option.</span><br><span class="line">use_localtime=YES</span><br><span class="line">#</span><br><span class="line"># Activate logging of uploads/downloads.</span><br><span class="line">xferlog_enable=YES</span><br><span class="line">#</span><br><span class="line"># Make sure PORT transfer connections originate from port 20 (ftp-data).</span><br><span class="line">connect_from_port_20=YES</span><br><span class="line">#</span><br><span class="line"># If you want, you can arrange for uploaded anonymous files to be owned by</span><br><span class="line"># a different user. Note! Using &quot;root&quot; for uploaded files is not</span><br><span class="line"># recommended!</span><br><span class="line">#chown_uploads=YES</span><br><span class="line">#chown_username=whoever</span><br><span class="line">#</span><br><span class="line"># You may override where the log file goes if you like. The default is shown</span><br><span class="line"># below.</span><br><span class="line">#xferlog_file=/var/log/vsftpd.log</span><br><span class="line">#</span><br><span class="line"># If you want, you can have your log file in standard ftpd xferlog format.</span><br><span class="line"># Note that the default log file location is /var/log/xferlog in this case.</span><br><span class="line">#xferlog_std_format=YES</span><br><span class="line">#</span><br><span class="line"># You may change the default value for timing out an idle session.</span><br><span class="line">#idle_session_timeout=600</span><br><span class="line">#</span><br><span class="line"># You may change the default value for timing out a data connection.</span><br><span class="line">#data_connection_timeout=120</span><br><span class="line">#</span><br><span class="line"># It is recommended that you define on your system a unique user which the</span><br><span class="line"># ftp server can use as a totally isolated and unprivileged user.</span><br><span class="line">#nopriv_user=ftpsecure</span><br><span class="line">#</span><br><span class="line"># Enable this and the server will recognise asynchronous ABOR requests. Not</span><br><span class="line"># recommended for security (the code is non-trivial). Not enabling it,</span><br><span class="line"># however, may confuse older FTP clients.</span><br><span class="line">#async_abor_enable=YES</span><br><span class="line">#</span><br><span class="line"># By default the server will pretend to allow ASCII mode but in fact ignore</span><br><span class="line"># the request. Turn on the below options to have the server actually do ASCII</span><br><span class="line"># mangling on files when in ASCII mode.</span><br><span class="line"># Beware that on some FTP servers, ASCII support allows a denial of service</span><br><span class="line"># attack (DoS) via the command &quot;SIZE /big/file&quot; in ASCII mode. vsftpd</span><br><span class="line"># predicted this attack and has always been safe, reporting the size of the</span><br><span class="line"># raw file.</span><br><span class="line"># ASCII mangling is a horrible feature of the protocol.</span><br><span class="line">#ascii_upload_enable=YES</span><br><span class="line">#ascii_download_enable=YES</span><br><span class="line">#</span><br><span class="line"># You may fully customise the login banner string:</span><br><span class="line">#ftpd_banner=Welcome to blah FTP service.</span><br><span class="line">#</span><br><span class="line"># You may specify a file of disallowed anonymous e-mail addresses. Apparently</span><br><span class="line"># useful for combatting certain DoS attacks.</span><br><span class="line">#deny_email_enable=YES</span><br><span class="line"># (default follows)</span><br><span class="line">#banned_email_file=/etc/vsftpd.banned_emails</span><br><span class="line">#</span><br><span class="line"># You may restrict local users to their home directories.  See the FAQ for</span><br><span class="line"># the possible risks in this before using chroot_local_user or</span><br><span class="line"># chroot_list_enable below.</span><br><span class="line">#chroot_local_user=YES</span><br><span class="line">#</span><br><span class="line"># You may specify an explicit list of local users to chroot() to their home</span><br><span class="line"># directory. If chroot_local_user is YES, then this list becomes a list of</span><br><span class="line"># users to NOT chroot().</span><br><span class="line"># (Warning! chroot&apos;ing can be very dangerous. If using chroot, make sure that</span><br><span class="line"># the user does not have write access to the top level directory within the</span><br><span class="line"># chroot)</span><br><span class="line">chroot_local_user=YES</span><br><span class="line">chroot_list_enable=YES</span><br><span class="line">user_sub_token=$USER</span><br><span class="line">local_root=/home/$USER/ftp</span><br><span class="line">allow_writeable_chroot=YES</span><br><span class="line"># (default follows)</span><br><span class="line">chroot_list_file=/etc/vsftpd.chroot_list</span><br><span class="line">#</span><br><span class="line"># You may activate the &quot;-R&quot; option to the builtin ls. This is disabled by</span><br><span class="line"># default to avoid remote users being able to cause excessive I/O on large</span><br><span class="line"># sites. However, some broken FTP clients such as &quot;ncftp&quot; and &quot;mirror&quot; assume</span><br><span class="line"># the presence of the &quot;-R&quot; option, so there is a strong case for enabling it.</span><br><span class="line">#ls_recurse_enable=YES</span><br><span class="line">#</span><br><span class="line"># Customization</span><br><span class="line">#</span><br><span class="line"># Some of vsftpd&apos;s settings don&apos;t fit the filesystem layout by</span><br><span class="line"># default.</span><br><span class="line">#</span><br><span class="line"># This option should be the name of a directory which is empty.  Also, the</span><br><span class="line"># directory should not be writable by the ftp user. This directory is used</span><br><span class="line"># as a secure chroot() jail at times vsftpd does not require filesystem</span><br><span class="line"># access.</span><br><span class="line">secure_chroot_dir=/var/run/vsftpd/empty</span><br><span class="line">#</span><br><span class="line"># This string is the name of the PAM service vsftpd will use.</span><br><span class="line">pam_service_name=vsftpd</span><br><span class="line">#</span><br><span class="line"># This option specifies the location of the RSA certificate to use for SSL</span><br><span class="line"># encrypted connections.</span><br><span class="line">rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem</span><br><span class="line">rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key</span><br><span class="line">ssl_enable=YES</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># Uncomment this to indicate that vsftpd use a utf8 filesystem.</span><br><span class="line">utf8_filesystem=YES</span><br></pre></td></tr></table></figure>
+<p>/etc/vsftpd.conf具体的配置如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br></pre></td><td class="code"><pre><span class="line"># Example config file /etc/vsftpd.conf</span><br><span class="line">#</span><br><span class="line"># The default compiled in settings are fairly paranoid. This sample file</span><br><span class="line"># loosens things up a bit, to make the ftp daemon more usable.</span><br><span class="line"># Please see vsftpd.conf.5 for all compiled in defaults.</span><br><span class="line">#</span><br><span class="line"># READ THIS: This example file is NOT an exhaustive list of vsftpd options.</span><br><span class="line"># Please read the vsftpd.conf.5 manual page to get a full idea of vsftpd&apos;s</span><br><span class="line"># capabilities.</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># Run standalone?  vsftpd can run either from an inetd or as a standalone</span><br><span class="line"># daemon started from an initscript.</span><br><span class="line">listen=NO</span><br><span class="line">#</span><br><span class="line"># This directive enables listening on IPv6 sockets. By default, listening</span><br><span class="line"># on the IPv6 &quot;any&quot; address (::) will accept connections from both IPv6</span><br><span class="line"># and IPv4 clients. It is not necessary to listen on *both* IPv4 and IPv6</span><br><span class="line"># sockets. If you want that (perhaps because you want to listen on specific</span><br><span class="line"># addresses) then you must run two copies of vsftpd with two configuration</span><br><span class="line"># files.</span><br><span class="line">listen_ipv6=YES</span><br><span class="line">#</span><br><span class="line"># Allow anonymous FTP? (Disabled by default).</span><br><span class="line">anonymous_enable=NO</span><br><span class="line">#</span><br><span class="line"># Uncomment this to allow local users to log in.</span><br><span class="line">local_enable=YES</span><br><span class="line">#</span><br><span class="line"># Uncomment this to enable any form of FTP write command.</span><br><span class="line">write_enable=YES</span><br><span class="line">#</span><br><span class="line"># Default umask for local users is 077. You may wish to change this to 022,</span><br><span class="line"># if your users expect that (022 is used by most other ftpd&apos;s)</span><br><span class="line">#local_umask=022</span><br><span class="line">#</span><br><span class="line"># Uncomment this to allow the anonymous FTP user to upload files. This only</span><br><span class="line"># has an effect if the above global write enable is activated. Also, you will</span><br><span class="line"># obviously need to create a directory writable by the FTP user.</span><br><span class="line">#anon_upload_enable=YES</span><br><span class="line">#</span><br><span class="line"># Uncomment this if you want the anonymous FTP user to be able to create</span><br><span class="line"># new directories.</span><br><span class="line">#anon_mkdir_write_enable=YES</span><br><span class="line">#</span><br><span class="line"># Activate directory messages - messages given to remote users when they</span><br><span class="line"># go into a certain directory.</span><br><span class="line">dirmessage_enable=YES</span><br><span class="line">#</span><br><span class="line"># If enabled, vsftpd will display directory listings with the time</span><br><span class="line"># in  your  local  time  zone.  The default is to display GMT. The</span><br><span class="line"># times returned by the MDTM FTP command are also affected by this</span><br><span class="line"># option.</span><br><span class="line">use_localtime=YES</span><br><span class="line">#</span><br><span class="line"># Activate logging of uploads/downloads.</span><br><span class="line">xferlog_enable=YES</span><br><span class="line">#</span><br><span class="line"># Make sure PORT transfer connections originate from port 20 (ftp-data).</span><br><span class="line">connect_from_port_20=YES</span><br><span class="line">#</span><br><span class="line"># If you want, you can arrange for uploaded anonymous files to be owned by</span><br><span class="line"># a different user. Note! Using &quot;root&quot; for uploaded files is not</span><br><span class="line"># recommended!</span><br><span class="line">#chown_uploads=YES</span><br><span class="line">#chown_username=whoever</span><br><span class="line">#</span><br><span class="line"># You may override where the log file goes if you like. The default is shown</span><br><span class="line"># below.</span><br><span class="line">#xferlog_file=/var/log/vsftpd.log</span><br><span class="line">#</span><br><span class="line"># If you want, you can have your log file in standard ftpd xferlog format.</span><br><span class="line"># Note that the default log file location is /var/log/xferlog in this case.</span><br><span class="line">#xferlog_std_format=YES</span><br><span class="line">#</span><br><span class="line"># You may change the default value for timing out an idle session.</span><br><span class="line">#idle_session_timeout=600</span><br><span class="line">#</span><br><span class="line"># You may change the default value for timing out a data connection.</span><br><span class="line">#data_connection_timeout=120</span><br><span class="line">#</span><br><span class="line"># It is recommended that you define on your system a unique user which the</span><br><span class="line"># ftp server can use as a totally isolated and unprivileged user.</span><br><span class="line">#nopriv_user=ftpsecure</span><br><span class="line">#</span><br><span class="line"># Enable this and the server will recognise asynchronous ABOR requests. Not</span><br><span class="line"># recommended for security (the code is non-trivial). Not enabling it,</span><br><span class="line"># however, may confuse older FTP clients.</span><br><span class="line">#async_abor_enable=YES</span><br><span class="line">#</span><br><span class="line"># By default the server will pretend to allow ASCII mode but in fact ignore</span><br><span class="line"># the request. Turn on the below options to have the server actually do ASCII</span><br><span class="line"># mangling on files when in ASCII mode.</span><br><span class="line"># Beware that on some FTP servers, ASCII support allows a denial of service</span><br><span class="line"># attack (DoS) via the command &quot;SIZE /big/file&quot; in ASCII mode. vsftpd</span><br><span class="line"># predicted this attack and has always been safe, reporting the size of the</span><br><span class="line"># raw file.</span><br><span class="line"># ASCII mangling is a horrible feature of the protocol.</span><br><span class="line">#ascii_upload_enable=YES</span><br><span class="line">#ascii_download_enable=YES</span><br><span class="line">#</span><br><span class="line"># You may fully customise the login banner string:</span><br><span class="line">#ftpd_banner=Welcome to blah FTP service.</span><br><span class="line">#</span><br><span class="line"># You may specify a file of disallowed anonymous e-mail addresses. Apparently</span><br><span class="line"># useful for combatting certain DoS attacks.</span><br><span class="line">#deny_email_enable=YES</span><br><span class="line"># (default follows)</span><br><span class="line">#banned_email_file=/etc/vsftpd.banned_emails</span><br><span class="line">#</span><br><span class="line"># You may restrict local users to their home directories.  See the FAQ for</span><br><span class="line"># the possible risks in this before using chroot_local_user or</span><br><span class="line"># chroot_list_enable below.</span><br><span class="line">#chroot_local_user=YES</span><br><span class="line">#</span><br><span class="line"># You may specify an explicit list of local users to chroot() to their home</span><br><span class="line"># directory. If chroot_local_user is YES, then this list becomes a list of</span><br><span class="line"># users to NOT chroot().</span><br><span class="line"># (Warning! chroot&apos;ing can be very dangerous. If using chroot, make sure that</span><br><span class="line"># the user does not have write access to the top level directory within the</span><br><span class="line"># chroot)</span><br><span class="line">chroot_local_user=YES</span><br><span class="line">chroot_list_enable=YES</span><br><span class="line">user_sub_token=$USER</span><br><span class="line">local_root=/home/$USER/ftp</span><br><span class="line">allow_writeable_chroot=YES</span><br><span class="line"># (default follows)</span><br><span class="line">chroot_list_file=/etc/vsftpd.chroot_list</span><br><span class="line">#</span><br><span class="line"># You may activate the &quot;-R&quot; option to the builtin ls. This is disabled by</span><br><span class="line"># default to avoid remote users being able to cause excessive I/O on large</span><br><span class="line"># sites. However, some broken FTP clients such as &quot;ncftp&quot; and &quot;mirror&quot; assume</span><br><span class="line"># the presence of the &quot;-R&quot; option, so there is a strong case for enabling it.</span><br><span class="line">#ls_recurse_enable=YES</span><br><span class="line">#</span><br><span class="line"># Customization</span><br><span class="line">#</span><br><span class="line"># Some of vsftpd&apos;s settings don&apos;t fit the filesystem layout by</span><br><span class="line"># default.</span><br><span class="line">#</span><br><span class="line"># This option should be the name of a directory which is empty.  Also, the</span><br><span class="line"># directory should not be writable by the ftp user. This directory is used</span><br><span class="line"># as a secure chroot() jail at times vsftpd does not require filesystem</span><br><span class="line"># access.</span><br><span class="line">secure_chroot_dir=/var/run/vsftpd/empty</span><br><span class="line">#</span><br><span class="line"># This string is the name of the PAM service vsftpd will use.</span><br><span class="line">pam_service_name=vsftpd</span><br><span class="line">#</span><br><span class="line"># This option specifies the location of the RSA certificate to use for SSL</span><br><span class="line"># encrypted connections.</span><br><span class="line">rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem</span><br><span class="line">rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key</span><br><span class="line">ssl_enable=YES</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># Uncomment this to indicate that vsftpd use a utf8 filesystem.</span><br><span class="line">utf8_filesystem=YES</span><br></pre></td></tr></table></figure>
 
 <p>修改/etc/vsftpd.chroot_list</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/vsftpd.chroot_list</span><br></pre></td></tr></table></figure>
@@ -283,6 +283,203 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/10/31/guava-thread-listen/" title="Guava中实现线程异步回调机制探索" itemprop="url">Guava中实现线程异步回调机制探索</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>这几天有了解到Guava的LinsteningExecutorService可以设置线程执行完成后的回调方法, 联系到我们在进行多线程编程的时候都需要去拿到这个返回值做回调，所以很感兴趣Guava是怎实现这个机制的，遂调查了一下Guava的源码。</p>
+<p>Guava里面实现线程回调也非常简单, 核心的逻辑就是新建一个Futures.CallbackListener的线程，这个线程会通过future.get阻塞拿到线程的返回值，拿到返回值之后就调用用户设置的onSuccess方法。</p>
+<p>如果在线程的执行过程中发生异常，则会调用用户设置的onFailure方法，将线程执行的异常信息返回给用户。</p>
+<p>核心逻辑的源代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> V value;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    value = getDone(future);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">    callback.onFailure(e.getCause());</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (RuntimeException | Error e) &#123;</span><br><span class="line">    callback.onFailure(e);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  callback.onSuccess(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Guava/">Guava</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/guava-thread-listen/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/10/31/install-brew-in-mac/" title="MAC上安装telnet的方法" itemprop="url">MAC上安装telnet的方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>1、安装brew：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;  </span><br><span class="line">中途会提示回车继续</span><br><span class="line">Press RETURN to continue or any other key to abort</span><br></pre></td></tr></table></figure>
+
+<p>2、安装telnet：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install telnet</span><br></pre></td></tr></table></figure>
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Linux/">Linux</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/install-brew-in-mac/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/10/31/hbase-example/" title="HBase常用命令总结" itemprop="url">HBase常用命令总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>查看有哪些表<br>list<br>查看HBase的状态<br>status<br>创建表<br>create_namespace ‘sogou’<br>create ‘sogou:search_detail’, {NAME =&gt; ‘detail’},  {NAME =&gt; ‘detail2’}<br>查看表的结构<br>describe ‘sogou:search_detail’<br>删除表<br>disable ‘sogou:search_detail’<br>drop ‘sogou:search_detail’<br>说明： 删除表之前必须disable表<br>删除表中所有数据<br>truncate ‘sogou:search_detail’<br>修改表的结构<br>alter ‘sogou:search_detail’, {NAME =&gt; ‘detail’, TTL =&gt; ‘1024’},  {NAME =&gt; ‘detail2’, METHOD =&gt; ‘delete’}<br>新增数据<br>put ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’, ‘陋习’, ‘detail:retOrder’, ‘2’, ‘detail:cliOrder’, ‘1’, ‘detail:url’, ‘<a href="http://www.ihunter.me&#39;">www.ihunter.me&#39;</a><br>查询单条数据<br>get ‘sogou:search_detail’ ‘rowKey001’<br>get ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’<br>查询多条数据<br>scan ‘sogou:search_detail’, {LIMIT =&gt; 10}<br>统计表中数据的行数<br>count ‘sogou:search_detail’ {INTERVAL =&gt; 100, CACHE =&gt; 500}<br>删除数据<br>delete ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’<br>deteteall ‘sogou:search_detail’, ‘rowKey001’</p>
+
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/HBase/">HBase</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/hbase-example/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/10/31/how-to-implements-kafka-exactly-once/" title="实现Kafka消息刚好传递一次(Exactly-Once)的方法" itemprop="url">实现Kafka消息刚好传递一次(Exactly-Once)的方法</a>
   </h1>
   <p class="article-author">By
@@ -335,135 +532,6 @@
 	
 	  	<span></span>
 		<a href="http://www.ihunter.me/2017/10/31/how-to-implements-kafka-exactly-once/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/10/31/hbase-example/" title="HBase常用命令总结" itemprop="url">HBase常用命令总结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>查看有哪些表<br>list<br>查看HBase的状态<br>status<br>创建表<br>create_namespace ‘sogou’<br>create ‘sogou:search_detail’, {NAME =&gt; ‘detail’},  {NAME =&gt; ‘detail2’}<br>查看表的结构<br>describe ‘sogou:search_detail’<br>删除表<br>disable ‘sogou:search_detail’<br>drop ‘sogou:search_detail’<br>说明： 删除表之前必须disable表<br>删除表中所有数据<br>truncate ‘sogou:search_detail’<br>修改表的结构<br>alter ‘sogou:search_detail’, {NAME =&gt; ‘detail’, TTL =&gt; ‘1024’},  {NAME =&gt; ‘detail2’, METHOD =&gt; ‘delete’}<br>新增数据<br>put ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’, ‘陋习’, ‘detail:retOrder’, ‘2’, ‘detail:cliOrder’, ‘1’, ‘detail:url’, ‘<a href="http://www.ihunter.me&#39;">www.ihunter.me&#39;</a><br>查询单条数据<br>get ‘sogou:search_detail’ ‘rowKey001’<br>get ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’<br>查询多条数据<br>scan ‘sogou:search_detail’, {LIMIT =&gt; 10}<br>统计表中数据的行数<br>count ‘sogou:search_detail’ {INTERVAL =&gt; 100, CACHE =&gt; 500}<br>删除数据<br>delete ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’<br>deteteall ‘sogou:search_detail’, ‘rowKey001’</p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Hbase/">Hbase</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Hbase/">Hbase</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/hbase-example/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/10/31/install-brew-in-mac/" title="mac上安装telnet" itemprop="url">mac上安装telnet</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>安装brew：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;  </span><br><span class="line">中途会提示回车继续</span><br><span class="line">Press RETURN to continue or any other key to abort</span><br></pre></td></tr></table></figure>
-
-<p>安装telnet：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install telnet</span><br></pre></td></tr></table></figure>
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Linux/">Linux</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/install-brew-in-mac/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -556,152 +624,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/config-hexo-in-windows/" title="Windows下配置Hexo博客的方法" itemprop="url">Windows下配置Hexo博客的方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>换了Windows电脑，之前Macbook下的markdown文件暂时还找不回来，所以无奈只能把之前的博客都删掉了，也鉴于之前的文章写得实在有点。。<br>话不多说，这篇文章的主要内容讲的是在Windows下如何配置Hexo，踩得坑比较多，大家将就着看。</p>
-<p>1、配置github<br>2、安装Node.JS<br>3、安装Hexo<br>(1)指定npm的镜像</p>
-<p>npm install -g cnpm –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a><br>(2)安装hexo</p>
-<p>cnpm install hexo-cli -g<br>cnpm install hexo –save<br>(3)cd到博客文件夹</p>
-<p>cd <folder><br>(4)初始化hexo</folder></p>
-<p>hexo init<br>cnpm install<br>3、配置Hexo<br>(1)配置_config.yml文件<br>将_config.yml文件的deploy项修改为类似如下内容：</p>
-<p>deploy:<br>  type: git<br>  repository: <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:hunterzhang86/hunterzhang86.github.io.git<br>  branch: master<br>(2)配置CNAME文件<br>在source目录下新增CNAME文件，里面的内容填写为自己的域名（如<a href="http://www.ihunter.me），如果没有域名可跳过该步骤" target="_blank" rel="noopener">www.ihunter.me），如果没有域名可跳过该步骤</a></p>
-<p>4、新建md文件生成博客并提交到github<br>(1)在source/_posts目录下新建一个md文件</p>
-<p>(2)生成博客</p>
-<p>hexo c<br>hexo g<br>(3)提交博客</p>
-<p>hexo d<br>FAQ<br>1、如何卸载hexo</p>
-<p>cnpm uninstall hexo<br>2、如何使用hunter主题</p>
-<p>git clone <a href="https://github.com/hunterzhang86/hunter.git" target="_blank" rel="noopener">https://github.com/hunterzhang86/hunter.git</a> themes/hunter<br>修改博客根目录下的配置文件 _config.yml，把theme的值修改为 hunter.</p>
-<p>3、升级到hexo 3.0后deploy出现 error deployer not found:git 错误<br>执行以下命令安装插件即可</p>
-<p>cnpm install hexo-deployer-git –save<br>4、使用hexo 3.0后deploy出现 fatal: Not a git repository (or any of the parent directories) 错误<br>原因是hexo默认是以项目根目录下的.deploy_git作为git仓库，所以我们得把这个仓库与线上的xxx.github.io仓库绑定，如果绑定过其它目录下的仓库，可以直接把隐藏目录.git复制到.deploy_git目录下。</p>
-<p>5、如何初始化gitment评论系统<br>首先需要在git上添加一个repo，然后需要在OAuth Apps里面添加应用权限授予我们的个人网站，具体可参考(Hexo博客框架下Gitment取代多说评论)[<a href="https://zonghongyan.github.io/2017/06/29/201706292034/]" target="_blank" rel="noopener">https://zonghongyan.github.io/2017/06/29/201706292034/]</a></p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Hexo/">Hexo</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/config-hexo-in-windows/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/10/31/guava-thread-listen/" title="Guava中实现线程异步回调机制探索" itemprop="url">Guava中实现线程异步回调机制探索</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>这几天有了解到Guava的LinsteningExecutorService可以设置线程执行完成后的回调方法, 联系到我们在进行多线程编程的时候都需要去拿到这个返回值做回调，所以很感兴趣Guava是怎实现这个机制的，遂调查了一下Guava的源码。</p>
-<p>Guava里面实现线程回调也非常简单, 核心的逻辑就是新建一个Futures.CallbackListener的线程，这个线程会通过future.get阻塞拿到线程的返回值，拿到返回值之后就调用用户设置的onSuccess方法。</p>
-<p>如果在线程的执行过程中发生异常，则会调用用户设置的onFailure方法，将线程执行的异常信息返回给用户。</p>
-<p>核心逻辑的源代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> V value;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    value = getDone(future);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">    callback.onFailure(e.getCause());</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (RuntimeException | Error e) &#123;</span><br><span class="line">    callback.onFailure(e);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  callback.onSuccess(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Guava/">Guava</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/guava-thread-listen/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2017/10/31/install_shadowsocks_in_google_cloud/" title="使用手机搭建shadowsocks代理的简便方法" itemprop="url">使用手机搭建shadowsocks代理的简便方法</a>
   </h1>
   <p class="article-author">By
@@ -763,6 +685,71 @@
 
 
 
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/10/31/java-class-code-block-load-order/" title="Java代码块的加载顺序总结" itemprop="url">Java代码块的加载顺序总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>1、父类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;<br>2、子类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;<br>3、父类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;<br>4、子类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;<br>5、执行子类的构造方法;</p>
+<p><em>说明</em></p>
+<p>构造代码块: 直接在类中定义且没有加static关键字的代码块称为构造代码块;</p>
+
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/java-class-code-block-load-order/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -786,11 +773,9 @@
 	<p class="asidetitle">Categories</p>
 		<ul>
 		
-			<li><a href="/categories/Hbase/" title="Hbase">Hbase<sup>1</sup></a></li>
-		
 			<li><a href="/categories/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
-			<li><a href="/categories/总结/" title="总结">总结<sup>11</sup></a></li>
+			<li><a href="/categories/总结/" title="总结">总结<sup>12</sup></a></li>
 		
 		</ul>
 </div>
@@ -803,25 +788,25 @@
 		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
+			<li><a href="/tags/Shadowsocks/" title="Shadowsocks">Shadowsocks<sup>2</sup></a></li>
+		
 			<li><a href="/tags/总结/" title="总结">总结<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Shadowsocks/" title="Shadowsocks">Shadowsocks<sup>2</sup></a></li>
+			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
+		
+			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Hbase/" title="Hbase">Hbase<sup>1</sup></a></li>
-		
 			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
 		
-			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
 		
 		</ul>
 </div>
