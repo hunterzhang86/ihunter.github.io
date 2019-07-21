@@ -70,6 +70,73 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/10/31/install_shadowsocks_in_google_cloud/" title="使用手机搭建shadowsocks代理的简便方法" itemprop="url">使用手机搭建shadowsocks代理的简便方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>一、在Google Cloud创建一个VM实例</p>
+<p>二、搭建shadowsocks代理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、修改root密码</span><br><span class="line">$ sudo passwd </span><br><span class="line">2、切换到root用户</span><br><span class="line">$ su - root</span><br><span class="line">3、安装shadowsocks</span><br><span class="line"># apt update &amp;&amp; apt upgrade</span><br><span class="line"># apt install docker.io</span><br><span class="line"># docker run -d -p 1989:1989 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1989 -k $&#123;password&#125; -m aes-256-cfb</span><br></pre></td></tr></table></figure>
+
+<p>三、配置对应端口防火墙<br>依次点击 “产品和服务” -&gt; “VPC服务” -&gt; “防火墙规则” -&gt; “创建防火墙规则”，其中IP地址范围填0.0.0.0/0, 协议/端口填tcp:1989, 保存并提交</p>
+
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Shadowsocks/">Shadowsocks</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/install_shadowsocks_in_google_cloud/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/10/31/learn-from-others/" title="见贤思齐" itemprop="url">见贤思齐</a>
   </h1>
   <p class="article-author">By
@@ -117,149 +184,6 @@
 	
 	  	<span></span>
 		<a href="http://www.ihunter.me/2017/10/31/learn-from-others/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/10/31/config-hexo-in-windows/" title="Windows下配置Hexo博客的方法" itemprop="url">Windows下配置Hexo博客的方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>换了Windows电脑，之前Macbook下的markdown文件暂时还找不回来，所以无奈只能把之前的博客都删掉了，也鉴于之前的文章写得实在有点。。<br>话不多说，这篇文章的主要内容讲的是在Windows下如何配置Hexo，踩得坑比较多，大家将就着看。</p>
-<p>1、配置github<br>2、安装Node.JS<br>3、安装Hexo<br>(1)指定npm的镜像</p>
-<p>npm install -g cnpm –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a><br>(2)安装hexo</p>
-<p>cnpm install hexo-cli -g<br>cnpm install hexo –save<br>(3)cd到博客文件夹</p>
-<p>cd <folder><br>(4)初始化hexo</folder></p>
-<p>hexo init<br>cnpm install<br>3、配置Hexo<br>(1)配置_config.yml文件<br>将_config.yml文件的deploy项修改为类似如下内容：</p>
-<p>deploy:<br>  type: git<br>  repository: <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:hunterzhang86/hunterzhang86.github.io.git<br>  branch: master<br>(2)配置CNAME文件<br>在source目录下新增CNAME文件，里面的内容填写为自己的域名（如<a href="http://www.ihunter.me），如果没有域名可跳过该步骤" target="_blank" rel="noopener">www.ihunter.me），如果没有域名可跳过该步骤</a></p>
-<p>4、新建md文件生成博客并提交到github<br>(1)在source/_posts目录下新建一个md文件</p>
-<p>(2)生成博客</p>
-<p>hexo c<br>hexo g<br>(3)提交博客</p>
-<p>hexo d<br>FAQ<br>1、如何卸载hexo</p>
-<p>cnpm uninstall hexo<br>2、如何使用hunter主题</p>
-<p>git clone <a href="https://github.com/hunterzhang86/hunter.git" target="_blank" rel="noopener">https://github.com/hunterzhang86/hunter.git</a> themes/hunter<br>修改博客根目录下的配置文件 _config.yml，把theme的值修改为 hunter.</p>
-<p>3、升级到hexo 3.0后deploy出现 error deployer not found:git 错误<br>执行以下命令安装插件即可</p>
-<p>cnpm install hexo-deployer-git –save<br>4、使用hexo 3.0后deploy出现 fatal: Not a git repository (or any of the parent directories) 错误<br>原因是hexo默认是以项目根目录下的.deploy_git作为git仓库，所以我们得把这个仓库与线上的xxx.github.io仓库绑定，如果绑定过其它目录下的仓库，可以直接把隐藏目录.git复制到.deploy_git目录下。</p>
-<p>5、如何初始化gitment评论系统<br>首先需要在git上添加一个repo，然后需要在OAuth Apps里面添加应用权限授予我们的个人网站，具体可参考(Hexo博客框架下Gitment取代多说评论)[<a href="https://zonghongyan.github.io/2017/06/29/201706292034/]" target="_blank" rel="noopener">https://zonghongyan.github.io/2017/06/29/201706292034/]</a></p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Hexo/">Hexo</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/config-hexo-in-windows/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/10/31/think-more-ways-less-questions/" title="多想办法，少提问题" itemprop="url">多想办法，少提问题</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>买了电脑之后，除了第一天写了一个Hexo的配置方法外，就没有再写过东西了，一方面是因为工作太忙，另一方面也可能是因为个人有点浮躁，没有静下心来，想点事情，写点东西；</p>
-<p>这一个月以来工作上遇到了一些事情，主要情况是领导突然不给工作了，搞得我心里很慌也很迷茫，然而去年的绩效也是B+，按理来说不应该出现这种状况，所以内心很纠结，思来想去，决定每两天给领导及其他同事发双日报，解决现在内心恐慌的这种状态。</p>
-<p>多想办法，少提问题。以此自勉。</p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/总结/">总结</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/think-more-ways-less-questions/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -339,6 +263,71 @@
 
 
 
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/10/31/think-more-ways-less-questions/" title="多想办法，少提问题" itemprop="url">多想办法，少提问题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>买了电脑之后，除了第一天写了一个Hexo的配置方法外，就没有再写过东西了，一方面是因为工作太忙，另一方面也可能是因为个人有点浮躁，没有静下心来，想点事情，写点东西；</p>
+<p>这一个月以来工作上遇到了一些事情，主要情况是领导突然不给工作了，搞得我心里很慌也很迷茫，然而去年的绩效也是B+，按理来说不应该出现这种状况，所以内心很纠结，思来想去，决定每两天给领导及其他同事发双日报，解决现在内心恐慌的这种状态。</p>
+<p>多想办法，少提问题。以此自勉。</p>
+
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/总结/">总结</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/think-more-ways-less-questions/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
@@ -377,25 +366,25 @@
 		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Shadowsocks/" title="Shadowsocks">Shadowsocks<sup>2</sup></a></li>
-		
 			<li><a href="/tags/总结/" title="总结">总结<sup>2</sup></a></li>
 		
-			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
-		
-			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
+			<li><a href="/tags/Shadowsocks/" title="Shadowsocks">Shadowsocks<sup>2</sup></a></li>
 		
 			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+		
+			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
+		
 			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+		
+			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
+			<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
 		
 		</ul>
 </div>
