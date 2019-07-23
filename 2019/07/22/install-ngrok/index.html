@@ -6,12 +6,15 @@
   <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
   <meta charset="UTF-8">
   
-    <title>见贤思齐 | Hunter的个人博客</title>
+    <title>通过ngrok实现内网穿透 | Hunter的个人博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Hunter Zhang">
     
-    <meta name="description" content="老板最近写了一封邮件寻找加西亚，这篇文章很火，上了很多网站的头条，看了老板的文章感觉这传说中的孔令贤是一个很牛的人，在2014年被连升过3级，所以在网上搜到了他的博客，没想到他当时的状态和我类似（当然，我距离他的水平有一定距离），都是内心惶恐，做了越来越多管理的活，每天忙于向领导汇报、揣摩领导心思，">
+    <meta name="description" content="参考https://blog.csdn.net/lishanleilixin/article/details/78384848
+安装服务端
+sudo apt-get install build-essential golang mercurial git
+git clone https://gith">
     
     
     <meta name="keywords" content>
@@ -70,24 +73,41 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/learn-from-others/" title="见贤思齐" itemprop="url">见贤思齐</a>
+      <a href="/2019/07/22/install-ngrok/" title="通过ngrok实现内网穿透" itemprop="url">通过ngrok实现内网穿透</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
 		
   <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    <time datetime="2019-07-22T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-22</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 
-		<p>老板最近写了一封邮件寻找加西亚，这篇文章很火，上了很多网站的头条，看了老板的文章感觉这传说中的孔令贤是一个很牛的人，在2014年被连升过3级，所以在网上搜到了他的博客，没想到他当时的状态和我类似（当然，我距离他的水平有一定距离），都是内心惶恐，做了越来越多管理的活，每天忙于向领导汇报、揣摩领导心思，已经很难完全静下心来钻研技术了。</p>
-<p>我司现在导向其实非常鼓励大家技术转管理，带领大家走向成功，但当这种导向太过突出的时候，员工都已经将重心放到如何技术转管理上，真正的技术专家越来越少，软件的水平也就可想而知了。说白了就是指挥的人越来越多，干活的越来越少，真正写代码的大都是新员工、合作方兄弟。现在干脆连代码review都很少做了，遇到有责任心的兄弟还好，遇到那种责任心和技术都不太好的兄弟，代码简直不忍直视，说是小学生写得代码也不为过。所以在这种状况下，线上问题不断，兄弟们不断加班，然后最奇葩的事情是，真正做的质量好，可以早点下班的兄弟因为要陪着大家加班，最后也变得不注重代码质量，最后通通混指标了事。</p>
-<p>其实我很佩服孔令贤，因为他懂得自己真正想要什么，并付出行动去实现目标。公司破格给他提了三级，基本是坐上了火箭的状态，可以想象在我司会有很好的前途，但是依然能够走出舒适区，去追求真正自己喜欢的东西，非常的难能可贵。我虽然没有他那样的水平，但我也不想未来把自己变成一个只会每天扯皮，不断要求同事加班的领导。所以见贤思齐，趁着自己年纪还不大，争取在未来半年找到一个更有挑战性的岗位，实现自己更大的价值。</p>
-<p>最后，见贤思齐，希望自己也能够多写博客，利用github给的这么好的平台，把在公司写博客的热情拿出来，提高自己，也照亮他人。</p>
+		<p>参考<a href="https://blog.csdn.net/lishanleilixin/article/details/78384848" target="_blank" rel="noopener">https://blog.csdn.net/lishanleilixin/article/details/78384848</a></p>
+<p>安装服务端</p>
+<p>sudo apt-get install build-essential golang mercurial git</p>
+<p>git clone <a href="https://github.com/inconshreveable/ngrok.git" target="_blank" rel="noopener">https://github.com/inconshreveable/ngrok.git</a> ngrok</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#ngrok.ihunter.me为自己的域名</span><br><span class="line">NGROK_DOMAIN=&quot;ngrok.ihunter.me&quot;</span><br><span class="line"></span><br><span class="line">openssl genrsa -out base.key 2048</span><br><span class="line">openssl req -new -x509 -nodes -key base.key -days 10000 -subj &quot;/CN=$NGROK_DOMAIN&quot; -out base.pem</span><br><span class="line">openssl genrsa -out server.key 2048</span><br><span class="line">openssl req -new -key server.key -subj &quot;/CN=$NGROK_DOMAIN&quot; -out server.csr</span><br><span class="line">openssl x509 -req -in server.csr -CA base.pem -CAkey base.key -CAcreateserial -days 10000 -out server.crt</span><br><span class="line"></span><br><span class="line">cp base.pem assets/client/tls/ngrokroot.crt</span><br></pre></td></tr></table></figure>
+
+<p>sudo make release-server release-client</p>
+<p>sudo ./bin/ngrokd -tlsKey=server.key -tlsCrt=server.crt -domain=”ngrok.ihunter.me” -httpAddr=”:8081” -httpsAddr=”:8082”</p>
+<p>在域名服务中配置域名转发的当前的VPS</p>
+<p>测试连接</p>
+<p>现在可以通过<a href="http://ngrok.ihunter.me:8081和http://ngrok.ihunter.me:8082就可以访问到ngrok提供的转发服务" target="_blank" rel="noopener">http://ngrok.ihunter.me:8081和http://ngrok.ihunter.me:8082就可以访问到ngrok提供的转发服务</a></p>
+<p>为了使用方便，建议把域名泛解析到 VPS 上，这样能方便地使用不同子域转发不同的本地服务。</p>
+<p>可以看到这样一行提示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Tunnel lishanlei.cn:8081 not found　　</span><br><span class="line">　这样子说明万事具备，只差客户端进行连接了</span><br></pre></td></tr></table></figure>
+
+<p>安装客户端</p>
+<p>sudo apt-get install build-essential golang mercurial git</p>
+<p>git clone <a href="https://github.com/inconshreveable/ngrok.git" target="_blank" rel="noopener">https://github.com/inconshreveable/ngrok.git</a> ngrok</p>
+<p>sudo make release-client</p>
+<p>./ngrok -subdomain pub -proto=http -config=ngrok.cfg 80</p>
+<p>最后使用pub.ngrok.ihunter.me:8081访问就可以了</p>
 
 	</div>
 
@@ -98,13 +118,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/总结/">总结</a>
+  <span></span> <a href="/tags/Ngrok/">Ngrok</a>
   </div>
 
 </div>
@@ -113,7 +133,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ihunter.me/2017/10/31/learn-from-others/" data-title="见贤思齐 | Hunter的个人博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ihunter.me/2019/07/22/install-ngrok/" data-title="通过ngrok实现内网穿透 | Hunter的个人博客" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -126,19 +146,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/10/31/java-class-code-block-load-order/" title="Java代码块的加载顺序总结">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Java代码块的加载顺序总结</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/10/31/think-more-ways-less-questions/"  title="多想办法，少提问题">
+<a href="/2019/07/21/install-ftp-indebian/"  title="在Debian上搭建ftp服务器">
  <strong>下一篇：</strong><br/> 
- <span>多想办法，少提问题
+ <span>在Debian上搭建ftp服务器
 </span>
 </a>
 </div>
@@ -156,7 +168,7 @@
   <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
   <script>
     var gitment = new Gitment({
-      id: "Tue Oct 31 2017 20:38:17 GMT+0800",
+      id: "Mon Jul 22 2019 20:38:17 GMT+0800",
       owner: "hunterzhang86",
       repo: "blog_comments",
       oauth: {
