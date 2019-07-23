@@ -70,7 +70,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/config-hexo-in-windows/" title="Windows下配置Hexo博客的方法" itemprop="url">Windows下配置Hexo博客的方法</a>
+      <a href="/2017/10/31/install_shadowsocks_in_google_cloud/" title="使用手机搭建shadowsocks代理的简便方法" itemprop="url">使用手机搭建shadowsocks代理的简便方法</a>
   </h1>
   <p class="article-author">By
        
@@ -83,22 +83,11 @@
 </header>
     <div class="article-content">
         
-        <p>换了Windows电脑，之前Macbook下的markdown文件暂时还找不回来，所以无奈只能把之前的博客都删掉了，也鉴于之前的文章写得实在有点。。<br>话不多说，这篇文章的主要内容讲的是在Windows下如何配置Hexo，踩得坑比较多，大家将就着看。</p>
-<p>1、配置github<br>2、安装Node.JS<br>3、安装Hexo<br>(1)指定npm的镜像</p>
-<p>npm install -g cnpm –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a><br>(2)安装hexo</p>
-<p>cnpm install hexo-cli -g<br>cnpm install hexo –save<br>(3)cd到博客文件夹</p>
-<p>cd <folder><br>(4)初始化hexo</folder></p>
-<p>hexo init<br>cnpm install<br>3、配置Hexo<br>(1)配置_config.yml文件<br>将_config.yml文件的deploy项修改为类似如下内容：</p>
-<p>deploy:<br>  type: git<br>  repository: <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:hunterzhang86/hunterzhang86.github.io.git<br>  branch: master<br>(2)配置CNAME文件<br>在source目录下新增CNAME文件，里面的内容填写为自己的域名（如<a href="http://www.ihunter.me），如果没有域名可跳过该步骤" target="_blank" rel="noopener">www.ihunter.me），如果没有域名可跳过该步骤</a></p>
-<p>4、新建md文件生成博客并提交到github<br>(1)在source/_posts目录下新建一个md文件</p>
-<p>(2)生成博客</p>
-<p>hexo c<br>hexo g<br>(3)提交博客</p>
-<p>hexo d<br>FAQ<br>1、如何卸载hexo</p>
-<p>cnpm uninstall hexo<br>2、如何使用hunter主题</p>
-<p>git clone <a href="https://github.com/hunterzhang86/hunter.git" target="_blank" rel="noopener">https://github.com/hunterzhang86/hunter.git</a> themes/hunter<br>修改博客根目录下的配置文件 _config.yml，把theme的值修改为 hunter.</p>
-<p>3、升级到hexo 3.0后deploy出现 error deployer not found:git 错误<br>执行以下命令安装插件即可</p>
-<p>cnpm install hexo-deployer-git –save<br>4、使用hexo 3.0后deploy出现 fatal: Not a git repository (or any of the parent directories) 错误<br>原因是hexo默认是以项目根目录下的.deploy_git作为git仓库，所以我们得把这个仓库与线上的xxx.github.io仓库绑定，如果绑定过其它目录下的仓库，可以直接把隐藏目录.git复制到.deploy_git目录下。</p>
-<p>5、如何初始化gitment评论系统<br>首先需要在git上添加一个repo，然后需要在OAuth Apps里面添加应用权限授予我们的个人网站，具体可参考(Hexo博客框架下Gitment取代多说评论)[<a href="https://zonghongyan.github.io/2017/06/29/201706292034/]" target="_blank" rel="noopener">https://zonghongyan.github.io/2017/06/29/201706292034/]</a></p>
+        <p>一、在Google Cloud创建一个VM实例</p>
+<p>二、搭建shadowsocks代理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、修改root密码</span><br><span class="line">$ sudo passwd </span><br><span class="line">2、切换到root用户</span><br><span class="line">$ su - root</span><br><span class="line">3、安装shadowsocks</span><br><span class="line"># apt update &amp;&amp; apt upgrade</span><br><span class="line"># apt install docker.io</span><br><span class="line"># docker run -d -p 1989:1989 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1989 -k $&#123;password&#125; -m aes-256-cfb</span><br></pre></td></tr></table></figure>
+
+<p>三、配置对应端口防火墙<br>依次点击 “产品和服务” -&gt; “VPC服务” -&gt; “防火墙规则” -&gt; “创建防火墙规则”，其中IP地址范围填0.0.0.0/0, 协议/端口填tcp:1989, 保存并提交</p>
 
         
 
@@ -117,7 +106,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Hexo/">Hexo</a>
+  <span></span> <a href="/tags/Shadowsocks/">Shadowsocks</a>
   </div>
 
 </div>
@@ -128,143 +117,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/config-hexo-in-windows/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/10/31/java-class-code-block-load-order/" title="Java代码块的加载顺序总结" itemprop="url">Java代码块的加载顺序总结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>1、父类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;<br>2、子类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;<br>3、父类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;<br>4、子类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;<br>5、执行子类的构造方法;</p>
-<p><em>说明</em></p>
-<p>构造代码块: 直接在类中定义且没有加static关键字的代码块称为构造代码块;</p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Java/">Java</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/java-class-code-block-load-order/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/10/31/how-to-implements-kafka-exactly-once/" title="实现Kafka消息刚好传递一次(Exactly-Once)的方法" itemprop="url">实现Kafka消息刚好传递一次(Exactly-Once)的方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>术语释疑<br>at-least-once<br>至少传递一次，如果broker在收到消息后，发送ack之前失败，且生产者设置了重试，这种情况下可能会产生重复的数据。<br>at-most-once<br>最多传递一次，如果生产者在发送消息失败后没有设置重试，虽然不会产生重复数据，但有可能丢失数据。<br>exactly-once<br>刚好传递一次，即使producer重试发送消息，消息也会保证最多一次地传递给最终consumer。<br>Producer配置<br>config    current default value    proposed default value<br>enable.idempotence    false    true<br>acks    1    all<br>max.in.flight.requests.per.connection    5    2<br>retries    0    MAX_INT<br>transactional.id        根据实际情况自定义<br>其他的参数比较好理解，max.in.flight.requests.per.connection参数表示限制客户端在单个连接上能够同时发送的未响应请求的个数，是kafka为了提高吞吐量的一个参数。如果要实现Exactly-once语义，需要将值由默认的5设置成2, 主要是因为如果配置成 &gt; 2, kafka将不能保证消息的顺序，而如果设置成1则对kafka的吞吐量有一定影响。</p>
-<p>Producer配置代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">producer.initTransactions();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    producer.beginTransaction();</span><br><span class="line">    producer.send(record1);</span><br><span class="line">    producer.send(record2);</span><br><span class="line">    producer.commitTransaction();</span><br><span class="line">&#125; <span class="keyword">catch</span>(ProducerFencedException e) &#123;</span><br><span class="line">    producer.close();</span><br><span class="line">&#125; <span class="keyword">catch</span>(KafkaException e) &#123;</span><br><span class="line">    producer.abortTransaction();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Consumer配置<br>config    current default value    proposed default value<br>isolation    read_uhcommitted    read_committed<br>enable.auto.commit        false<br>Consumer示例代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">records = consumer.poll(<span class="number">100</span>);</span><br><span class="line"><span class="keyword">for</span>(ConsumerRecord record: records)&#123;</span><br><span class="line">    processor.process(record);</span><br><span class="line">    consumer.commitSync();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>说明</p>
-<p>commit语句放在process语句前面还是后面取决于业务，如果process已经实现了幂等性，可以将commit放在process后面，且可以在当前所有的records处理完成之后再一起commit；<br>而如果处理消息没有实现幂等性，且消息多处理一次可能会影响业务的功能(考虑极端情况，在处理的过程中jvm直接被杀掉了)，则建议将commit语句放在process语句前面；<br>如果极端情况下，有一条消息没有处理可能会对业务造成影响，则需要业务实现事务来持久化已经处理成功的offset，在消费者因为异常情况被杀掉再重启之后，消费者可以通过持久化的数据知道需要从哪一条消息开始处理。<br>参考文献<br>(Make exactly once in order delivery per partition the default producer setting)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]</a><br>(Exactly Once Delivery and Transactional Messaging)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]</a><br>(Exactly-once Semantics are Possible: Here’s How Kafka Does it)[<a href="https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]" target="_blank" rel="noopener">https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]</a></p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Kafka/">Kafka</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/how-to-implements-kafka-exactly-once/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/install_shadowsocks_in_google_cloud/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -350,6 +203,150 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/10/31/show-dir/" title="一种显示目录结构的方法" itemprop="url">一种显示目录结构的方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>1、windows下显示目录结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">tree /F</span><br><span class="line">D:\Program Files\Hexo\source&gt;tree /F</span><br><span class="line">文件夹 PATH 列表</span><br><span class="line">卷序列号为 00000200 E077:4672</span><br><span class="line">D:.</span><br><span class="line">│  CNAME</span><br><span class="line">│</span><br><span class="line">├─about</span><br><span class="line">│      index.md</span><br><span class="line">│</span><br><span class="line">└─_posts</span><br><span class="line">        config-hexo-in-windows.md</span><br><span class="line">        learn-from-others.md</span><br><span class="line">        show-dir.md</span><br><span class="line">        think-more-ways-less-questions.md</span><br></pre></td></tr></table></figure>
+
+<p>2、Linux下显示目录结构的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">find . | sed -e &apos;s;[^/]*/;|___;g;s;___|; |;g&apos;</span><br><span class="line">admin@admin-PC MINGW32 /d/Program Files/Hexo/source</span><br><span class="line">$ find . | sed -e &apos;s;[^/]*/;|___;g;s;___|; |;g&apos;</span><br><span class="line">.</span><br><span class="line">|___about</span><br><span class="line">| |___index.md</span><br><span class="line">|___CNAME</span><br><span class="line">|____posts</span><br><span class="line">| |___config-hexo-in-windows.md</span><br><span class="line">| |___learn-from-others.md</span><br><span class="line">| |___show-dir.md</span><br><span class="line">| |___think-more-ways-less-questions.md</span><br></pre></td></tr></table></figure>
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Linux/">Linux</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/show-dir/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/10/31/config-hexo-in-windows/" title="Windows下配置Hexo博客的方法" itemprop="url">Windows下配置Hexo博客的方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>换了Windows电脑，之前Macbook下的markdown文件暂时还找不回来，所以无奈只能把之前的博客都删掉了，也鉴于之前的文章写得实在有点。。<br>话不多说，这篇文章的主要内容讲的是在Windows下如何配置Hexo，踩得坑比较多，大家将就着看。</p>
+<p>1、配置github<br>2、安装Node.JS<br>3、安装Hexo<br>(1)指定npm的镜像</p>
+<p>npm install -g cnpm –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a><br>(2)安装hexo</p>
+<p>cnpm install hexo-cli -g<br>cnpm install hexo –save<br>(3)cd到博客文件夹</p>
+<p>cd <folder><br>(4)初始化hexo</folder></p>
+<p>hexo init<br>cnpm install<br>3、配置Hexo<br>(1)配置_config.yml文件<br>将_config.yml文件的deploy项修改为类似如下内容：</p>
+<p>deploy:<br>  type: git<br>  repository: <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:hunterzhang86/hunterzhang86.github.io.git<br>  branch: master<br>(2)配置CNAME文件<br>在source目录下新增CNAME文件，里面的内容填写为自己的域名（如<a href="http://www.ihunter.me），如果没有域名可跳过该步骤" target="_blank" rel="noopener">www.ihunter.me），如果没有域名可跳过该步骤</a></p>
+<p>4、新建md文件生成博客并提交到github<br>(1)在source/_posts目录下新建一个md文件</p>
+<p>(2)生成博客</p>
+<p>hexo c<br>hexo g<br>(3)提交博客</p>
+<p>hexo d<br>FAQ<br>1、如何卸载hexo</p>
+<p>cnpm uninstall hexo<br>2、如何使用hunter主题</p>
+<p>git clone <a href="https://github.com/hunterzhang86/hunter.git" target="_blank" rel="noopener">https://github.com/hunterzhang86/hunter.git</a> themes/hunter<br>修改博客根目录下的配置文件 _config.yml，把theme的值修改为 hunter.</p>
+<p>3、升级到hexo 3.0后deploy出现 error deployer not found:git 错误<br>执行以下命令安装插件即可</p>
+<p>cnpm install hexo-deployer-git –save<br>4、使用hexo 3.0后deploy出现 fatal: Not a git repository (or any of the parent directories) 错误<br>原因是hexo默认是以项目根目录下的.deploy_git作为git仓库，所以我们得把这个仓库与线上的xxx.github.io仓库绑定，如果绑定过其它目录下的仓库，可以直接把隐藏目录.git复制到.deploy_git目录下。</p>
+<p>5、如何初始化gitment评论系统<br>首先需要在git上添加一个repo，然后需要在OAuth Apps里面添加应用权限授予我们的个人网站，具体可参考(Hexo博客框架下Gitment取代多说评论)[<a href="https://zonghongyan.github.io/2017/06/29/201706292034/]" target="_blank" rel="noopener">https://zonghongyan.github.io/2017/06/29/201706292034/]</a></p>
+
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Hexo/">Hexo</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/config-hexo-in-windows/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/10/31/think-more-ways-less-questions/" title="多想办法，少提问题" itemprop="url">多想办法，少提问题</a>
   </h1>
   <p class="article-author">By
@@ -415,7 +412,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/show-dir/" title="一种显示目录结构的方法" itemprop="url">一种显示目录结构的方法</a>
+      <a href="/2017/10/31/install_shadowsocks_in_linode/" title="使用手机搭建shadowsocks代理的简便方法" itemprop="url">使用手机搭建shadowsocks代理的简便方法</a>
   </h1>
   <p class="article-author">By
        
@@ -428,11 +425,11 @@
 </header>
     <div class="article-content">
         
-        <p>1、windows下显示目录结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">tree /F</span><br><span class="line">D:\Program Files\Hexo\source&gt;tree /F</span><br><span class="line">文件夹 PATH 列表</span><br><span class="line">卷序列号为 00000200 E077:4672</span><br><span class="line">D:.</span><br><span class="line">│  CNAME</span><br><span class="line">│</span><br><span class="line">├─about</span><br><span class="line">│      index.md</span><br><span class="line">│</span><br><span class="line">└─_posts</span><br><span class="line">        config-hexo-in-windows.md</span><br><span class="line">        learn-from-others.md</span><br><span class="line">        show-dir.md</span><br><span class="line">        think-more-ways-less-questions.md</span><br></pre></td></tr></table></figure>
-
-<p>2、Linux下显示目录结构的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">find . | sed -e &apos;s;[^/]*/;|___;g;s;___|; |;g&apos;</span><br><span class="line">admin@admin-PC MINGW32 /d/Program Files/Hexo/source</span><br><span class="line">$ find . | sed -e &apos;s;[^/]*/;|___;g;s;___|; |;g&apos;</span><br><span class="line">.</span><br><span class="line">|___about</span><br><span class="line">| |___index.md</span><br><span class="line">|___CNAME</span><br><span class="line">|____posts</span><br><span class="line">| |___config-hexo-in-windows.md</span><br><span class="line">| |___learn-from-others.md</span><br><span class="line">| |___show-dir.md</span><br><span class="line">| |___think-more-ways-less-questions.md</span><br></pre></td></tr></table></figure>
+        <p>1、在手机上下载Linode软件、SSH连接工具（比如Termius）</p>
+<p>2、新建一个5美元的Ubuntu 16.04的VPS（如果没有账号请先注册）</p>
+<p>3、使用SSH连接工具连上购买的VPS</p>
+<p>4、搭建shadowsocks代理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># apt update &amp;&amp; apt upgrade</span><br><span class="line"># apt install docker.io</span><br><span class="line"># docker run -d -p 1989:1989 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1989 -k &#123;password&#125; -m aes-256-cfb</span><br></pre></td></tr></table></figure>
         
 
         <p class="article-more-link">
@@ -450,7 +447,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Linux/">Linux</a>
+  <span></span> <a href="/tags/Shadowsocks/">Shadowsocks</a>
   </div>
 
 </div>
@@ -461,7 +458,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/show-dir/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/install_shadowsocks_in_linode/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -513,31 +510,31 @@
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/总结/" title="总结">总结<sup>2</sup></a></li>
-		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
 			<li><a href="/tags/Shadowsocks/" title="Shadowsocks">Shadowsocks<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
+			<li><a href="/tags/总结/" title="总结">总结<sup>2</sup></a></li>
 		
 			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
 		
 			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
+			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+		
 			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
+			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
 		</ul>
 </div>
@@ -598,6 +595,11 @@
 		<!-- Analytics Begin -->
 		
 
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F92a44766064ecadf0f297fbdeaa8ed12' type='text/javascript'%3E%3C/script%3E"));
+</script>
 
 
 
