@@ -6,14 +6,12 @@
   <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
   <meta charset="UTF-8">
   
-    <title>使用Redis实现实时展示页面访问量排名的方法 | Hunter的个人博客</title>
+    <title>Java知识图谱之MySQL数据库 | Hunter的个人博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Hunter Zhang">
     
-    <meta name="description" content="最近有一个需求，需要实时展示页面访问量排名，主要的实现思路如下。
-为什么使用redis存储实时统计的数据？1、实时统计的数据属于查多写少的类型2、Redis的SortedSet数据结构天然可以非常快的得出topn的数据
-如何使用redis存储Spark的实时统计数据？(1)考虑到Spark直接操作R">
+    <meta name="description" content>
     
     
     <meta name="keywords" content>
@@ -72,31 +70,21 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/get_topn_count_with_redis/" title="使用Redis实现实时展示页面访问量排名的方法" itemprop="url">使用Redis实现实时展示页面访问量排名的方法</a>
+      <a href="/2019/07/25/java-mysql/" title="Java知识图谱之MySQL数据库" itemprop="url">Java知识图谱之MySQL数据库</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
 		
   <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    <time datetime="2019-07-25T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-25</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 
-		<p>最近有一个需求，需要实时展示页面访问量排名，主要的实现思路如下。</p>
-<h5 id="为什么使用redis存储实时统计的数据？"><a href="#为什么使用redis存储实时统计的数据？" class="headerlink" title="为什么使用redis存储实时统计的数据？"></a>为什么使用redis存储实时统计的数据？</h5><p>1、实时统计的数据属于查多写少的类型<br>2、Redis的SortedSet数据结构天然可以非常快的得出topn的数据</p>
-<h5 id="如何使用redis存储Spark的实时统计数据？"><a href="#如何使用redis存储Spark的实时统计数据？" class="headerlink" title="如何使用redis存储Spark的实时统计数据？"></a>如何使用redis存储Spark的实时统计数据？</h5><p>(1)考虑到Spark直接操作Redis的话，各个组件之间的耦合会比较严重，所以我们将Spark的实时统计数据先推到kafka里面，然后不断的取出kafka的数据插入到redis中。</p>
-<p>(2)进一步的，如果把所有的统计结果都放到redis里面的话，由于数据量比较大可能会对redis的性能有比较大的压力，而实际上我们需要查看的统计结果是有限的，所以只需要将topn的数据存放的redis中即可，可以根据当前的实时数据统计情况，设置插入的阈值，从而减少redis的性能压力。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#取出当前排名1k的统计值，获取当前插入数据的阈值</span><br><span class="line">ZREVRANGE title_count 1000 1000 WITHSCORES</span><br></pre></td></tr></table></figure>
-
-<h5 id="如何删除超时的统计数据？"><a href="#如何删除超时的统计数据？" class="headerlink" title="如何删除超时的统计数据？"></a>如何删除超时的统计数据？</h5><p>既然是实时的统计数据，如果没有删除超时数据的机制，统计的结果实时上就变成了历史单位时间段的排名了，所以需要定时删除超时的统计数据。</p>
-<p>但其实redis中SortedSet中的子元素是不能设置超时时间的，所以我们使用了另外一个SortedSet来存储子元素的插入时间，然后定时去扫描有没有子元素已经超时，超时的子元素集会在原始的统计表中被清理掉。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查询超时的元素集，其中1534562250为超时的时间戳阈值</span><br><span class="line">ZREVRANGEBYSCORE title_count_ttl 0 1534562250</span><br><span class="line">#删除超时的元素集</span><br><span class="line">ZREM title_count baidu.com bing.com</span><br></pre></td></tr></table></figure>
-
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>整个方案在删除超时统计数据上还是有一些瑕疵，毕竟这个SortedSet TTL的实现方案需要插入两次数据，如果朋友们有更好的解决方案欢迎一起讨论，谢谢。</p>
+		<p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-mysql/java-mysql.png" alt="MySQL"></p>
 
 	</div>
 
@@ -107,13 +95,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
+  <a class="article-category-link" href="/categories/Java知识图谱/">Java知识图谱</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Redis/">Redis</a>
+  <span></span> <a href="/tags/MySQL/">MySQL</a>
   </div>
 
 </div>
@@ -122,7 +110,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ihunter.me/2017/10/31/get_topn_count_with_redis/" data-title="使用Redis实现实时展示页面访问量排名的方法 | Hunter的个人博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ihunter.me/2019/07/25/java-mysql/" data-title="Java知识图谱之MySQL数据库 | Hunter的个人博客" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -135,19 +123,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/10/31/install_shadowsocks_in_google_cloud/" title="在Google Cloud搭建Shadowsocks的方法">
-  <strong>上一篇：</strong><br/>
-  <span>
-  在Google Cloud搭建Shadowsocks的方法</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/10/31/install_shadowsocks_in_linode/"  title="使用手机搭建shadowsocks代理的简便方法">
+<a href="/2019/07/24/java-gc/"  title="Java知识图谱之垃圾回收">
  <strong>下一篇：</strong><br/> 
- <span>使用手机搭建shadowsocks代理的简便方法
+ <span>Java知识图谱之垃圾回收
 </span>
 </a>
 </div>
@@ -165,8 +145,8 @@
   <script src="https://billts.site/js/gitment.js"></script>
   <script>
     var gitment = new Gitment({
-      id: "Tue Oct 31 2017 20:38:17 GMT+0800",
-      title: '使用Redis实现实时展示页面访问量排名的方法',
+      id: "Thu Jul 25 2019 20:38:17 GMT+0800",
+      title: 'Java知识图谱之MySQL数据库',
       owner: "hunterzhang86",
       repo: "blog_comments",
       oauth: {
@@ -188,7 +168,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#为什么使用redis存储实时统计的数据？"><span class="toc-number">1.</span> <span class="toc-text">为什么使用redis存储实时统计的数据？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何使用redis存储Spark的实时统计数据？"><span class="toc-number">2.</span> <span class="toc-text">如何使用redis存储Spark的实时统计数据？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何删除超时的统计数据？"><span class="toc-number">3.</span> <span class="toc-text">如何删除超时的统计数据？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+ 
  
   </div>
 
