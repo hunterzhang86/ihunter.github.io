@@ -85,32 +85,44 @@
         
         <p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-gc/java-gc.png" alt="Java GC"></p>
 <h4 id="对象生命周期"><a href="#对象生命周期" class="headerlink" title="对象生命周期"></a>对象生命周期</h4><ul>
-<li>引用计数法<br>无法解决循环引用的问题</li>
-<li>可达性分析算法<br>从GC Roots看对象是否可达：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">虚拟机栈（栈中的本地变量表）中引用的对象</span><br><span class="line">本地方法栈中JNI（即Native方法）引用的对象</span><br><span class="line">方法区中类静态属性的变量</span><br><span class="line">方法区中常量引用的变量</span><br></pre></td></tr></table></figure>
+<li><p>引用计数法<br>无法解决循环引用的问题</p>
+</li>
+<li><p>可达性分析算法<br>从GC Roots看对象是否可达：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">虚拟机栈（栈中的本地变量表）中引用的对象</span><br><span class="line">本地方法栈中JNI（即Native方法）引用的对象</span><br><span class="line">方法区中类静态属性的变量</span><br><span class="line">方法区中常量引用的变量</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
 <p><strong>引用</strong></p>
 <ul>
-<li>强引用<br>只要强引用存在就不会回收</li>
-<li>软引用<br>只有内存不够才会回收<br>浏览器的后退按钮</li>
-<li>弱引用<br>不管内存够不够都会回收</li>
-<li>虚引用<br>作为回收对象时的通知</li>
+<li><p>强引用<br>只要强引用存在就不会回收</p>
+</li>
+<li><p>软引用<br>只有内存不够才会回收<br>浏览器的后退按钮</p>
+</li>
+<li><p>弱引用<br>不管内存够不够都会回收</p>
+</li>
+<li><p>虚引用<br>作为回收对象时的通知<br>回收方法区</p>
+</li>
+<li><p>废弃常量</p>
+</li>
+<li><p>无用的类<br>大量反射、动态代理、CGLib频繁自定义的ClassLoader<br>需要有类的卸载功能<br>通过更换ClassLoader实现类的卸载</p>
+</li>
 </ul>
-<p>回收方法区</p>
+<h4 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h4><p><strong>标记-清除算法</strong><br>效率和内存碎片的问题</p>
+<p><strong>复制算法</strong><br>分区复制回收<br>适用于对象存活率较低的场景（新生代）</p>
+<p><strong>标记-整理算法</strong><br>标记-清除-整理<br>使用与对象存活率较高的场景（老生代）</p>
+<p><strong>分代收集算法</strong><br>根据对象存活周期分为几块</p>
 <ul>
-<li>废弃常量</li>
-<li>无用的类<br>大量反射、动态代理、CGLib频繁自定义的ClassLoader<br>需要有类的卸载功能<br>通过更换ClassLoader实现类的卸载</li>
-</ul>
-<h4 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h4><p><strong>标记-清除算法</strong><br>效率和内存碎片的问题<br><strong>复制算法</strong><br>分区复制回收<br>适用于对象存活率较低的场景（新生代）<br><strong>标记-整理算法</strong><br>标记-清除-整理<br>使用与对象存活率较高的场景（老生代）<br><strong>分代收集算法</strong><br>根据对象存活周期分为几块</p>
-<ul>
-<li>新生代<br>复制算法</li>
-<li>老生代<br>标记-清除算法<br>标记-整理算法</li>
+<li><p>新生代<br>复制算法</p>
+</li>
+<li><p>老生代<br>标记-清除算法<br>标记-整理算法</p>
+</li>
 </ul>
 <h4 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h4><p><strong>Serial收集器</strong></p>
 <ul>
-<li>缺点<br>单线程处理，需要暂停其他所有线程</li>
-<li>优点<br>简单</li>
+<li><p>缺点<br>单线程处理，需要暂停其他所有线程</p>
+</li>
+<li><p>优点<br>简单</p>
+</li>
 </ul>
 <p><strong>ParNew收集器</strong><br>Serial收集器的多线程实现</p>
 <p><strong>Parallel Scavenge收集器</strong><br>以吞吐量为目标<br>吞吐量=用户代码运行时间/（用户代码运行时间 + GC时间）</p>
@@ -118,9 +130,12 @@
 <p><strong>Parallel Old收集器</strong><br>Parallel Scavenge收集器的老年代版本</p>
 <p><strong>CMS收集器</strong><br>以获取最短停顿时间为目标<br>分为初始标记、并发标记、重新标记、并发清除四个阶段</p>
 <ul>
-<li>优点<br>停顿时间短</li>
-<li>缺点<br>消耗较多的CPU资源<br>会产生较多的内存碎片</li>
-<li>为什么需要STP？<br>处理起来简单，不用管并发的问题</li>
+<li><p>优点<br>停顿时间短</p>
+</li>
+<li><p>缺点<br>消耗较多的CPU资源<br>会产生较多的内存碎片</p>
+</li>
+<li><p>为什么需要STP？<br>处理起来简单，不用管并发的问题</p>
+</li>
 </ul>
 <p><strong>G1收集器</strong></p>
 <ul>
@@ -543,6 +558,79 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/10/31/get_topn_count_with_redis/" title="使用Redis实现实时展示页面访问量排名的方法" itemprop="url">使用Redis实现实时展示页面访问量排名的方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最近有一个需求，需要实时展示页面访问量排名，主要的实现思路如下。</p>
+<h5 id="为什么使用redis存储实时统计的数据？"><a href="#为什么使用redis存储实时统计的数据？" class="headerlink" title="为什么使用redis存储实时统计的数据？"></a>为什么使用redis存储实时统计的数据？</h5><p>1、实时统计的数据属于查多写少的类型<br>2、Redis的SortedSet数据结构天然可以非常快的得出topn的数据</p>
+<h5 id="如何使用redis存储Spark的实时统计数据？"><a href="#如何使用redis存储Spark的实时统计数据？" class="headerlink" title="如何使用redis存储Spark的实时统计数据？"></a>如何使用redis存储Spark的实时统计数据？</h5><p>(1)考虑到Spark直接操作Redis的话，各个组件之间的耦合会比较严重，所以我们将Spark的实时统计数据先推到kafka里面，然后不断的取出kafka的数据插入到redis中。</p>
+<p>(2)进一步的，如果把所有的统计结果都放到redis里面的话，由于数据量比较大可能会对redis的性能有比较大的压力，而实际上我们需要查看的统计结果是有限的，所以只需要将topn的数据存放的redis中即可，可以根据当前的实时数据统计情况，设置插入的阈值，从而减少redis的性能压力。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#取出当前排名1k的统计值，获取当前插入数据的阈值</span><br><span class="line">ZREVRANGE title_count 1000 1000 WITHSCORES</span><br></pre></td></tr></table></figure>
+
+<h5 id="如何删除超时的统计数据？"><a href="#如何删除超时的统计数据？" class="headerlink" title="如何删除超时的统计数据？"></a>如何删除超时的统计数据？</h5><p>既然是实时的统计数据，如果没有删除超时数据的机制，统计的结果实时上就变成了历史单位时间段的排名了，所以需要定时删除超时的统计数据。</p>
+<p>但其实redis中SortedSet中的子元素是不能设置超时时间的，所以我们使用了另外一个SortedSet来存储子元素的插入时间，然后定时去扫描有没有子元素已经超时，超时的子元素集会在原始的统计表中被清理掉。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查询超时的元素集，其中1534562250为超时的时间戳阈值</span><br><span class="line">ZREVRANGEBYSCORE title_count_ttl 0 1534562250</span><br><span class="line">#删除超时的元素集</span><br><span class="line">ZREM title_count baidu.com bing.com</span><br></pre></td></tr></table></figure>
+
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>整个方案在删除超时统计数据上还是有一些瑕疵，毕竟这个SortedSet TTL的实现方案需要插入两次数据，如果朋友们有更好的解决方案欢迎一起讨论，谢谢。</p>
+
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Redis/">Redis</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/get_topn_count_with_redis/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/10/31/config-hexo-in-windows/" title="Windows下配置Hexo博客的方法" itemprop="url">Windows下配置Hexo博客的方法</a>
   </h1>
   <p class="article-author">By
@@ -689,79 +777,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/get_topn_count_with_redis/" title="使用Redis实现实时展示页面访问量排名的方法" itemprop="url">使用Redis实现实时展示页面访问量排名的方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>最近有一个需求，需要实时展示页面访问量排名，主要的实现思路如下。</p>
-<h5 id="为什么使用redis存储实时统计的数据？"><a href="#为什么使用redis存储实时统计的数据？" class="headerlink" title="为什么使用redis存储实时统计的数据？"></a>为什么使用redis存储实时统计的数据？</h5><p>1、实时统计的数据属于查多写少的类型<br>2、Redis的SortedSet数据结构天然可以非常快的得出topn的数据</p>
-<h5 id="如何使用redis存储Spark的实时统计数据？"><a href="#如何使用redis存储Spark的实时统计数据？" class="headerlink" title="如何使用redis存储Spark的实时统计数据？"></a>如何使用redis存储Spark的实时统计数据？</h5><p>(1)考虑到Spark直接操作Redis的话，各个组件之间的耦合会比较严重，所以我们将Spark的实时统计数据先推到kafka里面，然后不断的取出kafka的数据插入到redis中。</p>
-<p>(2)进一步的，如果把所有的统计结果都放到redis里面的话，由于数据量比较大可能会对redis的性能有比较大的压力，而实际上我们需要查看的统计结果是有限的，所以只需要将topn的数据存放的redis中即可，可以根据当前的实时数据统计情况，设置插入的阈值，从而减少redis的性能压力。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#取出当前排名1k的统计值，获取当前插入数据的阈值</span><br><span class="line">ZREVRANGE title_count 1000 1000 WITHSCORES</span><br></pre></td></tr></table></figure>
-
-<h5 id="如何删除超时的统计数据？"><a href="#如何删除超时的统计数据？" class="headerlink" title="如何删除超时的统计数据？"></a>如何删除超时的统计数据？</h5><p>既然是实时的统计数据，如果没有删除超时数据的机制，统计的结果实时上就变成了历史单位时间段的排名了，所以需要定时删除超时的统计数据。</p>
-<p>但其实redis中SortedSet中的子元素是不能设置超时时间的，所以我们使用了另外一个SortedSet来存储子元素的插入时间，然后定时去扫描有没有子元素已经超时，超时的子元素集会在原始的统计表中被清理掉。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查询超时的元素集，其中1534562250为超时的时间戳阈值</span><br><span class="line">ZREVRANGEBYSCORE title_count_ttl 0 1534562250</span><br><span class="line">#删除超时的元素集</span><br><span class="line">ZREM title_count baidu.com bing.com</span><br></pre></td></tr></table></figure>
-
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>整个方案在删除超时统计数据上还是有一些瑕疵，毕竟这个SortedSet TTL的实现方案需要插入两次数据，如果朋友们有更好的解决方案欢迎一起讨论，谢谢。</p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Redis/">Redis</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/get_topn_count_with_redis/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2017/10/31/install_shadowsocks_in_google_cloud/" title="使用手机搭建shadowsocks代理的简便方法" itemprop="url">使用手机搭建shadowsocks代理的简便方法</a>
   </h1>
   <p class="article-author">By
@@ -861,33 +876,33 @@
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
+			<li><a href="/tags/总结/" title="总结">总结<sup>2</sup></a></li>
+		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
 			<li><a href="/tags/Shadowsocks/" title="Shadowsocks">Shadowsocks<sup>2</sup></a></li>
 		
-			<li><a href="/tags/总结/" title="总结">总结<sup>2</sup></a></li>
-		
-			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
+			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
 		
 			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
 			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
 		
-			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
-		
 			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
 		
 		</ul>
 </div>
