@@ -6,12 +6,12 @@
   <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
   <meta charset="UTF-8">
   
-    <title>实现Kafka消息刚好传递一次(Exactly-Once)的方法 | Hunter的个人博客</title>
+    <title>Java知识图谱之垃圾回收 | Hunter的个人博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Hunter Zhang">
     
-    <meta name="description" content="术语释疑at-least-once至少传递一次，如果broker在收到消息后，发送ack之前失败，且生产者设置了重试，这种情况下可能会产生重复的数据。at-most-once最多传递一次，如果生产者在发送消息失败后没有设置重试，虽然不会产生重复数据，但有可能丢失数据。exactly-once刚好传递">
+    <meta name="description" content>
     
     
     <meta name="keywords" content>
@@ -70,29 +70,21 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/how-to-implements-kafka-exactly-once/" title="实现Kafka消息刚好传递一次(Exactly-Once)的方法" itemprop="url">实现Kafka消息刚好传递一次(Exactly-Once)的方法</a>
+      <a href="/2019/07/24/java-gc/" title="Java知识图谱之垃圾回收" itemprop="url">Java知识图谱之垃圾回收</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
 		
   <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    <time datetime="2019-07-24T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-24</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 
-		<p>术语释疑<br>at-least-once<br>至少传递一次，如果broker在收到消息后，发送ack之前失败，且生产者设置了重试，这种情况下可能会产生重复的数据。<br>at-most-once<br>最多传递一次，如果生产者在发送消息失败后没有设置重试，虽然不会产生重复数据，但有可能丢失数据。<br>exactly-once<br>刚好传递一次，即使producer重试发送消息，消息也会保证最多一次地传递给最终consumer。<br>Producer配置<br>config    current default value    proposed default value<br>enable.idempotence    false    true<br>acks    1    all<br>max.in.flight.requests.per.connection    5    2<br>retries    0    MAX_INT<br>transactional.id        根据实际情况自定义<br>其他的参数比较好理解，max.in.flight.requests.per.connection参数表示限制客户端在单个连接上能够同时发送的未响应请求的个数，是kafka为了提高吞吐量的一个参数。如果要实现Exactly-once语义，需要将值由默认的5设置成2, 主要是因为如果配置成 &gt; 2, kafka将不能保证消息的顺序，而如果设置成1则对kafka的吞吐量有一定影响。</p>
-<p>Producer配置代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">producer.initTransactions();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    producer.beginTransaction();</span><br><span class="line">    producer.send(record1);</span><br><span class="line">    producer.send(record2);</span><br><span class="line">    producer.commitTransaction();</span><br><span class="line">&#125; <span class="keyword">catch</span>(ProducerFencedException e) &#123;</span><br><span class="line">    producer.close();</span><br><span class="line">&#125; <span class="keyword">catch</span>(KafkaException e) &#123;</span><br><span class="line">    producer.abortTransaction();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Consumer配置<br>config    current default value    proposed default value<br>isolation    read_uhcommitted    read_committed<br>enable.auto.commit        false<br>Consumer示例代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">records = consumer.poll(<span class="number">100</span>);</span><br><span class="line"><span class="keyword">for</span>(ConsumerRecord record: records)&#123;</span><br><span class="line">    processor.process(record);</span><br><span class="line">    consumer.commitSync();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>说明</p>
-<p>commit语句放在process语句前面还是后面取决于业务，如果process已经实现了幂等性，可以将commit放在process后面，且可以在当前所有的records处理完成之后再一起commit；<br>而如果处理消息没有实现幂等性，且消息多处理一次可能会影响业务的功能(考虑极端情况，在处理的过程中jvm直接被杀掉了)，则建议将commit语句放在process语句前面；<br>如果极端情况下，有一条消息没有处理可能会对业务造成影响，则需要业务实现事务来持久化已经处理成功的offset，在消费者因为异常情况被杀掉再重启之后，消费者可以通过持久化的数据知道需要从哪一条消息开始处理。<br>参考文献<br>(Make exactly once in order delivery per partition the default producer setting)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]</a><br>(Exactly Once Delivery and Transactional Messaging)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]</a><br>(Exactly-once Semantics are Possible: Here’s How Kafka Does it)[<a href="https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]" target="_blank" rel="noopener">https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]</a></p>
+		<p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-gc/java-gc.png" alt="Java GC"></p>
 
 	</div>
 
@@ -103,13 +95,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
+  <a class="article-category-link" href="/categories/Java知识图谱/">Java知识图谱</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Kafka/">Kafka</a>
+  <span></span> <a href="/tags/GC/">GC</a>
   </div>
 
 </div>
@@ -118,7 +110,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ihunter.me/2017/10/31/how-to-implements-kafka-exactly-once/" data-title="实现Kafka消息刚好传递一次(Exactly-Once)的方法 | Hunter的个人博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ihunter.me/2019/07/24/java-gc/" data-title="Java知识图谱之垃圾回收 | Hunter的个人博客" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -131,19 +123,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/10/31/guava-thread-listen/" title="Guava中实现线程异步回调机制探索">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Guava中实现线程异步回调机制探索</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/10/31/java-class-code-block-load-order/"  title="Java代码块的加载顺序总结">
+<a href="/2019/07/23/java-network/"  title="Java知识图谱之计算机网络">
  <strong>下一篇：</strong><br/> 
- <span>Java代码块的加载顺序总结
+ <span>Java知识图谱之计算机网络
 </span>
 </a>
 </div>
@@ -161,8 +145,8 @@
   <script src="https://billts.site/js/gitment.js"></script>
   <script>
     var gitment = new Gitment({
-      id: "Tue Oct 31 2017 20:38:17 GMT+0800",
-      title: '实现Kafka消息刚好传递一次(Exactly-Once)的方法',
+      id: "Wed Jul 24 2019 20:38:17 GMT+0800",
+      title: 'Java知识图谱之垃圾回收',
       owner: "hunterzhang86",
       repo: "blog_comments",
       oauth: {
