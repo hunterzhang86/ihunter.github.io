@@ -92,34 +92,53 @@
 <li>解决方法<br>版本号<br>时间戳</li>
 </ul>
 <p>1.1.4.    使用场景<br>读多写少，数据冲突不大的情况，考虑用户积分加减的场景<br>因为如果冲突比较大，事务需要回滚，应用层也会不断重试，这样反倒降低的性能</p>
-<p>1.1.5.    SQL<br>update table set name = ‘Aron’, version = version + 1 where id = #{id} and version = #{version};</p>
+<p>1.1.5.    SQL</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> <span class="keyword">table</span> <span class="keyword">set</span> <span class="keyword">name</span> = <span class="string">'Aron'</span>, <span class="keyword">version</span> = <span class="keyword">version</span> + <span class="number">1</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="comment">#&#123;id&#125; and version = #&#123;version&#125;;</span></span><br></pre></td></tr></table></figure>
+
 <p>1.1.6.    使用方式<br>先不上锁，但如果SQL执行失败应用层需要自己处理，比如重试</p>
-<p>1.2.    悲观锁<br>1.2.1.    出发点<br>认为数据比较大可能会发生冲突<br>1.2.2.    使用场景<br>数据冲突比较大的情况<br>1.2.3.    使用方式<br>每次在拿数据的时候都会上锁，这样别人想拿这个数据就会block直到它拿到锁<br>1.2.4.    SQL<br>select … id=1 for update</p>
-<h4 id="2-索引"><a href="#2-索引" class="headerlink" title="2.    索引"></a>2.    索引</h4><p>2.1.    类别<br>2.1.1.    普通索引<br>2.1.2.    唯一索引<br>2.1.3.    主键索引<br>2.1.4.    全文索引<br>2.1.5.    组合索引</p>
+<p>1.2.    悲观锁<br>1.2.1.    出发点<br>认为数据比较大可能会发生冲突<br>1.2.2.    使用场景<br>数据冲突比较大的情况<br>1.2.3.    使用方式<br>每次在拿数据的时候都会上锁，这样别人想拿这个数据就会block直到它拿到锁<br>1.2.4.    SQL</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ... <span class="keyword">id</span>=<span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-索引"><a href="#2-索引" class="headerlink" title="2.    索引"></a>2.    索引</h4><p>2.1.    类别<br>普通索引<br>唯一索引<br>主键索引<br>全文索引<br>组合索引</p>
 <p>2.2.    实现机制<br>2.2.1.    B+树</p>
-<p>2.3.    SQL执行计划<br>2.3.1.    通过SQL分析工具<br>2.3.2.    Explain</p>
-<p>2.4.    什么情况下会失效<br>2.4.1.    使用or关键字<br>2.4.2.    like的模糊查询以%开头<br>2.4.3.    组合索引使用的不是第一部分<br>2.4.4.    列类型是字符串，但是查询条件中没有使用””<br>2.4.5.    MySQL内部机制认为不使用比使用快的其他情况</p>
-<h4 id="3-SQL"><a href="#3-SQL" class="headerlink" title="3.    SQL"></a>3.    SQL</h4><h4 id="4-架构"><a href="#4-架构" class="headerlink" title="4.    架构"></a>4.    架构</h4><p>4.1.    Server层<br>4.1.1.    连接器<br>4.1.2.    分析器<br>4.1.3.    优化器<br>4.1.4.    执行器</p>
+<p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-mysql/mysql-b+.png" alt="B+树结构"></p>
+<p>2.3.    SQL执行计划<br>通过SQL分析工具<br>Explain</p>
+<p>2.4.    什么情况下会失效<br>使用or关键字<br>like的模糊查询以%开头<br>组合索引使用的不是第一部分<br>列类型是字符串，但是查询条件中没有使用””<br>MySQL内部机制认为不使用比使用快的其他情况</p>
+<h4 id="3-SQL"><a href="#3-SQL" class="headerlink" title="3.    SQL"></a>3.    SQL</h4><h4 id="4-架构"><a href="#4-架构" class="headerlink" title="4.    架构"></a>4.    架构</h4><p>4.1.    Server层<br>连接器<br>分析器<br>优化器<br>执行器</p>
 <p>4.2.    存储层</p>
-<h4 id="5-binlog"><a href="#5-binlog" class="headerlink" title="5.    binlog"></a>5.    binlog</h4><p>5.1.    statment<br>5.2.    mixed<br>5.3.    row</p>
-<h4 id="6-分库分表"><a href="#6-分库分表" class="headerlink" title="6.    分库分表"></a>6.    分库分表</h4><p>6.1.    如何在线迁移？<br>6.1.1.    双写，批量插入转移，如果有冲突一条一条写入，写入的时候先查询再写入<br>6.1.2.    有校验脚本来检查迁移是否成功</p>
+<h4 id="5-binlog"><a href="#5-binlog" class="headerlink" title="5.    binlog"></a>5.    binlog</h4><p>statment<br>mixed<br>row</p>
+<h4 id="6-分库分表"><a href="#6-分库分表" class="headerlink" title="6.    分库分表"></a>6.    分库分表</h4><p>6.1.    如何在线迁移？<br>双写，批量插入转移，如果有冲突一条一条写入，写入的时候先查询再写入<br>有校验脚本来检查迁移是否成功</p>
 <h4 id="7-常见问题"><a href="#7-常见问题" class="headerlink" title="7.    常见问题"></a>7.    常见问题</h4><p>7.1.    如何优化分页查询？<br>大数据量的时候限制用户只能一页一页的往后翻</p>
 <p>7.2.    可靠性实现？<br>redolog<br>binlog</p>
-<p>7.3.    事务的可重复读是如何实现的？<br>7.3.1.    给每行增加两个隐藏字段来实现MVVC(数据多版本并发控制)，两个列都用来存储事务的版本号<br>7.3.2.    每开启一个新事务，事务的版本号就会递增<br>7.3.3.    如果数据的trx_id落在低水位，可见<br>7.3.4.    如果数据的trx_id落在高水位，不可见<br>7.3.5.    如果数据在黄色区间，活跃事务ID数组<br>trx_id在数组中，说明未提交，不可见<br>trx_id不在数组中，说明已提交，可见</p>
-<p>7.4.    读提交和可重复读实现区别？<br>7.4.1.    可重复读在事务开始的时候创建一致性视图<br>7.4.2.    读提交在语句执行的时候创建一致性试图</p>
-<p>7.5.    MySQL如何保证数据不丢失？<br>7.5.1.    两阶段提交，先prepare，后commit<br>7.5.2.    prepare其实做的一件事情就是刷盘<br>7.5.3.    如果存在完整的prepare<br>如果binlog完整，则提交<br>可以保证数据和binlog的一致性<br>如果不完整，则回退<br>7.5.4.    如果commit已经刷盘，则直接提交</p>
-<p>7.6.    MyISAM和InnoDB的区别？<br>7.6.1.    MyISAM不支持事务<br>7.6.2.    MyISAM不支持行锁<br>7.6.3.    MyISAM支持FULLTEXT全文索引</p>
-<p>7.7.    count(<em>) count(1) count(col)的区别？<br>7.7.1.    count(</em>) = count(1), 统计行不会忽略NULL<br>7.7.2.    count(col), 统计行会忽略col=NULL的行</p>
+<p>7.3.    事务的可重复读是如何实现的？<br>给每行增加两个隐藏字段来实现MVVC(数据多版本并发控制)，两个列都用来存储事务的版本号<br>每开启一个新事务，事务的版本号就会递增<br>如果数据的trx_id落在低水位，可见<br>如果数据的trx_id落在高水位，不可见<br>如果数据在黄色区间，活跃事务ID数组</p>
+<p>trx_id在数组中，说明未提交，不可见<br>trx_id不在数组中，说明已提交，可见</p>
+<p>7.4.    读提交和可重复读实现区别？<br>可重复读在事务开始的时候创建一致性视图<br>读提交在语句执行的时候创建一致性试图</p>
+<p>7.5.    MySQL如何保证数据不丢失？<br>两阶段提交，先prepare，后commit<br>prepare其实做的一件事情就是刷盘<br>如果存在完整的prepare<br>如果binlog完整，则提交<br>可以保证数据和binlog的一致性<br>如果不完整，则回退<br>如果commit已经刷盘，则直接提交</p>
+<p>7.6.    MyISAM和InnoDB的区别？<br>MyISAM不支持事务<br>MyISAM不支持行锁<br>MyISAM支持FULLTEXT全文索引</p>
+<p>7.7.    count(<em>) count(1) count(col)的区别？<br>count(</em>) = count(1), 统计行不会忽略NULL<br>count(col), 统计行会忽略col=NULL的行</p>
 <p>7.8.    可重复读隔离级别下，MVVC在数据的CRUD层面分别是如何实现的？<br>7.8.1.    SELECT<br>读取创建版本小于或等于当前事务版本号，并且删除版本为空或大于当前事务版本号的记录。这样可以保证在读取之前记录是存在的<br>7.8.2.    INSERT<br>将当前事务的版本号保存至行的创建版本号<br>7.8.3.    UPDATE<br>新插入一行，并以当前事务的版本号作为新行的创建版本号，同时将原记录行的删除版本号设置为当前事务版本号<br>7.8.4.    DELETE<br>将当前事务的版本号保存至行的删除版本号</p>
-<h4 id="8-数据库锁"><a href="#8-数据库锁" class="headerlink" title="8.    数据库锁"></a>8.    数据库锁</h4><p>8.1.    全局锁<br>8.1.1.    flush table with read lock</p>
-<p>8.2.    表级锁<br>8.2.1.    lock tables … read/write<br>8.2.2.    metadata lock</p>
-<p>8.3.    行锁<br>8.3.1.    S锁<br>select … in share mode<br>8.3.2.    X锁<br>select … id=1 for update<br>8.3.3.    都是针对索引加锁，如果索引失效，会升级为表锁<br>8.3.4.    如果索引没命中，会退化成间隙锁</p>
-<p>8.4.    间隙锁<br>8.4.1.    select * from emp where empid &gt; 100 for update;<br>8.4.2.    间隙锁之间不会冲突，所以容易造成死锁<br>8.4.3.    原则<br>向左右查找第一个不满足条件的索引<br>当使用唯一索引的时候，如果等值刚好命中，不用向左右遍历找到不满足条件的索引<br>8.4.4.    作用<br>解决幻读的问题</p>
+<h4 id="8-数据库锁"><a href="#8-数据库锁" class="headerlink" title="8.    数据库锁"></a>8.    数据库锁</h4><p>8.1.    全局锁</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">flush</span> <span class="keyword">table</span> <span class="keyword">with</span> <span class="keyword">read</span> <span class="keyword">lock</span></span><br></pre></td></tr></table></figure>
+
+<p>8.2.    表级锁</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lock</span> <span class="keyword">tables</span> ... <span class="keyword">read</span>/write</span><br><span class="line">metadata <span class="keyword">lock</span></span><br></pre></td></tr></table></figure>
+
+<p>8.3.    行锁<br>8.3.1.    S锁</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ... <span class="keyword">in</span> <span class="keyword">share</span> <span class="keyword">mode</span></span><br></pre></td></tr></table></figure>
+
+<p>8.3.2.    X锁</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ... <span class="keyword">id</span>=<span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span></span><br></pre></td></tr></table></figure>
+
+<p>都是针对索引加锁，如果索引失效，会升级为表锁<br>如果索引没命中，会退化成间隙锁</p>
+<p>8.4.    间隙锁</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> empid &gt; <span class="number">100</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
+
+<p>间隙锁之间不会冲突，所以容易造成死锁<br>8.4.3.    原则<br>向左右查找第一个不满足条件的索引<br>当使用唯一索引的时候，如果等值刚好命中，不用向左右遍历找到不满足条件的索引<br>8.4.4.    作用<br>解决幻读的问题</p>
 <p>8.5.    意向锁<br>8.5.1.    作用<br>解决上表锁的时候性能不够的问题，没有意向锁可能会一个一个判断行锁<br>8.5.2.    原则<br>只与表锁可能有互斥，不会与行锁进行比较</p>
-<h4 id="9-分布式事务"><a href="#9-分布式事务" class="headerlink" title="9.    分布式事务"></a>9.    分布式事务</h4><p>9.1.    TCC<br>9.1.1.    柔性事务<br>9.1.2.    最终一致性<br>9.1.3.    作用在服务层</p>
-<p>9.2.    TXC<br>9.2.1.    分布式应用里面，多条数据库记录被同时修改带来的一致性问题<br>fascar</p>
-<p>9.3.    XA<br>9.3.1.    作用在资源层，依赖于数据库对XA协议的支持</p>
-<h4 id="10-同步机制"><a href="#10-同步机制" class="headerlink" title="10.    同步机制"></a>10.    同步机制</h4><p>10.1.    备库执行change master命令<br>10.2.    备库执行start slave命令，会启动两个线程io_thread和sql_thread，其中io_thread负责与主库建立连接<br>10.3.    主库将备库要读取的binlog发给备库，备库保存为relay log<br>10.4.    备库读取relay log并执行</p>
+<h4 id="9-分布式事务"><a href="#9-分布式事务" class="headerlink" title="9.    分布式事务"></a>9.    分布式事务</h4><p>9.1.    TCC<br>柔性事务<br>最终一致性<br>作用在服务层</p>
+<p>9.2.    TXC<br>分布式应用里面，多条数据库记录被同时修改带来的一致性问题<br>fascar</p>
+<p>9.3.    XA<br>作用在资源层，依赖于数据库对XA协议的支持</p>
+<h4 id="10-同步机制"><a href="#10-同步机制" class="headerlink" title="10.    同步机制"></a>10.    同步机制</h4><p>备库执行change master命令<br>备库执行start slave命令，会启动两个线程io_thread和sql_thread，其中io_thread负责与主库建立连接<br>主库将备库要读取的binlog发给备库，备库保存为relay log<br>备库读取relay log并执行</p>
 
         
 
@@ -659,6 +678,77 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/10/31/how-to-implements-kafka-exactly-once/" title="实现Kafka消息刚好传递一次(Exactly-Once)的方法" itemprop="url">实现Kafka消息刚好传递一次(Exactly-Once)的方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>术语释疑<br>at-least-once<br>至少传递一次，如果broker在收到消息后，发送ack之前失败，且生产者设置了重试，这种情况下可能会产生重复的数据。<br>at-most-once<br>最多传递一次，如果生产者在发送消息失败后没有设置重试，虽然不会产生重复数据，但有可能丢失数据。<br>exactly-once<br>刚好传递一次，即使producer重试发送消息，消息也会保证最多一次地传递给最终consumer。<br>Producer配置<br>config    current default value    proposed default value<br>enable.idempotence    false    true<br>acks    1    all<br>max.in.flight.requests.per.connection    5    2<br>retries    0    MAX_INT<br>transactional.id        根据实际情况自定义<br>其他的参数比较好理解，max.in.flight.requests.per.connection参数表示限制客户端在单个连接上能够同时发送的未响应请求的个数，是kafka为了提高吞吐量的一个参数。如果要实现Exactly-once语义，需要将值由默认的5设置成2, 主要是因为如果配置成 &gt; 2, kafka将不能保证消息的顺序，而如果设置成1则对kafka的吞吐量有一定影响。</p>
+<p>Producer配置代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">producer.initTransactions();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    producer.beginTransaction();</span><br><span class="line">    producer.send(record1);</span><br><span class="line">    producer.send(record2);</span><br><span class="line">    producer.commitTransaction();</span><br><span class="line">&#125; <span class="keyword">catch</span>(ProducerFencedException e) &#123;</span><br><span class="line">    producer.close();</span><br><span class="line">&#125; <span class="keyword">catch</span>(KafkaException e) &#123;</span><br><span class="line">    producer.abortTransaction();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Consumer配置<br>config    current default value    proposed default value<br>isolation    read_uhcommitted    read_committed<br>enable.auto.commit        false<br>Consumer示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">records = consumer.poll(<span class="number">100</span>);</span><br><span class="line"><span class="keyword">for</span>(ConsumerRecord record: records)&#123;</span><br><span class="line">    processor.process(record);</span><br><span class="line">    consumer.commitSync();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明</p>
+<p>commit语句放在process语句前面还是后面取决于业务，如果process已经实现了幂等性，可以将commit放在process后面，且可以在当前所有的records处理完成之后再一起commit；<br>而如果处理消息没有实现幂等性，且消息多处理一次可能会影响业务的功能(考虑极端情况，在处理的过程中jvm直接被杀掉了)，则建议将commit语句放在process语句前面；<br>如果极端情况下，有一条消息没有处理可能会对业务造成影响，则需要业务实现事务来持久化已经处理成功的offset，在消费者因为异常情况被杀掉再重启之后，消费者可以通过持久化的数据知道需要从哪一条消息开始处理。<br>参考文献<br>(Make exactly once in order delivery per partition the default producer setting)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]</a><br>(Exactly Once Delivery and Transactional Messaging)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]</a><br>(Exactly-once Semantics are Possible: Here’s How Kafka Does it)[<a href="https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]" target="_blank" rel="noopener">https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]</a></p>
+
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Kafka/">Kafka</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/how-to-implements-kafka-exactly-once/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/10/31/guava-thread-listen/" title="Guava中实现线程异步回调机制探索" itemprop="url">Guava中实现线程异步回调机制探索</a>
   </h1>
   <p class="article-author">By
@@ -708,69 +798,6 @@
 	
 	  	<span></span>
 		<a href="http://www.ihunter.me/2017/10/31/guava-thread-listen/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/10/31/hbase-example/" title="HBase常用命令总结" itemprop="url">HBase常用命令总结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>查看有哪些表<br>list<br>查看HBase的状态<br>status<br>创建表<br>create_namespace ‘sogou’<br>create ‘sogou:search_detail’, {NAME =&gt; ‘detail’},  {NAME =&gt; ‘detail2’}<br>查看表的结构<br>describe ‘sogou:search_detail’<br>删除表<br>disable ‘sogou:search_detail’<br>drop ‘sogou:search_detail’<br>说明： 删除表之前必须disable表<br>删除表中所有数据<br>truncate ‘sogou:search_detail’<br>修改表的结构<br>alter ‘sogou:search_detail’, {NAME =&gt; ‘detail’, TTL =&gt; ‘1024’},  {NAME =&gt; ‘detail2’, METHOD =&gt; ‘delete’}<br>新增数据<br>put ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’, ‘陋习’, ‘detail:retOrder’, ‘2’, ‘detail:cliOrder’, ‘1’, ‘detail:url’, ‘<a href="http://www.ihunter.me&#39;">www.ihunter.me&#39;</a><br>查询单条数据<br>get ‘sogou:search_detail’ ‘rowKey001’<br>get ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’<br>查询多条数据<br>scan ‘sogou:search_detail’, {LIMIT =&gt; 10}<br>统计表中数据的行数<br>count ‘sogou:search_detail’ {INTERVAL =&gt; 100, CACHE =&gt; 500}<br>删除数据<br>delete ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’<br>deteteall ‘sogou:search_detail’, ‘rowKey001’</p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/HBase/">HBase</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/hbase-example/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -901,29 +928,29 @@
 		
 			<li><a href="/tags/Shadowsocks/" title="Shadowsocks">Shadowsocks<sup>2</sup></a></li>
 		
-			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
+			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
 		
-			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
+			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
+			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
 			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
 		
-			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
-		
 			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
+			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
+		
+			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
 		
 		</ul>
 </div>
