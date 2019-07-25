@@ -116,7 +116,9 @@
 <p>8.3.    行锁<br>8.3.1.    S锁<br>select … in share mode<br>8.3.2.    X锁<br>select … id=1 for update<br>8.3.3.    都是针对索引加锁，如果索引失效，会升级为表锁<br>8.3.4.    如果索引没命中，会退化成间隙锁</p>
 <p>8.4.    间隙锁<br>8.4.1.    select * from emp where empid &gt; 100 for update;<br>8.4.2.    间隙锁之间不会冲突，所以容易造成死锁<br>8.4.3.    原则<br>向左右查找第一个不满足条件的索引<br>当使用唯一索引的时候，如果等值刚好命中，不用向左右遍历找到不满足条件的索引<br>8.4.4.    作用<br>解决幻读的问题</p>
 <p>8.5.    意向锁<br>8.5.1.    作用<br>解决上表锁的时候性能不够的问题，没有意向锁可能会一个一个判断行锁<br>8.5.2.    原则<br>只与表锁可能有互斥，不会与行锁进行比较</p>
-<h4 id="9-分布式事务"><a href="#9-分布式事务" class="headerlink" title="9.    分布式事务"></a>9.    分布式事务</h4><p>9.1.    TCC<br>9.1.1.    柔性事务<br>9.1.2.    最终一致性<br>9.1.3.    作用在服务层<br>9.2.    TXC<br>9.2.1.    分布式应用里面，多条数据库记录被同时修改带来的一致性问题<br>fascar<br>9.3.    XA<br>9.3.1.    作用在资源层，依赖于数据库对XA协议的支持</p>
+<h4 id="9-分布式事务"><a href="#9-分布式事务" class="headerlink" title="9.    分布式事务"></a>9.    分布式事务</h4><p>9.1.    TCC<br>9.1.1.    柔性事务<br>9.1.2.    最终一致性<br>9.1.3.    作用在服务层</p>
+<p>9.2.    TXC<br>9.2.1.    分布式应用里面，多条数据库记录被同时修改带来的一致性问题<br>fascar</p>
+<p>9.3.    XA<br>9.3.1.    作用在资源层，依赖于数据库对XA协议的支持</p>
 <h4 id="10-同步机制"><a href="#10-同步机制" class="headerlink" title="10.    同步机制"></a>10.    同步机制</h4><p>10.1.    备库执行change master命令<br>10.2.    备库执行start slave命令，会启动两个线程io_thread和sql_thread，其中io_thread负责与主库建立连接<br>10.3.    主库将备库要读取的binlog发给备库，备库保存为relay log<br>10.4.    备库读取relay log并执行</p>
 
         
@@ -657,7 +659,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/java-class-code-block-load-order/" title="Java代码块的加载顺序总结" itemprop="url">Java代码块的加载顺序总结</a>
+      <a href="/2017/10/31/guava-thread-listen/" title="Guava中实现线程异步回调机制探索" itemprop="url">Guava中实现线程异步回调机制探索</a>
   </h1>
   <p class="article-author">By
        
@@ -670,9 +672,12 @@
 </header>
     <div class="article-content">
         
-        <p>1、父类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;<br>2、子类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;<br>3、父类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;<br>4、子类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;<br>5、执行子类的构造方法;</p>
-<p><em>说明</em></p>
-<p>构造代码块: 直接在类中定义且没有加static关键字的代码块称为构造代码块;</p>
+        <p>这几天有了解到Guava的LinsteningExecutorService可以设置线程执行完成后的回调方法, 联系到我们在进行多线程编程的时候都需要去拿到这个返回值做回调，所以很感兴趣Guava是怎实现这个机制的，遂调查了一下Guava的源码。</p>
+<p>Guava里面实现线程回调也非常简单, 核心的逻辑就是新建一个Futures.CallbackListener的线程，这个线程会通过future.get阻塞拿到线程的返回值，拿到返回值之后就调用用户设置的onSuccess方法。</p>
+<p>如果在线程的执行过程中发生异常，则会调用用户设置的onFailure方法，将线程执行的异常信息返回给用户。</p>
+<p>核心逻辑的源代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> V value;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    value = getDone(future);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">    callback.onFailure(e.getCause());</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (RuntimeException | Error e) &#123;</span><br><span class="line">    callback.onFailure(e);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  callback.onSuccess(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
         
 
@@ -691,7 +696,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Java/">Java</a>
+  <span></span> <a href="/tags/Guava/">Guava</a>
   </div>
 
 </div>
@@ -702,7 +707,70 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/java-class-code-block-load-order/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/guava-thread-listen/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/10/31/hbase-example/" title="HBase常用命令总结" itemprop="url">HBase常用命令总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>查看有哪些表<br>list<br>查看HBase的状态<br>status<br>创建表<br>create_namespace ‘sogou’<br>create ‘sogou:search_detail’, {NAME =&gt; ‘detail’},  {NAME =&gt; ‘detail2’}<br>查看表的结构<br>describe ‘sogou:search_detail’<br>删除表<br>disable ‘sogou:search_detail’<br>drop ‘sogou:search_detail’<br>说明： 删除表之前必须disable表<br>删除表中所有数据<br>truncate ‘sogou:search_detail’<br>修改表的结构<br>alter ‘sogou:search_detail’, {NAME =&gt; ‘detail’, TTL =&gt; ‘1024’},  {NAME =&gt; ‘detail2’, METHOD =&gt; ‘delete’}<br>新增数据<br>put ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’, ‘陋习’, ‘detail:retOrder’, ‘2’, ‘detail:cliOrder’, ‘1’, ‘detail:url’, ‘<a href="http://www.ihunter.me&#39;">www.ihunter.me&#39;</a><br>查询单条数据<br>get ‘sogou:search_detail’ ‘rowKey001’<br>get ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’<br>查询多条数据<br>scan ‘sogou:search_detail’, {LIMIT =&gt; 10}<br>统计表中数据的行数<br>count ‘sogou:search_detail’ {INTERVAL =&gt; 100, CACHE =&gt; 500}<br>删除数据<br>delete ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’<br>deteteall ‘sogou:search_detail’, ‘rowKey001’</p>
+
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/HBase/">HBase</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/hbase-example/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -789,84 +857,6 @@
 
 
 
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/10/31/config-hexo-in-windows/" title="Windows下配置Hexo博客的方法" itemprop="url">Windows下配置Hexo博客的方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>换了Windows电脑，之前Macbook下的markdown文件暂时还找不回来，所以无奈只能把之前的博客都删掉了，也鉴于之前的文章写得实在有点。。<br>话不多说，这篇文章的主要内容讲的是在Windows下如何配置Hexo，踩得坑比较多，大家将就着看。</p>
-<p>1、配置github<br>2、安装Node.JS<br>3、安装Hexo<br>(1)指定npm的镜像</p>
-<p>npm install -g cnpm –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a><br>(2)安装hexo</p>
-<p>cnpm install hexo-cli -g<br>cnpm install hexo –save<br>(3)cd到博客文件夹</p>
-<p>cd <folder><br>(4)初始化hexo</folder></p>
-<p>hexo init<br>cnpm install<br>3、配置Hexo<br>(1)配置_config.yml文件<br>将_config.yml文件的deploy项修改为类似如下内容：</p>
-<p>deploy:<br>  type: git<br>  repository: <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:hunterzhang86/hunterzhang86.github.io.git<br>  branch: master<br>(2)配置CNAME文件<br>在source目录下新增CNAME文件，里面的内容填写为自己的域名（如<a href="http://www.ihunter.me），如果没有域名可跳过该步骤" target="_blank" rel="noopener">www.ihunter.me），如果没有域名可跳过该步骤</a></p>
-<p>4、新建md文件生成博客并提交到github<br>(1)在source/_posts目录下新建一个md文件</p>
-<p>(2)生成博客</p>
-<p>hexo c<br>hexo g<br>(3)提交博客</p>
-<p>hexo d<br>FAQ<br>1、如何卸载hexo</p>
-<p>cnpm uninstall hexo<br>2、如何使用hunter主题</p>
-<p>git clone <a href="https://github.com/hunterzhang86/hunter.git" target="_blank" rel="noopener">https://github.com/hunterzhang86/hunter.git</a> themes/hunter<br>修改博客根目录下的配置文件 _config.yml，把theme的值修改为 hunter.</p>
-<p>3、升级到hexo 3.0后deploy出现 error deployer not found:git 错误<br>执行以下命令安装插件即可</p>
-<p>cnpm install hexo-deployer-git –save<br>4、使用hexo 3.0后deploy出现 fatal: Not a git repository (or any of the parent directories) 错误<br>原因是hexo默认是以项目根目录下的.deploy_git作为git仓库，所以我们得把这个仓库与线上的xxx.github.io仓库绑定，如果绑定过其它目录下的仓库，可以直接把隐藏目录.git复制到.deploy_git目录下。</p>
-<p>5、如何初始化gitment评论系统<br>首先需要在git上添加一个repo，然后需要在OAuth Apps里面添加应用权限授予我们的个人网站，具体可参考(Hexo博客框架下Gitment取代多说评论)[<a href="https://zonghongyan.github.io/2017/06/29/201706292034/]和[https://sogrey.github.io/article/Hexo-%E6%B7%BB%E5%8A%A0-Gitment-%E8%AF%84%E8%AE%BA/](https://sogrey.github.io/article/Hexo-%E6%B7%BB%E5%8A%A0-Gitment-%E8%AF%84%E8%AE%BA/)" target="_blank" rel="noopener">https://zonghongyan.github.io/2017/06/29/201706292034/]和[https://sogrey.github.io/article/Hexo-%E6%B7%BB%E5%8A%A0-Gitment-%E8%AF%84%E8%AE%BA/](https://sogrey.github.io/article/Hexo-%E6%B7%BB%E5%8A%A0-Gitment-%E8%AF%84%E8%AE%BA/)</a></p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Hexo/">Hexo</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/config-hexo-in-windows/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -905,35 +895,35 @@
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
+			<li><a href="/tags/总结/" title="总结">总结<sup>2</sup></a></li>
+		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
 			<li><a href="/tags/Shadowsocks/" title="Shadowsocks">Shadowsocks<sup>2</sup></a></li>
 		
-			<li><a href="/tags/总结/" title="总结">总结<sup>2</sup></a></li>
-		
-			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
+			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
-			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
-		
-			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
-		
 			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
-		
-			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
-		
-			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
+			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Redis/" title="Redis">Redis<sup>1</sup></a></li>
 		
+			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+		
+			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
+		
+			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
+		
 			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
 		
 		</ul>
 </div>
