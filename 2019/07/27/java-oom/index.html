@@ -6,13 +6,15 @@
   <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
   <meta charset="UTF-8">
   
-    <title>一种显示目录结构的方法 | Hunter的个人博客</title>
+    <title>Java知识图谱之内存溢出 | Hunter的个人博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Hunter Zhang">
     
-    <meta name="description" content="1、windows下显示目录结构
-123456789101112131415tree /FD:\Program Files\Hexo\source&amp;gt;tree /F文件夹 PATH 列表卷序列号为 00000200 E077:4672D:.│  CNAME│├─about│      index">
+    <meta name="description" content="内存溢出分类
+堆溢出1、内存溢出（无法申请到内存）jstat查看内存使用情况，检查堆参数，一般是申请的内存太大，比如一个特别大的byte数组2、内存泄漏（对象无法回收）可以使用MAT工具里面的Path to GC Roots定位，一般是一个特大不能回收的对象
+
+栈溢出1、线程请求深度Max（Stac">
     
     
     <meta name="keywords" content>
@@ -71,25 +73,44 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/show-dir/" title="一种显示目录结构的方法" itemprop="url">一种显示目录结构的方法</a>
+      <a href="/2019/07/27/java-oom/" title="Java知识图谱之内存溢出" itemprop="url">Java知识图谱之内存溢出</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
 		
   <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    <time datetime="2019-07-27T02:38:17.000Z" itemprop="datePublished"> Published 2019-07-27</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 
-		<p>1、windows下显示目录结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">tree /F</span><br><span class="line">D:\Program Files\Hexo\source&gt;tree /F</span><br><span class="line">文件夹 PATH 列表</span><br><span class="line">卷序列号为 00000200 E077:4672</span><br><span class="line">D:.</span><br><span class="line">│  CNAME</span><br><span class="line">│</span><br><span class="line">├─about</span><br><span class="line">│      index.md</span><br><span class="line">│</span><br><span class="line">└─_posts</span><br><span class="line">        config-hexo-in-windows.md</span><br><span class="line">        learn-from-others.md</span><br><span class="line">        show-dir.md</span><br><span class="line">        think-more-ways-less-questions.md</span><br></pre></td></tr></table></figure>
+		<p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-oom/java-oom.png" alt="OOM思维导图"></p>
+<h4 id="内存溢出分类"><a href="#内存溢出分类" class="headerlink" title="内存溢出分类"></a>内存溢出分类</h4><ul>
+<li><p>堆溢出<br>1、内存溢出（无法申请到内存）<br>jstat查看内存使用情况，检查堆参数，一般是申请的内存太大，比如一个特别大的byte数组<br>2、内存泄漏（对象无法回收）<br>可以使用MAT工具里面的Path to GC Roots定位，一般是一个特大不能回收的对象</p>
+</li>
+<li><p>栈溢出<br>1、线程请求深度<br>Max（StackOverFlow），比如一个没有结束条件的递归<br>2、Vm申请栈空间无法满足（OutOfMemoryError）</p>
+</li>
+<li><p>MetaSpace数据区溢出<br>动态生成大量Class</p>
+</li>
+<li><p>本地直接内存溢出<br>申请一个大的直接内存</p>
+</li>
+<li><p>数据超限内存溢出<br>分配的数据结构在此平台不可寻址</p>
+</li>
+</ul>
+<h4 id="排查方法"><a href="#排查方法" class="headerlink" title="排查方法"></a>排查方法</h4><ul>
+<li><p>jdk自带命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">jstat -gcutil 33816 250 20 # 监控jvm的内存使用情况</span><br><span class="line">jps -ml # 输出虚拟机启动时传递给主类main()的参数，输出主类的全名</span><br><span class="line">jmap -F -dump:live,format=b,file=eclipse.bin 85962 # dump堆内存</span><br><span class="line"># 分析方法</span><br><span class="line"># 可以使用VisualVM，主要查看是否存在大对象，然后分析为什么没有被回收</span><br><span class="line">jstack -F -l -m 85962 # 显示虚拟机快照</span><br><span class="line">jstack -l PID &gt;&gt; test.txt</span><br><span class="line">jmap -histo pid # 实时查看JVM对象大小的排序结果，但无法看到对象的具体内容</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>arthas</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 找到最耗CPU的方法</span><br><span class="line">thread -n 5</span><br><span class="line"># 观察方法的返回</span><br><span class="line">watch com.test.MyClass query returnObj</span><br><span class="line"># 反编译类</span><br><span class="line">jad com.test.MyClass</span><br><span class="line"># 监控调用情况</span><br><span class="line">monitor -c 5 com.test.MyClass query</span><br><span class="line"># 查看分段的调用时间</span><br><span class="line">trace com.test.MyClass query</span><br><span class="line"># 查看方法完整的调用链</span><br><span class="line">stack com.test.MyClass query</span><br><span class="line"># 记录调用现场</span><br><span class="line">tt -t com.test.MyClass query</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参数检查</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-Xms 初始堆大小</span><br><span class="line">-Xmx 最大堆大小</span><br><span class="line">-Xmn 新生代大小</span><br><span class="line">XX:MaxMetaSpaceSize 元数据区大小</span><br><span class="line">Survivor Eden与Survivor区的大小比值</span><br></pre></td></tr></table></figure></li>
+</ul>
 
-<p>2、Linux下显示目录结构的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">find . | sed -e &apos;s;[^/]*/;|___;g;s;___|; |;g&apos;</span><br><span class="line">admin@admin-PC MINGW32 /d/Program Files/Hexo/source</span><br><span class="line">$ find . | sed -e &apos;s;[^/]*/;|___;g;s;___|; |;g&apos;</span><br><span class="line">.</span><br><span class="line">|___about</span><br><span class="line">| |___index.md</span><br><span class="line">|___CNAME</span><br><span class="line">|____posts</span><br><span class="line">| |___config-hexo-in-windows.md</span><br><span class="line">| |___learn-from-others.md</span><br><span class="line">| |___show-dir.md</span><br><span class="line">| |___think-more-ways-less-questions.md</span><br></pre></td></tr></table></figure>
 	</div>
 
 	
@@ -99,13 +120,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
+  <a class="article-category-link" href="/categories/Java知识图谱/">Java知识图谱</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Linux/">Linux</a>
+  <span></span> <a href="/tags/内存溢出/">内存溢出</a><a href="/tags/arthas/">arthas</a>
   </div>
 
 </div>
@@ -114,7 +135,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ihunter.me/2017/10/31/show-dir/" data-title="一种显示目录结构的方法 | Hunter的个人博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ihunter.me/2019/07/27/java-oom/" data-title="Java知识图谱之内存溢出 | Hunter的个人博客" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -128,18 +149,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/10/31/guava-thread-listen/" title="Guava中实现线程异步回调机制探索">
+ <a href="/2019/07/27/ali-interview/" title="阿里面试总结">
   <strong>上一篇：</strong><br/>
   <span>
-  Guava中实现线程异步回调机制探索</span>
+  阿里面试总结</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/10/31/install-brew-in-mac/"  title="MAC上安装telnet的方法">
+<a href="/2019/07/26/java-redis/"  title="Java知识图谱之Redis">
  <strong>下一篇：</strong><br/> 
- <span>MAC上安装telnet的方法
+ <span>Java知识图谱之Redis
 </span>
 </a>
 </div>
@@ -157,8 +178,8 @@
   <script src="https://billts.site/js/gitment.js"></script>
   <script>
     var gitment = new Gitment({
-      id: "Tue Oct 31 2017 20:38:17 GMT+0800",
-      title: '一种显示目录结构的方法',
+      id: "Sat Jul 27 2019 10:38:17 GMT+0800",
+      title: 'Java知识图谱之内存溢出',
       owner: "hunterzhang86",
       repo: "blog_comments",
       oauth: {
@@ -180,7 +201,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#内存溢出分类"><span class="toc-number">1.</span> <span class="toc-text">内存溢出分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#排查方法"><span class="toc-number">2.</span> <span class="toc-text">排查方法</span></a></li></ol>
  
   </div>
 

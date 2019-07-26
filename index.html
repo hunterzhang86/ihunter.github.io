@@ -148,6 +148,91 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2019/07/27/java-oom/" title="Java知识图谱之内存溢出" itemprop="url">Java知识图谱之内存溢出</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2019-07-27T02:38:17.000Z" itemprop="datePublished"> Published 2019-07-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-oom/java-oom.png" alt="OOM思维导图"></p>
+<h4 id="内存溢出分类"><a href="#内存溢出分类" class="headerlink" title="内存溢出分类"></a>内存溢出分类</h4><ul>
+<li><p>堆溢出<br>1、内存溢出（无法申请到内存）<br>jstat查看内存使用情况，检查堆参数，一般是申请的内存太大，比如一个特别大的byte数组<br>2、内存泄漏（对象无法回收）<br>可以使用MAT工具里面的Path to GC Roots定位，一般是一个特大不能回收的对象</p>
+</li>
+<li><p>栈溢出<br>1、线程请求深度<br>Max（StackOverFlow），比如一个没有结束条件的递归<br>2、Vm申请栈空间无法满足（OutOfMemoryError）</p>
+</li>
+<li><p>MetaSpace数据区溢出<br>动态生成大量Class</p>
+</li>
+<li><p>本地直接内存溢出<br>申请一个大的直接内存</p>
+</li>
+<li><p>数据超限内存溢出<br>分配的数据结构在此平台不可寻址</p>
+</li>
+</ul>
+<h4 id="排查方法"><a href="#排查方法" class="headerlink" title="排查方法"></a>排查方法</h4><ul>
+<li><p>jdk自带命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">jstat -gcutil 33816 250 20 # 监控jvm的内存使用情况</span><br><span class="line">jps -ml # 输出虚拟机启动时传递给主类main()的参数，输出主类的全名</span><br><span class="line">jmap -F -dump:live,format=b,file=eclipse.bin 85962 # dump堆内存</span><br><span class="line"># 分析方法</span><br><span class="line"># 可以使用VisualVM，主要查看是否存在大对象，然后分析为什么没有被回收</span><br><span class="line">jstack -F -l -m 85962 # 显示虚拟机快照</span><br><span class="line">jstack -l PID &gt;&gt; test.txt</span><br><span class="line">jmap -histo pid # 实时查看JVM对象大小的排序结果，但无法看到对象的具体内容</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>arthas</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 找到最耗CPU的方法</span><br><span class="line">thread -n 5</span><br><span class="line"># 观察方法的返回</span><br><span class="line">watch com.test.MyClass query returnObj</span><br><span class="line"># 反编译类</span><br><span class="line">jad com.test.MyClass</span><br><span class="line"># 监控调用情况</span><br><span class="line">monitor -c 5 com.test.MyClass query</span><br><span class="line"># 查看分段的调用时间</span><br><span class="line">trace com.test.MyClass query</span><br><span class="line"># 查看方法完整的调用链</span><br><span class="line">stack com.test.MyClass query</span><br><span class="line"># 记录调用现场</span><br><span class="line">tt -t com.test.MyClass query</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参数检查</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-Xms 初始堆大小</span><br><span class="line">-Xmx 最大堆大小</span><br><span class="line">-Xmn 新生代大小</span><br><span class="line">XX:MaxMetaSpaceSize 元数据区大小</span><br><span class="line">Survivor Eden与Survivor区的大小比值</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java知识图谱/">Java知识图谱</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/内存溢出/">内存溢出</a><a href="/tags/arthas/">arthas</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2019/07/27/java-oom/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2019/07/26/java-redis/" title="Java知识图谱之Redis" itemprop="url">Java知识图谱之Redis</a>
   </h1>
   <p class="article-author">By
@@ -955,83 +1040,9 @@
 
 
 
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2018/03/03/get_topn_count_with_redis/" title="使用Redis实现实时展示页面访问量排名的方法" itemprop="url">使用Redis实现实时展示页面访问量排名的方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2018-03-03T12:38:17.000Z" itemprop="datePublished"> Published 2018-03-03</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>最近有一个需求，需要实时展示页面访问量排名，主要的实现思路如下。</p>
-<p><strong>update in 2019.7.26</strong><br>其实这种topn的需求使用大数据实时处理框架Spark/Flink会比较好，大数据处理框架整体吞吐量相较Redis吞吐量高很多，也有较多的现成成熟的解决方案，特别是在key相对单一不能做拆分的情况下，大TPS可能会直接将Redis写宕机。</p>
-<h5 id="为什么使用redis存储实时统计的数据？"><a href="#为什么使用redis存储实时统计的数据？" class="headerlink" title="为什么使用redis存储实时统计的数据？"></a>为什么使用redis存储实时统计的数据？</h5><p>1、实时统计的数据属于查多写少的类型<br>2、Redis的SortedSet数据结构天然可以非常快的得出topn的数据</p>
-<h5 id="如何使用redis存储Spark的实时统计数据？"><a href="#如何使用redis存储Spark的实时统计数据？" class="headerlink" title="如何使用redis存储Spark的实时统计数据？"></a>如何使用redis存储Spark的实时统计数据？</h5><p>1、考虑到Spark直接操作Redis的话，各个组件之间的耦合会比较严重，所以我们将Spark的实时统计数据先推到kafka里面，然后不断的取出kafka的数据插入到redis中。</p>
-<p>2、进一步的，如果把所有的统计结果都放到redis里面的话，由于数据量比较大可能会对redis的性能有比较大的压力，而实际上我们需要查看的统计结果是有限的，所以只需要将topn的数据存放的redis中即可，可以根据当前的实时数据统计情况，设置插入的阈值，从而减少redis的性能压力。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#取出当前排名1k的统计值，获取当前插入数据的阈值</span><br><span class="line">ZREVRANGE title_count 1000 1000 WITHSCORES</span><br></pre></td></tr></table></figure>
-
-<h5 id="如何删除超时的统计数据？"><a href="#如何删除超时的统计数据？" class="headerlink" title="如何删除超时的统计数据？"></a>如何删除超时的统计数据？</h5><p>既然是实时的统计数据，如果没有删除超时数据的机制，统计的结果实时上就变成了历史单位时间段的排名了，所以需要定时删除超时的统计数据。</p>
-<p>但其实redis中SortedSet中的子元素是不能设置超时时间的，所以我们使用了另外一个SortedSet来存储子元素的插入时间，然后定时去扫描有没有子元素已经超时，超时的子元素集会在原始的统计表中被清理掉。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查询超时的元素集，其中1534562250为超时的时间戳阈值</span><br><span class="line">ZREVRANGEBYSCORE title_count_ttl 0 1534562250</span><br><span class="line">#删除超时的元素集</span><br><span class="line">ZREM title_count baidu.com bing.com</span><br></pre></td></tr></table></figure>
-
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>整个方案在删除超时统计数据上还是有一些瑕疵，毕竟这个SortedSet TTL的实现方案需要插入两次数据，如果朋友们有更好的解决方案欢迎一起讨论，谢谢。</p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Redis/">Redis</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2018/03/03/get_topn_count_with_redis/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
@@ -1052,7 +1063,7 @@
 	<p class="asidetitle">Categories</p>
 		<ul>
 		
-			<li><a href="/categories/Java知识图谱/" title="Java知识图谱">Java知识图谱<sup>4</sup></a></li>
+			<li><a href="/categories/Java知识图谱/" title="Java知识图谱">Java知识图谱<sup>5</sup></a></li>
 		
 			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
 		
@@ -1077,27 +1088,31 @@
 		
 			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
+		
+			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
 		
 			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
 		
-			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
-		
-			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
-		
-			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
 		
 			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
 		
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+		
+			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
+		
 			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
+		
+			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+		
+			<li><a href="/tags/内存溢出/" title="内存溢出">内存溢出<sup>1</sup></a></li>
+		
+			<li><a href="/tags/arthas/" title="arthas">arthas<sup>1</sup></a></li>
 		
 		</ul>
 </div>
