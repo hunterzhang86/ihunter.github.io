@@ -6,7 +6,7 @@
   <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
   <meta charset="UTF-8">
   
-    <title>NoOne的小窝</title>
+    <title>NoOne的修炼场</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="NoOne">
@@ -18,7 +18,7 @@
     
     
     
-    <link rel="alternative" href="/atom.xml" title="NoOne的小窝" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="NoOne的修炼场" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -35,7 +35,7 @@
       <div>
 		
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="NoOne的小窝">NoOne的小窝</a></h1>
+				<h1 class="site-name"><a href="/" title="NoOne的修炼场">NoOne的修炼场</a></h1>
 				<h2 class="blog-motto">Follow your heart</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
@@ -67,77 +67,19 @@
       <div id="main">
 
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/07/27/ali-interview/" title="阿里面试总结" itemprop="url">阿里面试总结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
-		
-  <p class="article-time">
-    <time datetime="2019-07-27T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-27</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h4 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h4><ul>
-<li><p>讲一讲你对数据库的索引和事务的理解</p>
-</li>
-<li><p>Java里面有哪几种类型的锁</p>
-</li>
-<li><p>讲一讲你对数据库的乐观锁和悲观锁的理解</p>
-</li>
-<li><p>定义一个10位的buffer，有一个线程每100ms读一次buffer，有一个线程每1s写一次buffer，要求性能尽可能高，且不能出现脏读和幻读</p>
-</li>
-</ul>
-<h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><ul>
-<li><p>单一接口混合功能和接口功能单一哪个实现上更优？</p>
-</li>
-<li><p>消息防疲劳系统怎么设计？</p>
-</li>
-</ul>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/面试/">面试</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2019/07/27/ali-interview/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
+    <a href="/2019/07/27/ali-interview/" title="阿里面试总结" itemprop="url">
+  
+    <h1 itemprop="name">阿里面试总结</h1>
+    
+     
+      <p itemprop="description" >阿里的一些面试题。</p>
+      
+    
+    <time datetime="2019-07-27T12:38:17.000Z" itemprop="datePublished">2019-07-27</time>
+  </a>
+</section>
 
 
 
@@ -145,84 +87,19 @@
 
 
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/07/27/java-oom/" title="Java知识图谱之内存溢出" itemprop="url">Java知识图谱之内存溢出</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
-		
-  <p class="article-time">
-    <time datetime="2019-07-27T02:38:17.000Z" itemprop="datePublished"> Published 2019-07-27</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-oom/java-oom.png" alt="OOM思维导图"></p>
-<h4 id="内存溢出分类"><a href="#内存溢出分类" class="headerlink" title="内存溢出分类"></a>内存溢出分类</h4><ul>
-<li><p>堆溢出<br>1、内存溢出（无法申请到内存）<br>jstat查看内存使用情况，检查堆参数，一般是申请的内存太大，比如一个特别大的byte数组<br>2、内存泄漏（对象无法回收）<br>可以使用MAT工具里面的Path to GC Roots定位，一般是一个特大不能回收的对象</p>
-</li>
-<li><p>栈溢出<br>1、StackOverflowError<br>方法调用层次太深，内存不够新建栈帧，比如一个没有结束条件的递归<br>2、OutOfMemoryError<br>线程太多，内存不够新建线程</p>
-</li>
-<li><p>MetaSpace数据区溢出<br>动态生成大量Class</p>
-</li>
-<li><p>本地直接内存溢出<br>申请一个大的直接内存</p>
-</li>
-<li><p>数据超限内存溢出<br>分配的数据结构在此平台不可寻址</p>
-</li>
-</ul>
-<h4 id="排查方法"><a href="#排查方法" class="headerlink" title="排查方法"></a>排查方法</h4><ul>
-<li><p>jdk自带命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">jstat -gcutil 33816 250 20 # 监控jvm的内存使用情况</span><br><span class="line">jps -ml # 输出虚拟机启动时传递给主类main()的参数，输出主类的全名</span><br><span class="line">jmap -F -dump:live,format=b,file=eclipse.bin 85962 # dump堆内存</span><br><span class="line"># 分析方法</span><br><span class="line"># 可以使用VisualVM，主要查看是否存在大对象，然后分析为什么没有被回收</span><br><span class="line">jstack -F -l -m 85962 # 显示虚拟机快照</span><br><span class="line">jstack -l PID &gt;&gt; test.txt</span><br><span class="line">jmap -histo pid # 实时查看JVM对象大小的排序结果，但无法看到对象的具体内容</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>arthas</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 找到最耗CPU的方法</span><br><span class="line">thread -n 5</span><br><span class="line"># 观察方法的返回</span><br><span class="line">watch com.test.MyClass query returnObj</span><br><span class="line"># 反编译类</span><br><span class="line">jad com.test.MyClass</span><br><span class="line"># 监控调用情况</span><br><span class="line">monitor -c 5 com.test.MyClass query</span><br><span class="line"># 查看分段的调用时间</span><br><span class="line">trace com.test.MyClass query</span><br><span class="line"># 查看方法完整的调用链</span><br><span class="line">stack com.test.MyClass query</span><br><span class="line"># 记录调用现场</span><br><span class="line">tt -t com.test.MyClass query</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>参数检查</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-Xms 初始堆大小</span><br><span class="line">-Xmx 最大堆大小</span><br><span class="line">-Xmn 新生代大小</span><br><span class="line">XX:MaxMetaSpaceSize 元数据区大小</span><br><span class="line">Survivor Eden与Survivor区的大小比值</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Java知识图谱/">Java知识图谱</a>
-</div>
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/内存溢出/">内存溢出</a><a href="/tags/arthas/">arthas</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2019/07/27/java-oom/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
+    <a href="/2019/07/27/java-oom/" title="Java知识图谱之内存溢出" itemprop="url">
+  
+    <h1 itemprop="name">Java知识图谱之内存溢出</h1>
+    
+     
+      <p itemprop="description" >内存溢出一直是Java进阶过程中非常重要的知识点，在面试中也经常被问到有没有在现网解决过内存溢出的问题，本文主要总结了几种常见的内存溢出类型和出现相关内存溢出的原因，最后还提供了一些常用的分析与排查内存溢出的工具和方法。</p>
+      
+    
+    <time datetime="2019-07-27T02:38:17.000Z" itemprop="datePublished">2019-07-27</time>
+  </a>
+</section>
 
 
 
@@ -230,184 +107,19 @@
 
 
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/07/26/java-redis/" title="Java知识图谱之Redis" itemprop="url">Java知识图谱之Redis</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
-		
-  <p class="article-time">
-    <time datetime="2019-07-26T04:38:17.000Z" itemprop="datePublished"> Published 2019-07-26</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-redis/java-redis.png" alt="Redis思维导图"></p>
-<h4 id="1-背景"><a href="#1-背景" class="headerlink" title="1.    背景"></a>1.    背景</h4><p>关系数据库访问数据较慢</p>
-<h4 id="2-目标"><a href="#2-目标" class="headerlink" title="2.    目标"></a>2.    目标</h4><p>提高数据的访问速度</p>
-<h4 id="3-优势"><a href="#3-优势" class="headerlink" title="3.    优势"></a>3.    优势</h4><p>数据访问速度较快</p>
-<h4 id="4-劣势"><a href="#4-劣势" class="headerlink" title="4.    劣势"></a>4.    劣势</h4><p>数据存放在内存中，容量存在限制</p>
-<h4 id="5-底层原理"><a href="#5-底层原理" class="headerlink" title="5.    底层原理"></a>5.    底层原理</h4><p>5.1.    内存数据库</p>
-<p>5.2.    持久化方式</p>
-<p>5.2.1.    RDB</p>
-<ul>
-<li><p>介绍<br>在指定的时间间隔内将内存中的数据集快照写入磁盘，实际操作过程是fork一个子进程，先将数据集写入临时文件，写入成功后，在替换之前的文件，用二进制压缩存储</p>
-</li>
-<li><p>优势<br>适合进行备份<br>适合进行灾备<br>对Redis的性能压力比较小<br>RDB在恢复大数据集的速度比AOF恢复速度要快</p>
-</li>
-<li><p>劣势<br>RDB有可能会丢失分钟级的数据<br>如果数据集比较大，且CPU紧张的情况下，Redis停止服务的时间可能会比较长</p>
-</li>
-</ul>
-<p>5.2.2.    AOF</p>
-<ul>
-<li><p>介绍<br>以日志的形式记录服务器所处理的每一个写、删除操作，查询操作不会记录，以文本的方式记录，可以打开文件看到详细的操作记录。</p>
-</li>
-<li><p>优势<br>AOF只会丢失秒级的数据<br>AOF只进行追加<br>AOF文件的可读性较好</p>
-</li>
-<li><p>劣势<br>对于相同的数据集来说，AOF文件的体积通常要大于RDB文件的体积<br>AOF的速度可能会比RDB慢<br>AOF可能会拖慢Redis的访问速度</p>
-</li>
-</ul>
-<p>5.3.    部署架构</p>
-<ul>
-<li>主从复制</li>
-<li>哨兵</li>
-<li>集群<br>Master之间分配slots，一共16384个slot<br>slot不完整，集群失效<br>每个Master都会有Slave<br>扩缩容需要手动重新分片<br>先到其中任何一台执行，没执行成功会将客户端转向正确的节点执行命令<br>redis提供了命令供管理员自动迁移slots<br>使用CRC16(KEY) mod 16384的值，决定将key放到哪个槽中<br>去中心化设计，每个节点都是对等的，保存全量的元数据信息</li>
-</ul>
-<h4 id="6-应用场景"><a href="#6-应用场景" class="headerlink" title="6.    应用场景"></a>6.    应用场景</h4><p>查多写少<br>热点数据<br>不适合存储持久化数据</p>
-<h4 id="7-底层原理"><a href="#7-底层原理" class="headerlink" title="7.    底层原理"></a>7.    底层原理</h4><p>7.1.    底层数据结构</p>
-<ul>
-<li><p>String<br>embstr<br>SDS<br>len，free<br>redisObject</p>
-</li>
-<li><p>HMap<br>1、hashtable<br>元素比较多时<br>2、ziplist<br>适用于元素较小时<br>key和value都被推到队尾</p>
-</li>
-<li><p>List<br>1、ziplist<br>使用连续空间，节省空间，但只能保存小整数或者小字符串<br>ziplist如何压缩空间<br>小数字和大数字不一样，小数子只用一个字节存储<br>不需要前后指针<br>2、linkedlist<br>双端链表</p>
-</li>
-<li><p>Set<br>1、inset<br>inset编码的集合对象使用整数集合作底层实现，集合对象包含所有元素都会被保存在整数集合里面<br>2、hashtable</p>
-</li>
-<li><p>SortedSet<br>1、skiplist<br>使用ZRANGE和ZREVERANGE比较多<br>内存占用不多<br>实现比较简单<br><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-redis/redis-skiplist.png" alt="跳表示意图"><br>2、ziplist</p>
-</li>
-<li><p>HyperLogLog<br>统计元素数量</p>
-</li>
-<li><p>GEO<br>地理位置</p>
-</li>
-</ul>
-<p>7.2.    一致性Hash</p>
-<ul>
-<li><p>背景<br>取模的方式扩缩容的时候对缓存命中率的影响比较大</p>
-</li>
-<li><p>原理<br>将整个hash值空间组织成一个虚拟的圆环<br>1、扩容<br>只影响添加节点后面的节点（顺时针）<br>2、缩容<br>只影响删除节点后面的数据（顺时针）</p>
-</li>
-<li><p>问题1<br>描述<br>当节点较少的时候，容易因为节点分布不均匀，产生缓存热点的问题<br>1、解决方法<br>使用虚拟节点，改善一致性Hash的问题<br>2、具体实现<br><a href="https://www.cnblogs.com/snowwhite/p/9672185.html" target="_blank" rel="noopener">https://www.cnblogs.com/snowwhite/p/9672185.html</a></p>
-</li>
-</ul>
-<p>7.3.    过期策略</p>
-<ul>
-<li><p>定期删除<br>默认是每隔100ms就随机抽取一些一些设置了过期的key<br>如果此时key已经过期，就删除，不会返回任何东西</p>
-</li>
-<li><p>惰性删除<br>放任键过期不管，但是每次从键空间中获取键时，都检查取得的键是否过期，如果过期的话，就删除该键，如果没有过期，就返回该键</p>
-</li>
-<li><p>定时删除<br>从设置key的过期时间开始，就启动一个定时器，到时间就删除该key<br>对内存比较友好，但浪费CPU资源</p>
-</li>
-</ul>
-<p>7.4.    复制原理<br>slave第一次连接或者重连，会触发一次全量同步<br>主节点做一个bgsave，同时将后续修改操作记录到内存buffer，如果buffer超过限定的值，则复制失败。待完成后将rdb文件全量同步到复制节点，复制节点接受完成后将rdb镜像加载到内存，加载完成后，再通知主节点将期间修改的操作记录同步到复制节点进行重放就完成了同步过程<br>后续Master手机到的写命令都会通过之前建立的连接，增量发送给slave端<br>slave执行buffer中的命令<br>slave异步方式执行同步</p>
-<p>7.5.    复制时机</p>
-<ul>
-<li><p>全量复制<br>slave首次启动或重启<br>slave不满足部分复制的条件</p>
-</li>
-<li><p>部分复制<br>主从的redis版本 &gt;= 2.8<br>slave只是掉线<br>slave保存的run id与master当前run id一致<br>slave掉线期间，master保存在内存的offset可用</p>
-</li>
-</ul>
-<p>7.6.    数据丢失</p>
-<ul>
-<li><p>异步复制导致的数据丢失<br>Master突然宕机，Slave有些数据还没有同步过来</p>
-</li>
-<li><p>脑裂导致的数据丢失<br>发生主从切换，但是客户端还在往Master写入数据</p>
-</li>
-</ul>
-<p>7.7.    事务</p>
-<ul>
-<li><p>ACID<br>1、原子性<br>2、持久性<br>AOF在总是SYNC的模式下，因为主线程不会阻塞到写入完成，所以不能保证持久性<br>RDB的情况下，事务执行完成后，服务器可能在RDB未更新之前失败，所以也不可能保证持久性<br>3、隔离性<br>4、一致性</p>
-</li>
-<li><p>使用方法<br>WATCH<br>MULTI<br>EXEC</p>
-</li>
-</ul>
-<p>7.8.    过期算法<br>ttl<br>lru<br>random</p>
-<h4 id="8-对比"><a href="#8-对比" class="headerlink" title="8.    对比"></a>8.    对比</h4><ul>
-<li><p>MongoDB<br>非关系数据库<br>非内存数据库</p>
-</li>
-<li><p>Memcached<br>内存数据库<br>支持的数据结构较少<br>不能持久化</p>
-</li>
-</ul>
-<h4 id="9-客户端驱动"><a href="#9-客户端驱动" class="headerlink" title="9.    客户端驱动"></a>9.    客户端驱动</h4><ul>
-<li><p>Jedis<br>偏数据库驱动，API提供了比较全面的Redis命令的支持<br>高性能，分布式特性和丰富的结构，让使用者能够将精力更集中地放在处理业务逻辑上</p>
-</li>
-<li><p>Redisson<br>底层原理<br>使用Netty作为通信组件<br>将一些操作组合成Script实现特定的功能</p>
-</li>
-<li><p>问题<br>MapCache有内存溢出风险<br>在编解码失败的时候可能会造成某些命令执行时间过长</p>
-</li>
-</ul>
-<h4 id="10-相关问题"><a href="#10-相关问题" class="headerlink" title="10.    相关问题"></a>10.    相关问题</h4><ul>
-<li><p>缓存命中率</p>
-</li>
-<li><p>缓存穿透<br>解决方法<br>缓存预热</p>
-</li>
-<li><p>缓存雪崩<br>解决方法<br>使用高可用架构<br>服务降级，使用本地缓存</p>
-</li>
-<li><p>缓存击穿<br>解决方法<br>让key不在一个时间段集中失效，加或减一个随机值</p>
-</li>
-<li><p>为什么使用单线程<br>CPU不是瓶颈点，IO是瓶颈点，单线程够用也简单</p>
-</li>
-<li><p>redis集群做迁移的时候怎么查找数据？<br>单个key迁移的过程中会阻塞，所以如果没找到key会重新ask一遍</p>
-</li>
-<li><p>常用命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan 176 MATCH *11* COUNT 1000</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="11-常见优化"><a href="#11-常见优化" class="headerlink" title="11.    常见优化"></a>11.    常见优化</h4><p>Master最好不要做任何持久化工作，如RDB内存快照和AOF日志文件<br>如果数据比较重要，某个Slave开启AOF备份数据，策略设置为每秒同步一次<br>为了主从复制的速度和连接的稳定性，Master和Slave最好在同一个局域网内<br>尽量避免在压力很大的主库增加从库<br>主从复制不要用图状结构，用单向链表结构更为稳定，即：Master &lt; Slave1 &lt; Slave2 …</p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Java知识图谱/">Java知识图谱</a>
-</div>
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/Redis/">Redis</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2019/07/26/java-redis/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
+    <a href="/2019/07/26/java-redis/" title="Java知识图谱之Redis" itemprop="url">
+  
+    <h1 itemprop="name">Java知识图谱之Redis</h1>
+    
+     
+      <p itemprop="description" >本文主要对Redis的应用场景及其内部实现机制进行了总结，并对在使用Redis过程中可能会遇到的坑给出了针对性的规避措施。</p>
+      
+    
+    <time datetime="2019-07-26T04:38:17.000Z" itemprop="datePublished">2019-07-26</time>
+  </a>
+</section>
 
 
 
@@ -415,117 +127,19 @@
 
 
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/07/25/java-mysql/" title="Java知识图谱之MySQL数据库" itemprop="url">Java知识图谱之MySQL数据库</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
-		
-  <p class="article-time">
-    <time datetime="2019-07-25T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-mysql/java-mysql.png" alt="MySQL"></p>
-<h4 id="1-乐观锁和悲观锁"><a href="#1-乐观锁和悲观锁" class="headerlink" title="1.    乐观锁和悲观锁"></a>1.    乐观锁和悲观锁</h4><p>1.1.    乐观锁</p>
-<p>1.1.1.    出发点<br>认为数据一般情况下不会造成冲突</p>
-<p>1.1.2.    优点<br>并发好效率高</p>
-<p>1.1.3.    缺点<br>ABA问题</p>
-<ul>
-<li>解决方法<br>版本号<br>时间戳</li>
-</ul>
-<p>1.1.4.    使用场景<br>读多写少，数据冲突不大的情况，考虑用户积分加减的场景<br>因为如果冲突比较大，事务需要回滚，应用层也会不断重试，这样反倒降低的性能</p>
-<p>1.1.5.    SQL</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> <span class="keyword">table</span> <span class="keyword">set</span> <span class="keyword">name</span> = <span class="string">'Aron'</span>, <span class="keyword">version</span> = <span class="keyword">version</span> + <span class="number">1</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="comment">#&#123;id&#125; and version = #&#123;version&#125;;</span></span><br></pre></td></tr></table></figure>
-
-<p>1.1.6.    使用方式<br>先不上锁，但如果SQL执行失败应用层需要自己处理，比如重试</p>
-<p>1.2.    悲观锁<br>1.2.1.    出发点<br>认为数据比较大可能会发生冲突<br>1.2.2.    使用场景<br>数据冲突比较大的情况<br>1.2.3.    使用方式<br>每次在拿数据的时候都会上锁，这样别人想拿这个数据就会block直到它拿到锁<br>1.2.4.    SQL</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ... <span class="keyword">id</span>=<span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="2-索引"><a href="#2-索引" class="headerlink" title="2.    索引"></a>2.    索引</h4><p>2.1.    类别<br>普通索引<br>唯一索引<br>主键索引<br>全文索引<br>组合索引</p>
-<p>2.2.    实现机制<br>2.2.1.    B+树</p>
-<p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-mysql/mysql-b+.png" alt="B+树结构"></p>
-<p>2.3.    SQL执行计划<br>通过SQL分析工具<br>Explain</p>
-<p>2.4.    什么情况下会失效<br>使用or关键字<br>like的模糊查询以%开头<br>组合索引使用的不是第一部分<br>列类型是字符串，但是查询条件中没有使用””<br>MySQL内部机制认为不使用比使用快的其他情况</p>
-<h4 id="3-SQL"><a href="#3-SQL" class="headerlink" title="3.    SQL"></a>3.    SQL</h4><h4 id="4-架构"><a href="#4-架构" class="headerlink" title="4.    架构"></a>4.    架构</h4><p>4.1.    Server层<br>连接器<br>分析器<br>优化器<br>执行器</p>
-<p>4.2.    存储层</p>
-<h4 id="5-binlog"><a href="#5-binlog" class="headerlink" title="5.    binlog"></a>5.    binlog</h4><p>statment<br>mixed<br>row</p>
-<h4 id="6-分库分表"><a href="#6-分库分表" class="headerlink" title="6.    分库分表"></a>6.    分库分表</h4><p>6.1.    如何在线迁移？<br>双写，批量插入转移，如果有冲突一条一条写入，写入的时候先查询再写入<br>有校验脚本来检查迁移是否成功</p>
-<h4 id="7-常见问题"><a href="#7-常见问题" class="headerlink" title="7.    常见问题"></a>7.    常见问题</h4><p>7.1.    如何优化分页查询？<br>大数据量的时候限制用户只能一页一页的往后翻</p>
-<p>7.2.    可靠性实现？<br>redolog<br>binlog</p>
-<p>7.3.    事务的可重复读是如何实现的？<br>给每行增加两个隐藏字段来实现MVVC(数据多版本并发控制)，两个列都用来存储事务的版本号<br>每开启一个新事务，事务的版本号就会递增<br>如果数据的trx_id落在低水位，可见<br>如果数据的trx_id落在高水位，不可见<br>如果数据在黄色区间，活跃事务ID数组</p>
-<p>trx_id在数组中，说明未提交，不可见<br>trx_id不在数组中，说明已提交，可见</p>
-<p>7.4.    读提交和可重复读实现区别？<br>可重复读在事务开始的时候创建一致性视图<br>读提交在语句执行的时候创建一致性试图</p>
-<p>7.5.    MySQL如何保证数据不丢失？<br>两阶段提交，先prepare，后commit<br>prepare其实做的一件事情就是刷盘<br>如果存在完整的prepare<br>如果binlog完整，则提交<br>可以保证数据和binlog的一致性<br>如果不完整，则回退<br>如果commit已经刷盘，则直接提交</p>
-<p>7.6.    MyISAM和InnoDB的区别？<br>MyISAM不支持事务<br>MyISAM不支持行锁<br>MyISAM支持FULLTEXT全文索引</p>
-<p>7.7.    count(<em>) count(1) count(col)的区别？<br>count(</em>) = count(1), 统计行不会忽略NULL<br>count(col), 统计行会忽略col=NULL的行</p>
-<p>7.8.    可重复读隔离级别下，MVVC在数据的CRUD层面分别是如何实现的？<br>7.8.1.    SELECT<br>读取创建版本小于或等于当前事务版本号，并且删除版本为空或大于当前事务版本号的记录。这样可以保证在读取之前记录是存在的<br>7.8.2.    INSERT<br>将当前事务的版本号保存至行的创建版本号<br>7.8.3.    UPDATE<br>新插入一行，并以当前事务的版本号作为新行的创建版本号，同时将原记录行的删除版本号设置为当前事务版本号<br>7.8.4.    DELETE<br>将当前事务的版本号保存至行的删除版本号</p>
-<h4 id="8-数据库锁"><a href="#8-数据库锁" class="headerlink" title="8.    数据库锁"></a>8.    数据库锁</h4><p>8.1.    全局锁</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">flush</span> <span class="keyword">table</span> <span class="keyword">with</span> <span class="keyword">read</span> <span class="keyword">lock</span></span><br></pre></td></tr></table></figure>
-
-<p>8.2.    表级锁</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lock</span> <span class="keyword">tables</span> ... <span class="keyword">read</span>/write</span><br><span class="line">metadata <span class="keyword">lock</span></span><br></pre></td></tr></table></figure>
-
-<p>8.3.    行锁<br>8.3.1.    S锁</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ... <span class="keyword">in</span> <span class="keyword">share</span> <span class="keyword">mode</span></span><br></pre></td></tr></table></figure>
-
-<p>8.3.2.    X锁</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ... <span class="keyword">id</span>=<span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span></span><br></pre></td></tr></table></figure>
-
-<p>都是针对索引加锁，如果索引失效，会升级为表锁<br>如果索引没命中，会退化成间隙锁</p>
-<p>8.4.    间隙锁</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> empid &gt; <span class="number">100</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
-
-<p>间隙锁之间不会冲突，所以容易造成死锁<br>8.4.3.    原则<br>向左右查找第一个不满足条件的索引<br>当使用唯一索引的时候，如果等值刚好命中，不用向左右遍历找到不满足条件的索引<br>8.4.4.    作用<br>解决幻读的问题</p>
-<p>8.5.    意向锁<br>8.5.1.    作用<br>解决上表锁的时候性能不够的问题，没有意向锁可能会一个一个判断行锁<br>8.5.2.    原则<br>只与表锁可能有互斥，不会与行锁进行比较</p>
-<h4 id="9-分布式事务"><a href="#9-分布式事务" class="headerlink" title="9.    分布式事务"></a>9.    分布式事务</h4><p>9.1.    TCC<br>柔性事务<br>最终一致性<br>作用在服务层</p>
-<p>9.2.    TXC<br>分布式应用里面，多条数据库记录被同时修改带来的一致性问题<br>fascar</p>
-<p>9.3.    XA<br>作用在资源层，依赖于数据库对XA协议的支持</p>
-<h4 id="10-同步机制"><a href="#10-同步机制" class="headerlink" title="10.    同步机制"></a>10.    同步机制</h4><p>备库执行change master命令<br>备库执行start slave命令，会启动两个线程io_thread和sql_thread，其中io_thread负责与主库建立连接<br>主库将备库要读取的binlog发给备库，备库保存为relay log<br>备库读取relay log并执行</p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Java知识图谱/">Java知识图谱</a>
-</div>
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/MySQL/">MySQL</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2019/07/25/java-mysql/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
+    <a href="/2019/07/25/java-mysql/" title="Java知识图谱之MySQL数据库" itemprop="url">
+  
+    <h1 itemprop="name">Java知识图谱之MySQL数据库</h1>
+    
+     
+      <p itemprop="description" >MySQL是现阶段最流行的关系型数据库，也是Java开发面试过程中必问的知识点，本文主要对面试中经常出现的MySQL事务、锁和索引进行了总结，基本可以覆盖到面试过程中和MySQL相关的90%以上的知识点。</p>
+      
+    
+    <time datetime="2019-07-25T12:38:17.000Z" itemprop="datePublished">2019-07-25</time>
+  </a>
+</section>
 
 
 
@@ -533,119 +147,19 @@
 
 
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/07/24/java-gc/" title="Java知识图谱之垃圾回收" itemprop="url">Java知识图谱之垃圾回收</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
-		
-  <p class="article-time">
-    <time datetime="2019-07-24T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-gc/java-gc.png" alt="Java GC"></p>
-<h4 id="对象生命周期"><a href="#对象生命周期" class="headerlink" title="对象生命周期"></a>对象生命周期</h4><ul>
-<li><p>引用计数法<br>无法解决循环引用的问题</p>
-</li>
-<li><p>可达性分析算法<br>从GC Roots看对象是否可达：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">虚拟机栈（栈中的本地变量表）中引用的对象</span><br><span class="line">本地方法栈中JNI（即Native方法）引用的对象</span><br><span class="line">方法区中类静态属性的变量</span><br><span class="line">方法区中常量引用的变量</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p><strong>引用</strong></p>
-<ul>
-<li><p>强引用<br>只要强引用存在就不会回收</p>
-</li>
-<li><p>软引用<br>只有内存不够才会回收<br>浏览器的后退按钮</p>
-</li>
-<li><p>弱引用<br>不管内存够不够都会回收</p>
-</li>
-<li><p>虚引用<br>作为回收对象时的通知<br>回收方法区</p>
-</li>
-<li><p>废弃常量</p>
-</li>
-<li><p>无用的类<br>大量反射、动态代理、CGLib频繁自定义的ClassLoader<br>需要有类的卸载功能<br>通过更换ClassLoader实现类的卸载</p>
-</li>
-</ul>
-<h4 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h4><p><strong>标记-清除算法</strong><br>效率和内存碎片的问题</p>
-<p><strong>复制算法</strong><br>分区复制回收<br>适用于对象存活率较低的场景（新生代）</p>
-<p><strong>标记-整理算法</strong><br>标记-清除-整理<br>使用与对象存活率较高的场景（老生代）</p>
-<p><strong>分代收集算法</strong><br>根据对象存活周期分为几块</p>
-<ul>
-<li><p>新生代<br>复制算法</p>
-</li>
-<li><p>老生代<br>标记-清除算法<br>标记-整理算法</p>
-</li>
-</ul>
-<h4 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h4><p><strong>Serial收集器</strong></p>
-<ul>
-<li><p>缺点<br>单线程处理，需要暂停其他所有线程</p>
-</li>
-<li><p>优点<br>简单</p>
-</li>
-</ul>
-<p><strong>ParNew收集器</strong><br>Serial收集器的多线程实现</p>
-<p><strong>Parallel Scavenge收集器</strong><br>以吞吐量为目标<br>吞吐量=用户代码运行时间/（用户代码运行时间 + GC时间）</p>
-<p><strong>Serial Old收集器</strong><br>Serial收集器的老年代版本</p>
-<p><strong>Parallel Old收集器</strong><br>Parallel Scavenge收集器的老年代版本</p>
-<p><strong>CMS收集器</strong><br>以获取最短停顿时间为目标<br>分为初始标记、并发标记、重新标记、并发清除四个阶段</p>
-<ul>
-<li><p>优点<br>停顿时间短</p>
-</li>
-<li><p>缺点<br>消耗较多的CPU资源<br>会产生较多的内存碎片</p>
-</li>
-<li><p>为什么需要STP？<br>处理起来简单，不用管并发的问题</p>
-</li>
-</ul>
-<p><strong>G1收集器</strong></p>
-<ul>
-<li>特点<br>更少的GC停顿时间<br>可预测的GC停顿时间<br>不牺牲过多的吞吐量<br>不需要过多的堆内存</li>
-</ul>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Java知识图谱/">Java知识图谱</a>
-</div>
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/GC/">GC</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2019/07/24/java-gc/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
+    <a href="/2019/07/24/java-gc/" title="Java知识图谱之垃圾回收" itemprop="url">
+  
+    <h1 itemprop="name">Java知识图谱之垃圾回收</h1>
+    
+     
+      <p itemprop="description" >本文主要对JVM的垃圾回收算法和垃圾收集器的实现机制和使用场景进行了总结。</p>
+      
+    
+    <time datetime="2019-07-24T12:38:17.000Z" itemprop="datePublished">2019-07-24</time>
+  </a>
+</section>
 
 
 
@@ -653,71 +167,19 @@
 
 
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/07/23/java-network/" title="Java知识图谱之计算机网络" itemprop="url">Java知识图谱之计算机网络</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
-		
-  <p class="article-time">
-    <time datetime="2019-07-23T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-23</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-network/java-network.png" alt="计算机网络思维导图"></p>
-<p>我们现在基于TCP/IP的网络一般划分为四层：</p>
-<h5 id="1、应用层"><a href="#1、应用层" class="headerlink" title="1、应用层"></a>1、应用层</h5><p>典型的应用层协议包括http/https、ftp/sftp、ssh协议，作为一个Java程序员，可能更多的需要关注的是我们最常用的http/https协议，这个和我们的工作息息相关。</p>
-<p>Http是一个单向的协议，只能由客户端向服务端发送请求，不能由服务端向客户端发送请求，所以如果某些场景下需要服务端向客户端推送消息（比如告警监控页面），现在的Http协议就受到了很大的限制，现在大概有三种方式去实现客户端推送的方式。</p>
-<p>(1)简易轮询<br>这是最简单暴力的方法，客户端定时轮询，这种方法最大的好处是实现简单，但是如果客户端较多，服务端的压力会很大。</p>
-<p>(2)long-polling<br>为了解决定时轮询里面服务端压力比较大的问题，也可以使用long-polling来实现从推送数据，简单来说，就是服务端先hold住客户端发送过来的请求，直到服务端的数据有变化才返回，配置中心Apollo里面就是用的这种方式实现配置的推送。</p>
-<p>(3)websocket<br>区别于简易轮询和long-polling，websocket没有在http协议上做文章，直接实现了一套新的全双工的消息交互协议，客户端既可以向服务端发送消息内容，服务端也可以向服务端发送消息内容，相对简易轮询和long-polling来说实现较为复杂。</p>
-<h5 id="2、传输层"><a href="#2、传输层" class="headerlink" title="2、传输层"></a>2、传输层</h5><p>典型的传输层协议包括TCP、UDP协议，重点要关注的是TCP的三次握手，四次挥手，具体的交互请看思维导图。</p>
-<h5 id="3、网络层"><a href="#3、网络层" class="headerlink" title="3、网络层"></a>3、网络层</h5><p>典型的网络层协议包括IP和ICMP协议。</p>
-<h5 id="4、数据链路层"><a href="#4、数据链路层" class="headerlink" title="4、数据链路层"></a>4、数据链路层</h5><p>典型的数据链路层协议包括ARP和RARP协议。</p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Java知识图谱/">Java知识图谱</a>
-</div>
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/网络/">网络</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2019/07/23/java-network/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
+    <a href="/2019/07/23/java-network/" title="Java知识图谱之计算机网络" itemprop="url">
+  
+    <h1 itemprop="name">Java知识图谱之计算机网络</h1>
+    
+     
+      <p itemprop="description" >计算机网络是科班出身的程序员必学的课程之一，这篇文章主要是对TCP/IP网络的四层架构和相关协议进行了简要的总结和介绍。</p>
+      
+    
+    <time datetime="2019-07-23T12:38:17.000Z" itemprop="datePublished">2019-07-23</time>
+  </a>
+</section>
 
 
 
@@ -725,82 +187,19 @@
 
 
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/07/22/install-ngrok/" title="通过ngrok实现内网穿透" itemprop="url">通过ngrok实现内网穿透</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
-		
-  <p class="article-time">
-    <time datetime="2019-07-22T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>参考<a href="https://blog.csdn.net/lishanleilixin/article/details/78384848" target="_blank" rel="noopener">https://blog.csdn.net/lishanleilixin/article/details/78384848</a></p>
-<p>安装服务端</p>
-<p>sudo apt-get install build-essential golang mercurial git</p>
-<p>git clone <a href="https://github.com/inconshreveable/ngrok.git" target="_blank" rel="noopener">https://github.com/inconshreveable/ngrok.git</a> ngrok</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#ngrok.ihunter.me为自己的域名</span><br><span class="line">NGROK_DOMAIN=&quot;ngrok.ihunter.me&quot;</span><br><span class="line"></span><br><span class="line">openssl genrsa -out base.key 2048</span><br><span class="line">openssl req -new -x509 -nodes -key base.key -days 10000 -subj &quot;/CN=$NGROK_DOMAIN&quot; -out base.pem</span><br><span class="line">openssl genrsa -out server.key 2048</span><br><span class="line">openssl req -new -key server.key -subj &quot;/CN=$NGROK_DOMAIN&quot; -out server.csr</span><br><span class="line">openssl x509 -req -in server.csr -CA base.pem -CAkey base.key -CAcreateserial -days 10000 -out server.crt</span><br><span class="line"></span><br><span class="line">cp base.pem assets/client/tls/ngrokroot.crt</span><br></pre></td></tr></table></figure>
-
-<p>sudo make release-server release-client</p>
-<p>sudo ./bin/ngrokd -tlsKey=server.key -tlsCrt=server.crt -domain=”ngrok.ihunter.me” -httpAddr=”:8081” -httpsAddr=”:8082”</p>
-<p>在域名服务中配置域名转发的当前的VPS</p>
-<p>测试连接</p>
-<p>现在可以通过<a href="http://ngrok.ihunter.me:8081和http://ngrok.ihunter.me:8082就可以访问到ngrok提供的转发服务" target="_blank" rel="noopener">http://ngrok.ihunter.me:8081和http://ngrok.ihunter.me:8082就可以访问到ngrok提供的转发服务</a></p>
-<p>为了使用方便，建议把域名泛解析到 VPS 上，这样能方便地使用不同子域转发不同的本地服务。</p>
-<p>可以看到这样一行提示</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Tunnel lishanlei.cn:8081 not found　　</span><br><span class="line">　这样子说明万事具备，只差客户端进行连接了</span><br></pre></td></tr></table></figure>
-
-<p>安装客户端</p>
-<p>sudo apt-get install build-essential golang mercurial git</p>
-<p>git clone <a href="https://github.com/inconshreveable/ngrok.git" target="_blank" rel="noopener">https://github.com/inconshreveable/ngrok.git</a> ngrok</p>
-<p>sudo make release-client</p>
-<p>./ngrok -subdomain pub -proto=http -config=ngrok.cfg 80</p>
-<p>最后使用pub.ngrok.ihunter.me:8081访问就可以了</p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-</div>
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/Ngrok/">Ngrok</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2019/07/22/install-ngrok/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
+    <a href="/2019/07/22/install-ngrok/" title="通过Ngrok实现内网穿透" itemprop="url">
+  
+    <h1 itemprop="name">通过Ngrok实现内网穿透</h1>
+    
+     
+      <p itemprop="description" >本文介绍如何通过Ngrok实现内网穿透。</p>
+      
+    
+    <time datetime="2019-07-22T12:38:17.000Z" itemprop="datePublished">2019-07-22</time>
+  </a>
+</section>
 
 
 
@@ -808,70 +207,19 @@
 
 
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/07/21/install-ftp-indebian/" title="在Debian上搭建ftp服务器" itemprop="url">在Debian上搭建ftp服务器</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
-		
-  <p class="article-time">
-    <time datetime="2019-07-21T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-21</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install vsftpd</span><br><span class="line">sudo vi /etc/vsftpd.conf</span><br></pre></td></tr></table></figure>
-
-<p>/etc/vsftpd.conf具体的配置如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br></pre></td><td class="code"><pre><span class="line"># Example config file /etc/vsftpd.conf</span><br><span class="line">#</span><br><span class="line"># The default compiled in settings are fairly paranoid. This sample file</span><br><span class="line"># loosens things up a bit, to make the ftp daemon more usable.</span><br><span class="line"># Please see vsftpd.conf.5 for all compiled in defaults.</span><br><span class="line">#</span><br><span class="line"># READ THIS: This example file is NOT an exhaustive list of vsftpd options.</span><br><span class="line"># Please read the vsftpd.conf.5 manual page to get a full idea of vsftpd&apos;s</span><br><span class="line"># capabilities.</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># Run standalone?  vsftpd can run either from an inetd or as a standalone</span><br><span class="line"># daemon started from an initscript.</span><br><span class="line">listen=NO</span><br><span class="line">#</span><br><span class="line"># This directive enables listening on IPv6 sockets. By default, listening</span><br><span class="line"># on the IPv6 &quot;any&quot; address (::) will accept connections from both IPv6</span><br><span class="line"># and IPv4 clients. It is not necessary to listen on *both* IPv4 and IPv6</span><br><span class="line"># sockets. If you want that (perhaps because you want to listen on specific</span><br><span class="line"># addresses) then you must run two copies of vsftpd with two configuration</span><br><span class="line"># files.</span><br><span class="line">listen_ipv6=YES</span><br><span class="line">#</span><br><span class="line"># Allow anonymous FTP? (Disabled by default).</span><br><span class="line">anonymous_enable=NO</span><br><span class="line">#</span><br><span class="line"># Uncomment this to allow local users to log in.</span><br><span class="line">local_enable=YES</span><br><span class="line">#</span><br><span class="line"># Uncomment this to enable any form of FTP write command.</span><br><span class="line">write_enable=YES</span><br><span class="line">#</span><br><span class="line"># Default umask for local users is 077. You may wish to change this to 022,</span><br><span class="line"># if your users expect that (022 is used by most other ftpd&apos;s)</span><br><span class="line">#local_umask=022</span><br><span class="line">#</span><br><span class="line"># Uncomment this to allow the anonymous FTP user to upload files. This only</span><br><span class="line"># has an effect if the above global write enable is activated. Also, you will</span><br><span class="line"># obviously need to create a directory writable by the FTP user.</span><br><span class="line">#anon_upload_enable=YES</span><br><span class="line">#</span><br><span class="line"># Uncomment this if you want the anonymous FTP user to be able to create</span><br><span class="line"># new directories.</span><br><span class="line">#anon_mkdir_write_enable=YES</span><br><span class="line">#</span><br><span class="line"># Activate directory messages - messages given to remote users when they</span><br><span class="line"># go into a certain directory.</span><br><span class="line">dirmessage_enable=YES</span><br><span class="line">#</span><br><span class="line"># If enabled, vsftpd will display directory listings with the time</span><br><span class="line"># in  your  local  time  zone.  The default is to display GMT. The</span><br><span class="line"># times returned by the MDTM FTP command are also affected by this</span><br><span class="line"># option.</span><br><span class="line">use_localtime=YES</span><br><span class="line">#</span><br><span class="line"># Activate logging of uploads/downloads.</span><br><span class="line">xferlog_enable=YES</span><br><span class="line">#</span><br><span class="line"># Make sure PORT transfer connections originate from port 20 (ftp-data).</span><br><span class="line">connect_from_port_20=YES</span><br><span class="line">#</span><br><span class="line"># If you want, you can arrange for uploaded anonymous files to be owned by</span><br><span class="line"># a different user. Note! Using &quot;root&quot; for uploaded files is not</span><br><span class="line"># recommended!</span><br><span class="line">#chown_uploads=YES</span><br><span class="line">#chown_username=whoever</span><br><span class="line">#</span><br><span class="line"># You may override where the log file goes if you like. The default is shown</span><br><span class="line"># below.</span><br><span class="line">#xferlog_file=/var/log/vsftpd.log</span><br><span class="line">#</span><br><span class="line"># If you want, you can have your log file in standard ftpd xferlog format.</span><br><span class="line"># Note that the default log file location is /var/log/xferlog in this case.</span><br><span class="line">#xferlog_std_format=YES</span><br><span class="line">#</span><br><span class="line"># You may change the default value for timing out an idle session.</span><br><span class="line">#idle_session_timeout=600</span><br><span class="line">#</span><br><span class="line"># You may change the default value for timing out a data connection.</span><br><span class="line">#data_connection_timeout=120</span><br><span class="line">#</span><br><span class="line"># It is recommended that you define on your system a unique user which the</span><br><span class="line"># ftp server can use as a totally isolated and unprivileged user.</span><br><span class="line">#nopriv_user=ftpsecure</span><br><span class="line">#</span><br><span class="line"># Enable this and the server will recognise asynchronous ABOR requests. Not</span><br><span class="line"># recommended for security (the code is non-trivial). Not enabling it,</span><br><span class="line"># however, may confuse older FTP clients.</span><br><span class="line">#async_abor_enable=YES</span><br><span class="line">#</span><br><span class="line"># By default the server will pretend to allow ASCII mode but in fact ignore</span><br><span class="line"># the request. Turn on the below options to have the server actually do ASCII</span><br><span class="line"># mangling on files when in ASCII mode.</span><br><span class="line"># Beware that on some FTP servers, ASCII support allows a denial of service</span><br><span class="line"># attack (DoS) via the command &quot;SIZE /big/file&quot; in ASCII mode. vsftpd</span><br><span class="line"># predicted this attack and has always been safe, reporting the size of the</span><br><span class="line"># raw file.</span><br><span class="line"># ASCII mangling is a horrible feature of the protocol.</span><br><span class="line">#ascii_upload_enable=YES</span><br><span class="line">#ascii_download_enable=YES</span><br><span class="line">#</span><br><span class="line"># You may fully customise the login banner string:</span><br><span class="line">#ftpd_banner=Welcome to blah FTP service.</span><br><span class="line">#</span><br><span class="line"># You may specify a file of disallowed anonymous e-mail addresses. Apparently</span><br><span class="line"># useful for combatting certain DoS attacks.</span><br><span class="line">#deny_email_enable=YES</span><br><span class="line"># (default follows)</span><br><span class="line">#banned_email_file=/etc/vsftpd.banned_emails</span><br><span class="line">#</span><br><span class="line"># You may restrict local users to their home directories.  See the FAQ for</span><br><span class="line"># the possible risks in this before using chroot_local_user or</span><br><span class="line"># chroot_list_enable below.</span><br><span class="line">#chroot_local_user=YES</span><br><span class="line">#</span><br><span class="line"># You may specify an explicit list of local users to chroot() to their home</span><br><span class="line"># directory. If chroot_local_user is YES, then this list becomes a list of</span><br><span class="line"># users to NOT chroot().</span><br><span class="line"># (Warning! chroot&apos;ing can be very dangerous. If using chroot, make sure that</span><br><span class="line"># the user does not have write access to the top level directory within the</span><br><span class="line"># chroot)</span><br><span class="line">chroot_local_user=YES</span><br><span class="line">chroot_list_enable=YES</span><br><span class="line">user_sub_token=$USER</span><br><span class="line">local_root=/home/$USER/ftp</span><br><span class="line">allow_writeable_chroot=YES</span><br><span class="line"># (default follows)</span><br><span class="line">chroot_list_file=/etc/vsftpd.chroot_list</span><br><span class="line">#</span><br><span class="line"># You may activate the &quot;-R&quot; option to the builtin ls. This is disabled by</span><br><span class="line"># default to avoid remote users being able to cause excessive I/O on large</span><br><span class="line"># sites. However, some broken FTP clients such as &quot;ncftp&quot; and &quot;mirror&quot; assume</span><br><span class="line"># the presence of the &quot;-R&quot; option, so there is a strong case for enabling it.</span><br><span class="line">#ls_recurse_enable=YES</span><br><span class="line">#</span><br><span class="line"># Customization</span><br><span class="line">#</span><br><span class="line"># Some of vsftpd&apos;s settings don&apos;t fit the filesystem layout by</span><br><span class="line"># default.</span><br><span class="line">#</span><br><span class="line"># This option should be the name of a directory which is empty.  Also, the</span><br><span class="line"># directory should not be writable by the ftp user. This directory is used</span><br><span class="line"># as a secure chroot() jail at times vsftpd does not require filesystem</span><br><span class="line"># access.</span><br><span class="line">secure_chroot_dir=/var/run/vsftpd/empty</span><br><span class="line">#</span><br><span class="line"># This string is the name of the PAM service vsftpd will use.</span><br><span class="line">pam_service_name=vsftpd</span><br><span class="line">#</span><br><span class="line"># This option specifies the location of the RSA certificate to use for SSL</span><br><span class="line"># encrypted connections.</span><br><span class="line">rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem</span><br><span class="line">rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key</span><br><span class="line">ssl_enable=YES</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># Uncomment this to indicate that vsftpd use a utf8 filesystem.</span><br><span class="line">utf8_filesystem=YES</span><br></pre></td></tr></table></figure>
-
-<p>修改/etc/vsftpd.chroot_list</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/vsftpd.chroot_list</span><br></pre></td></tr></table></figure>
-
-<p>重启FTP服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start vsftpd 或 service vsftpd start</span><br><span class="line">systemctl restart vsftpd 或 service vsftpd restart</span><br></pre></td></tr></table></figure>
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-</div>
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/FTP/">FTP</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2019/07/21/install-ftp-indebian/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
+    <a href="/2019/07/21/install-ftp-indebian/" title="在Debian上搭建FTP服务器" itemprop="url">
+  
+    <h1 itemprop="name">在Debian上搭建FTP服务器</h1>
+    
+     
+      <p itemprop="description" >本文介绍了在Debian上搭建FTP服务器的方法。</p>
+      
+    
+    <time datetime="2019-07-21T12:38:17.000Z" itemprop="datePublished">2019-07-21</time>
+  </a>
+</section>
 
 
 
@@ -879,75 +227,19 @@
 
 
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2019/07/20/install-linux-in-old-computer/" title="如何将一台老电脑改造为docker服务器" itemprop="url">如何将一台老电脑改造为docker服务器</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
-		
-  <p class="article-time">
-    <time datetime="2019-07-20T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-20</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>1、安装deepin系统<br>首先用refus将deepin制作成系统启动盘，然后重启启动安装deepin到事先划分好的磁盘即可</p>
-<p>2、修改为网易的数据源</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
-
-<p>3、安装docker</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp; apt upgrade</span><br><span class="line">curl -fsSL get.docker.com -o get-docker.sh</span><br><span class="line">sudo sh get-docker.sh --mirror Aliyun</span><br></pre></td></tr></table></figure>
-
-<p>4、修改docker的镜像源</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/etc/docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">    &quot;registry-mirrors&quot;: [&quot;https://registry.docker-cn.com&quot;,&quot;http://hub-mirror.c.163.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
-
-<p>5、安装mysql</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -p 3306:3306 --name mymysql -v $PWD/conf:/etc/mysql/conf.d -v $PWD/logs:/logs -v $PWD/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7</span><br></pre></td></tr></table></figure>
-
-<p>6、启动mysql</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker start mymysql</span><br></pre></td></tr></table></figure>
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-</div>
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/Docker/">Docker</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2019/07/20/install-linux-in-old-computer/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
+    <a href="/2019/07/20/install-linux-in-old-computer/" title="如何将一台老电脑改造为docker服务器" itemprop="url">
+  
+    <h1 itemprop="name">如何将一台老电脑改造为docker服务器</h1>
+    
+     
+      <p itemprop="description" >本文介绍如何将一台老电脑改造为docker服务器。</p>
+      
+    
+    <time datetime="2019-07-20T12:38:17.000Z" itemprop="datePublished">2019-07-20</time>
+  </a>
+</section>
 
 
 
@@ -955,87 +247,19 @@
 
 
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2018/07/07/hbase-example/" title="HBase常用命令" itemprop="url">HBase常用命令</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
-		
-  <p class="article-time">
-    <time datetime="2018-07-07T12:11:17.000Z" itemprop="datePublished"> Published 2018-07-07</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ul>
-<li><p>查看有哪些表<br>list</p>
-</li>
-<li><p>查看HBase的状态<br>status</p>
-</li>
-<li><p>创建表<br>create_namespace ‘sogou’<br>create ‘sogou:search_detail’, {NAME =&gt; ‘detail’},  {NAME =&gt; ‘detail2’}</p>
-</li>
-<li><p>查看表的结构<br>describe ‘sogou:search_detail’</p>
-</li>
-<li><p>删除表<br>disable ‘sogou:search_detail’<br>drop ‘sogou:search_detail’<br>说明： 删除表之前必须disable表</p>
-</li>
-<li><p>删除表中所有数据<br>truncate ‘sogou:search_detail’</p>
-</li>
-<li><p>修改表的结构<br>alter ‘sogou:search_detail’, {NAME =&gt; ‘detail’, TTL =&gt; ‘1024’},  {NAME =&gt; ‘detail2’, METHOD =&gt; ‘delete’}</p>
-</li>
-<li><p>新增数据<br>put ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’, ‘陋习’, ‘detail:retOrder’, ‘2’, ‘detail:cliOrder’, ‘1’, ‘detail:url’, ‘<a href="http://www.ihunter.me&#39;">www.ihunter.me&#39;</a></p>
-</li>
-<li><p>查询单条数据<br>get ‘sogou:search_detail’ ‘rowKey001’<br>get ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’</p>
-</li>
-<li><p>查询多条数据<br>scan ‘sogou:search_detail’, {LIMIT =&gt; 10}</p>
-</li>
-<li><p>统计表中数据的行数<br>count ‘sogou:search_detail’ {INTERVAL =&gt; 100, CACHE =&gt; 500}</p>
-</li>
-<li><p>删除数据<br>delete ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’<br>deteteall ‘sogou:search_detail’, ‘rowKey001’</p>
-</li>
-</ul>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/HBase/">HBase</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2018/07/07/hbase-example/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
+    <a href="/2018/07/07/hbase-example/" title="HBase常用命令" itemprop="url">
+  
+    <h1 itemprop="name">HBase常用命令</h1>
+    
+     
+      <p itemprop="description" >本文对HBase常用的一些命令进行了总结。</p>
+      
+    
+    <time datetime="2018-07-07T12:11:17.000Z" itemprop="datePublished">2018-07-07</time>
+  </a>
+</section>
 
 
 
@@ -1043,7 +267,7 @@
 
 
 
-  <nav id="page-nav" class="clearfix">
+  <nav id="page-nav" class="clearfix unexpand">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
@@ -1080,41 +304,41 @@
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/xsxsx/" title="xsxsx">xsxsx<sup>2</sup></a></li>
-		
 			<li><a href="/tags/个人/" title="个人">个人<sup>2</sup></a></li>
-		
-			<li><a href="/tags/Redis/" title="Redis">Redis<sup>2</sup></a></li>
 		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			<li><a href="/tags/Redis/" title="Redis">Redis<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+			<li><a href="/tags/xsxsx/" title="xsxsx">xsxsx<sup>2</sup></a></li>
 		
 			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
 		
-			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
+			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
 			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
 		
+			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
+		
 			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
 			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
 		
 			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
 		
-			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
-		
 			<li><a href="/tags/内存溢出/" title="内存溢出">内存溢出<sup>1</sup></a></li>
 		
 			<li><a href="/tags/arthas/" title="arthas">arthas<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
 		</ul>
 </div>
@@ -1129,7 +353,7 @@
           </li>
         
           <li>
-            <a href="http://www.ihunter.me" target="_blank" title="NoOne的小窝">NoOne的小窝</a>
+            <a href="http://www.ihunter.me" target="_blank" title="NoOne的修炼场">NoOne的修炼场</a>
           </li>
         
           <li>

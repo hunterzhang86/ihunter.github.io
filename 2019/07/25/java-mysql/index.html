@@ -6,26 +6,19 @@
   <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
   <meta charset="UTF-8">
   
-    <title>Java知识图谱之MySQL数据库 | NoOne的小窝</title>
+    <title>Java知识图谱之MySQL数据库 | NoOne的修炼场</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="NoOne">
     
-    <meta name="description" content="1.    乐观锁和悲观锁1.1.    乐观锁
-1.1.1.    出发点认为数据一般情况下不会造成冲突
-1.1.2.    优点并发好效率高
-1.1.3.    缺点ABA问题
-
-解决方法版本号时间戳
-
-1.1.4.    使用场景读多写少，数据冲突不大的情况，考虑用户积分加减的场景因为如果冲突">
+    <meta name="description" itemprop="description" content="MySQL是现阶段最流行的关系型数据库，也是Java开发面试过程中必问的知识点，本文主要对面试中经常出现的MySQL事务、锁和索引进行了总结，基本可以覆盖到面试过程中和MySQL相关的90%以上的知识点。">
     
     
     <meta name="keywords" content="技术分享">
     
     
     
-    <link rel="alternative" href="/atom.xml" title="NoOne的小窝" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="NoOne的修炼场" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -42,7 +35,7 @@
       <div>
 		
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="NoOne的小窝">NoOne的小窝</a></h1>
+				<h1 class="site-name"><a href="/" title="NoOne的修炼场">NoOne的修炼场</a></h1>
 				<h2 class="blog-motto">Follow your heart</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
@@ -172,7 +165,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ihunter.me/2019/07/25/java-mysql/" data-title="Java知识图谱之MySQL数据库 | NoOne的小窝" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ihunter.me/2019/07/25/java-mysql/" data-title="Java知识图谱之MySQL数据库 | NoOne的修炼场" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -272,41 +265,41 @@
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/xsxsx/" title="xsxsx">xsxsx<sup>2</sup></a></li>
-		
 			<li><a href="/tags/个人/" title="个人">个人<sup>2</sup></a></li>
-		
-			<li><a href="/tags/Redis/" title="Redis">Redis<sup>2</sup></a></li>
 		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			<li><a href="/tags/Redis/" title="Redis">Redis<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+			<li><a href="/tags/xsxsx/" title="xsxsx">xsxsx<sup>2</sup></a></li>
 		
 			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
 		
-			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
+			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
 			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
 		
+			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
+		
 			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
 			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
 		
 			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
 		
-			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
-		
 			<li><a href="/tags/内存溢出/" title="内存溢出">内存溢出<sup>1</sup></a></li>
 		
 			<li><a href="/tags/arthas/" title="arthas">arthas<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
 		</ul>
 </div>
@@ -321,7 +314,7 @@
           </li>
         
           <li>
-            <a href="http://www.ihunter.me" target="_blank" title="NoOne的小窝">NoOne的小窝</a>
+            <a href="http://www.ihunter.me" target="_blank" title="NoOne的修炼场">NoOne的修炼场</a>
           </li>
         
           <li>

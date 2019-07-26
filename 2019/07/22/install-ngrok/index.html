@@ -6,22 +6,19 @@
   <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
   <meta charset="UTF-8">
   
-    <title>通过ngrok实现内网穿透 | NoOne的小窝</title>
+    <title>通过Ngrok实现内网穿透 | NoOne的修炼场</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="NoOne">
     
-    <meta name="description" content="参考https://blog.csdn.net/lishanleilixin/article/details/78384848
-安装服务端
-sudo apt-get install build-essential golang mercurial git
-git clone https://gith">
+    <meta name="description" itemprop="description" content="本文介绍如何通过Ngrok实现内网穿透。">
     
     
     <meta name="keywords" content="技术分享">
     
     
     
-    <link rel="alternative" href="/atom.xml" title="NoOne的小窝" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="NoOne的修炼场" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -38,7 +35,7 @@ git clone https://gith">
       <div>
 		
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="NoOne的小窝">NoOne的小窝</a></h1>
+				<h1 class="site-name"><a href="/" title="NoOne的修炼场">NoOne的修炼场</a></h1>
 				<h2 class="blog-motto">Follow your heart</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
@@ -73,7 +70,7 @@ git clone https://gith">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/07/22/install-ngrok/" title="通过ngrok实现内网穿透" itemprop="url">通过ngrok实现内网穿透</a>
+      <a href="/2019/07/22/install-ngrok/" title="通过Ngrok实现内网穿透" itemprop="url">通过Ngrok实现内网穿透</a>
   </h1>
   <p class="article-author">By
        
@@ -87,27 +84,22 @@ git clone https://gith">
 	<div class="article-content">
 		
 
-		<p>参考<a href="https://blog.csdn.net/lishanleilixin/article/details/78384848" target="_blank" rel="noopener">https://blog.csdn.net/lishanleilixin/article/details/78384848</a></p>
-<p>安装服务端</p>
-<p>sudo apt-get install build-essential golang mercurial git</p>
-<p>git clone <a href="https://github.com/inconshreveable/ngrok.git" target="_blank" rel="noopener">https://github.com/inconshreveable/ngrok.git</a> ngrok</p>
+		<h4 id="安装服务端"><a href="#安装服务端" class="headerlink" title="安装服务端"></a>安装服务端</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential golang mercurial git</span><br><span class="line">git clone https://github.com/inconshreveable/ngrok.git ngrok</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#ngrok.ihunter.me为自己的域名</span><br><span class="line">NGROK_DOMAIN=&quot;ngrok.ihunter.me&quot;</span><br><span class="line"></span><br><span class="line">openssl genrsa -out base.key 2048</span><br><span class="line">openssl req -new -x509 -nodes -key base.key -days 10000 -subj &quot;/CN=$NGROK_DOMAIN&quot; -out base.pem</span><br><span class="line">openssl genrsa -out server.key 2048</span><br><span class="line">openssl req -new -key server.key -subj &quot;/CN=$NGROK_DOMAIN&quot; -out server.csr</span><br><span class="line">openssl x509 -req -in server.csr -CA base.pem -CAkey base.key -CAcreateserial -days 10000 -out server.crt</span><br><span class="line"></span><br><span class="line">cp base.pem assets/client/tls/ngrokroot.crt</span><br></pre></td></tr></table></figure>
 
-<p>sudo make release-server release-client</p>
-<p>sudo ./bin/ngrokd -tlsKey=server.key -tlsCrt=server.crt -domain=”ngrok.ihunter.me” -httpAddr=”:8081” -httpsAddr=”:8082”</p>
-<p>在域名服务中配置域名转发的当前的VPS</p>
-<p>测试连接</p>
-<p>现在可以通过<a href="http://ngrok.ihunter.me:8081和http://ngrok.ihunter.me:8082就可以访问到ngrok提供的转发服务" target="_blank" rel="noopener">http://ngrok.ihunter.me:8081和http://ngrok.ihunter.me:8082就可以访问到ngrok提供的转发服务</a></p>
-<p>为了使用方便，建议把域名泛解析到 VPS 上，这样能方便地使用不同子域转发不同的本地服务。</p>
-<p>可以看到这样一行提示</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Tunnel lishanlei.cn:8081 not found　　</span><br><span class="line">　这样子说明万事具备，只差客户端进行连接了</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo make release-server release-client</span><br><span class="line">sudo ./bin/ngrokd -tlsKey=server.key -tlsCrt=server.crt -domain=&quot;ngrok.ihunter.me&quot; -httpAddr=&quot;:8081&quot; -httpsAddr=&quot;:8082&quot;</span><br></pre></td></tr></table></figure>
 
-<p>安装客户端</p>
-<p>sudo apt-get install build-essential golang mercurial git</p>
-<p>git clone <a href="https://github.com/inconshreveable/ngrok.git" target="_blank" rel="noopener">https://github.com/inconshreveable/ngrok.git</a> ngrok</p>
-<p>sudo make release-client</p>
-<p>./ngrok -subdomain pub -proto=http -config=ngrok.cfg 80</p>
+<p>在域名服务中配置域名转发的当前的VPS</p>
+<ul>
+<li>测试连接<br>现在可以通过<a href="http://ngrok.ihunter.me:8081和http://ngrok.ihunter.me:8082就可以访问到ngrok提供的转发服务" target="_blank" rel="noopener">http://ngrok.ihunter.me:8081和http://ngrok.ihunter.me:8082就可以访问到ngrok提供的转发服务</a><br>为了使用方便，建议把域名泛解析到 VPS 上，这样能方便地使用不同子域转发不同的本地服务。<br>可以看到这样一行提示<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Tunnel lishanlei.cn:8081 not found　　</span><br><span class="line">　这样子说明万事具备，只差客户端进行连接了</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="安装客户端"><a href="#安装客户端" class="headerlink" title="安装客户端"></a>安装客户端</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential golang mercurial git</span><br><span class="line"></span><br><span class="line">git clone https://github.com/inconshreveable/ngrok.git ngrok</span><br><span class="line"></span><br><span class="line">sudo make release-client</span><br><span class="line"></span><br><span class="line">./ngrok -subdomain pub -proto=http -config=ngrok.cfg 80</span><br></pre></td></tr></table></figure>
+
 <p>最后使用pub.ngrok.ihunter.me:8081访问就可以了</p>
+<p>参考<a href="https://blog.csdn.net/lishanleilixin/article/details/78384848" target="_blank" rel="noopener">https://blog.csdn.net/lishanleilixin/article/details/78384848</a></p>
 
 	</div>
 
@@ -133,7 +125,7 @@ git clone https://gith">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ihunter.me/2019/07/22/install-ngrok/" data-title="通过ngrok实现内网穿透 | NoOne的小窝" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ihunter.me/2019/07/22/install-ngrok/" data-title="通过Ngrok实现内网穿透 | NoOne的修炼场" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -156,9 +148,9 @@ git clone https://gith">
 
 
 <div class="next">
-<a href="/2019/07/21/install-ftp-indebian/"  title="在Debian上搭建ftp服务器">
+<a href="/2019/07/21/install-ftp-indebian/"  title="在Debian上搭建FTP服务器">
  <strong>下一篇：</strong><br/> 
- <span>在Debian上搭建ftp服务器
+ <span>在Debian上搭建FTP服务器
 </span>
 </a>
 </div>
@@ -177,7 +169,7 @@ git clone https://gith">
   <script>
     var gitment = new Gitment({
       id: "Mon Jul 22 2019 20:38:17 GMT+0800",
-      title: '通过ngrok实现内网穿透',
+      title: '通过Ngrok实现内网穿透',
       owner: "hunterzhang86",
       repo: "blog_comments",
       oauth: {
@@ -199,7 +191,7 @@ git clone https://gith">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装服务端"><span class="toc-number">1.</span> <span class="toc-text">安装服务端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装客户端"><span class="toc-number">2.</span> <span class="toc-text">安装客户端</span></a></li></ol>
  
   </div>
 
@@ -233,41 +225,41 @@ git clone https://gith">
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/xsxsx/" title="xsxsx">xsxsx<sup>2</sup></a></li>
-		
 			<li><a href="/tags/个人/" title="个人">个人<sup>2</sup></a></li>
-		
-			<li><a href="/tags/Redis/" title="Redis">Redis<sup>2</sup></a></li>
 		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			<li><a href="/tags/Redis/" title="Redis">Redis<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+			<li><a href="/tags/xsxsx/" title="xsxsx">xsxsx<sup>2</sup></a></li>
 		
 			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
 		
-			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
+			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
 			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
 		
+			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
+		
 			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
 			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
 		
 			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
 		
-			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
-		
 			<li><a href="/tags/内存溢出/" title="内存溢出">内存溢出<sup>1</sup></a></li>
 		
 			<li><a href="/tags/arthas/" title="arthas">arthas<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
 		</ul>
 </div>
@@ -282,7 +274,7 @@ git clone https://gith">
           </li>
         
           <li>
-            <a href="http://www.ihunter.me" target="_blank" title="NoOne的小窝">NoOne的小窝</a>
+            <a href="http://www.ihunter.me" target="_blank" title="NoOne的修炼场">NoOne的修炼场</a>
           </li>
         
           <li>

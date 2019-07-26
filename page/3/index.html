@@ -6,7 +6,7 @@
   <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
   <meta charset="UTF-8">
   
-    <title>NoOne的小窝</title>
+    <title>NoOne的修炼场</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="NoOne">
@@ -18,7 +18,7 @@
     
     
     
-    <link rel="alternative" href="/atom.xml" title="NoOne的小窝" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="NoOne的修炼场" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -35,7 +35,7 @@
       <div>
 		
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="NoOne的小窝">NoOne的小窝</a></h1>
+				<h1 class="site-name"><a href="/" title="NoOne的修炼场">NoOne的修炼场</a></h1>
 				<h2 class="blog-motto">Follow your heart</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
@@ -67,97 +67,19 @@
       <div id="main">
 
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2014/09/23/config-hexo-in-windows/" title="Windows下配置Hexo博客的方法" itemprop="url">Windows下配置Hexo博客的方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
-		
-  <p class="article-time">
-    <time datetime="2014-09-23T12:38:17.000Z" itemprop="datePublished"> Published 2014-09-23</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>换了Windows电脑，之前Macbook下的markdown文件暂时还找不回来，所以无奈只能把之前的博客都删掉了，也鉴于之前的文章写得实在有点。。<br>话不多说，这篇文章的主要内容讲的是在Windows下如何配置Hexo，踩得坑比较多，大家将就着看。</p>
-<p>1、配置github<br>2、安装Node.JS<br>3、安装Hexo<br>(1)指定npm的镜像</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<p>(2)安装hexo</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cnpm install hexo-cli -g</span><br><span class="line">cnpm install hexo --save</span><br></pre></td></tr></table></figure>
-
-<p>(3)cd到博客文件夹</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd &lt;folder&gt;</span><br></pre></td></tr></table></figure>
-
-<p>(4)初始化hexo</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo init </span><br><span class="line">cnpm install</span><br></pre></td></tr></table></figure>
-
-<p>3、配置Hexo<br>(1)配置_config.yml文件<br>将_config.yml文件的deploy项修改为类似如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:hunterzhang86/hunterzhang86.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-
-<p>(2)配置CNAME文件<br>在source目录下新增CNAME文件，里面的内容填写为自己的域名（如<a href="http://www.ihunter.me），如果没有域名可跳过该步骤" target="_blank" rel="noopener">www.ihunter.me），如果没有域名可跳过该步骤</a></p>
-<p>4、新建md文件生成博客并提交到github<br>(1)在source/_posts目录下新建一个md文件</p>
-<p>(2)生成博客</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo c</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-
-<p>(3)提交博客</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-<p>FAQ<br>1、如何卸载hexo ?</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm uninstall hexo</span><br></pre></td></tr></table></figure>
-
-<p>2、如何使用hunter主题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/hunterzhang86/hunter.git themes/hunter</span><br></pre></td></tr></table></figure>
-
-<p>修改博客根目录下的配置文件 _config.yml，把theme的值修改为 hunter.</p>
-<p>3、升级到hexo 3.0后deploy出现 error deployer not found:git 错误<br>执行以下命令安装插件即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<p>4、使用hexo 3.0后deploy出现 fatal: Not a git repository (or any of the parent directories) 错误<br>原因是hexo默认是以项目根目录下的.deploy_git作为git仓库，所以我们得把这个仓库与线上的xxx.github.io仓库绑定，如果绑定过其它目录下的仓库，可以直接把隐藏目录.git复制到.deploy_git目录下。</p>
-<p>5、如何初始化gitment评论系统<br>首先需要在git上添加一个repo，然后需要在OAuth Apps里面添加应用权限授予我们的个人网站，具体可参考 <a href="https://zonghongyan.github.io/2017/06/29/201706292034/" target="_blank" rel="noopener">Hexo博客框架下Gitment取代多说评论</a> 和 <a href="https://sogrey.github.io/article/Hexo-%E6%B7%BB%E5%8A%A0-Gitment-%E8%AF%84%E8%AE%BA/" target="_blank" rel="noopener">https://sogrey.github.io/article/Hexo-%E6%B7%BB%E5%8A%A0-Gitment-%E8%AF%84%E8%AE%BA/</a></p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/Hexo/">Hexo</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2014/09/23/config-hexo-in-windows/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
+    <a href="/2014/09/23/config-hexo-in-windows/" title="Windows下配置Hexo博客的方法" itemprop="url">
+  
+    <h1 itemprop="name">Windows下配置Hexo博客的方法</h1>
+    
+     
+      <p itemprop="description" >本文主要介绍了在Windows下如何配置Hexo博客。</p>
+      
+    
+    <time datetime="2014-09-23T12:38:17.000Z" itemprop="datePublished">2014-09-23</time>
+  </a>
+</section>
 
 
 
@@ -165,7 +87,7 @@
 
 
 
-  <nav id="page-nav" class="clearfix">
+  <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
   </nav>
 
@@ -202,41 +124,41 @@
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/xsxsx/" title="xsxsx">xsxsx<sup>2</sup></a></li>
-		
 			<li><a href="/tags/个人/" title="个人">个人<sup>2</sup></a></li>
-		
-			<li><a href="/tags/Redis/" title="Redis">Redis<sup>2</sup></a></li>
 		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			<li><a href="/tags/Redis/" title="Redis">Redis<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+			<li><a href="/tags/xsxsx/" title="xsxsx">xsxsx<sup>2</sup></a></li>
 		
 			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
 		
-			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
+			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
 			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
 		
+			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
+		
 			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
 			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
 		
 			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
 		
-			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
-		
 			<li><a href="/tags/内存溢出/" title="内存溢出">内存溢出<sup>1</sup></a></li>
 		
 			<li><a href="/tags/arthas/" title="arthas">arthas<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
 		</ul>
 </div>
@@ -251,7 +173,7 @@
           </li>
         
           <li>
-            <a href="http://www.ihunter.me" target="_blank" title="NoOne的小窝">NoOne的小窝</a>
+            <a href="http://www.ihunter.me" target="_blank" title="NoOne的修炼场">NoOne的修炼场</a>
           </li>
         
           <li>
