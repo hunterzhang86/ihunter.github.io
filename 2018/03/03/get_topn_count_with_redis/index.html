@@ -6,12 +6,13 @@
   <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
   <meta charset="UTF-8">
   
-    <title>Java代码块的加载顺序总结 | Hunter的个人博客</title>
+    <title>使用Redis实现实时展示页面访问量排名的方法 | Hunter的个人博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Hunter Zhang">
     
-    <meta name="description" content="1、父类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;2、子类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;3、父类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;4、子类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现">
+    <meta name="description" content="最近有一个需求，需要实时展示页面访问量排名，主要的实现思路如下。
+update in 2019.7.26其实这种topn的需求使用大数据实时处理框架Spark/Flink会比较好，大数据处理框架整体吞吐量相较Redis吞吐量高很多，也有较多的现成成熟的解决方案，特别是在key相对单一不能做拆分的情况">
     
     
     <meta name="keywords" content>
@@ -70,23 +71,32 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/java-class-code-block-load-order/" title="Java代码块的加载顺序总结" itemprop="url">Java代码块的加载顺序总结</a>
+      <a href="/2018/03/03/get_topn_count_with_redis/" title="使用Redis实现实时展示页面访问量排名的方法" itemprop="url">使用Redis实现实时展示页面访问量排名的方法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
 		
   <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    <time datetime="2018-03-03T12:38:17.000Z" itemprop="datePublished"> Published 2018-03-03</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 
-		<p>1、父类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;<br>2、子类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;<br>3、父类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;<br>4、子类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;<br>5、执行子类的构造方法;</p>
-<p><em>说明</em></p>
-<p>构造代码块: 直接在类中定义且没有加static关键字的代码块称为构造代码块;</p>
+		<p>最近有一个需求，需要实时展示页面访问量排名，主要的实现思路如下。</p>
+<p><strong>update in 2019.7.26</strong><br>其实这种topn的需求使用大数据实时处理框架Spark/Flink会比较好，大数据处理框架整体吞吐量相较Redis吞吐量高很多，也有较多的现成成熟的解决方案，特别是在key相对单一不能做拆分的情况下，大TPS可能会直接将Redis写宕机。</p>
+<h5 id="为什么使用redis存储实时统计的数据？"><a href="#为什么使用redis存储实时统计的数据？" class="headerlink" title="为什么使用redis存储实时统计的数据？"></a>为什么使用redis存储实时统计的数据？</h5><p>1、实时统计的数据属于查多写少的类型<br>2、Redis的SortedSet数据结构天然可以非常快的得出topn的数据</p>
+<h5 id="如何使用redis存储Spark的实时统计数据？"><a href="#如何使用redis存储Spark的实时统计数据？" class="headerlink" title="如何使用redis存储Spark的实时统计数据？"></a>如何使用redis存储Spark的实时统计数据？</h5><p>1、考虑到Spark直接操作Redis的话，各个组件之间的耦合会比较严重，所以我们将Spark的实时统计数据先推到kafka里面，然后不断的取出kafka的数据插入到redis中。</p>
+<p>2、进一步的，如果把所有的统计结果都放到redis里面的话，由于数据量比较大可能会对redis的性能有比较大的压力，而实际上我们需要查看的统计结果是有限的，所以只需要将topn的数据存放的redis中即可，可以根据当前的实时数据统计情况，设置插入的阈值，从而减少redis的性能压力。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#取出当前排名1k的统计值，获取当前插入数据的阈值</span><br><span class="line">ZREVRANGE title_count 1000 1000 WITHSCORES</span><br></pre></td></tr></table></figure>
+
+<h5 id="如何删除超时的统计数据？"><a href="#如何删除超时的统计数据？" class="headerlink" title="如何删除超时的统计数据？"></a>如何删除超时的统计数据？</h5><p>既然是实时的统计数据，如果没有删除超时数据的机制，统计的结果实时上就变成了历史单位时间段的排名了，所以需要定时删除超时的统计数据。</p>
+<p>但其实redis中SortedSet中的子元素是不能设置超时时间的，所以我们使用了另外一个SortedSet来存储子元素的插入时间，然后定时去扫描有没有子元素已经超时，超时的子元素集会在原始的统计表中被清理掉。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查询超时的元素集，其中1534562250为超时的时间戳阈值</span><br><span class="line">ZREVRANGEBYSCORE title_count_ttl 0 1534562250</span><br><span class="line">#删除超时的元素集</span><br><span class="line">ZREM title_count baidu.com bing.com</span><br></pre></td></tr></table></figure>
+
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>整个方案在删除超时统计数据上还是有一些瑕疵，毕竟这个SortedSet TTL的实现方案需要插入两次数据，如果朋友们有更好的解决方案欢迎一起讨论，谢谢。</p>
 
 	</div>
 
@@ -103,7 +113,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Java/">Java</a>
+  <span></span> <a href="/tags/Redis/">Redis</a>
   </div>
 
 </div>
@@ -112,7 +122,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ihunter.me/2017/10/31/java-class-code-block-load-order/" data-title="Java代码块的加载顺序总结 | Hunter的个人博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ihunter.me/2018/03/03/get_topn_count_with_redis/" data-title="使用Redis实现实时展示页面访问量排名的方法 | Hunter的个人博客" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -126,18 +136,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/10/31/config-hexo-in-windows/" title="Windows下配置Hexo博客的方法">
+ <a href="/2018/07/07/hbase-example/" title="HBase常用命令">
   <strong>上一篇：</strong><br/>
   <span>
-  Windows下配置Hexo博客的方法</span>
+  HBase常用命令</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/10/31/learn-from-others/"  title="见贤思齐">
+<a href="/2017/10/31/install_shadowsocks_in_linode/"  title="使用手机搭建shadowsocks代理的简便方法">
  <strong>下一篇：</strong><br/> 
- <span>见贤思齐
+ <span>使用手机搭建shadowsocks代理的简便方法
 </span>
 </a>
 </div>
@@ -155,8 +165,8 @@
   <script src="https://billts.site/js/gitment.js"></script>
   <script>
     var gitment = new Gitment({
-      id: "Tue Oct 31 2017 20:38:17 GMT+0800",
-      title: 'Java代码块的加载顺序总结',
+      id: "Sat Mar 03 2018 20:38:17 GMT+0800",
+      title: '使用Redis实现实时展示页面访问量排名的方法',
       owner: "hunterzhang86",
       repo: "blog_comments",
       oauth: {
@@ -178,7 +188,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#为什么使用redis存储实时统计的数据？"><span class="toc-number">1.</span> <span class="toc-text">为什么使用redis存储实时统计的数据？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何使用redis存储Spark的实时统计数据？"><span class="toc-number">2.</span> <span class="toc-text">如何使用redis存储Spark的实时统计数据？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何删除超时的统计数据？"><span class="toc-number">3.</span> <span class="toc-text">如何删除超时的统计数据？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
  
   </div>
 
