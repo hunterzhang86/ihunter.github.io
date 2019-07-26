@@ -6,24 +6,20 @@
   <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
   <meta charset="UTF-8">
   
-    <title>Java知识图谱之垃圾回收 | Hunter的个人博客</title>
+    <title>Java知识图谱之Redis | Hunter的个人博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Hunter Zhang">
     
-    <meta name="description" content="对象生命周期
-引用计数法无法解决循环引用的问题
+    <meta name="description" content="1.    背景关系数据库访问数据较慢
+2.    目标提高数据的访问速度
+3.    优势数据访问速度较快
+4.    劣势数据存放在内存中，容量存在限制
+5.    底层原理5.1.    内存数据库
+5.2.    持久化方式
+5.2.1.    RDB
 
-可达性分析算法从GC Roots看对象是否可达：
-1234虚拟机栈（栈中的本地变量表）中引用的对象本地方法栈中JNI（即Native方法）引用的对象方法区中类静态属性的变量方法区中常量引用的变量
-
-
-
-引用
-
-强引用只要强引用存在就不会回收
-
-软引用">
+介绍在指定的时间间隔内将内存中的数据">
     
     
     <meta name="keywords" content>
@@ -82,78 +78,143 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/07/24/java-gc/" title="Java知识图谱之垃圾回收" itemprop="url">Java知识图谱之垃圾回收</a>
+      <a href="/2019/07/26/java-redis/" title="Java知识图谱之Redis" itemprop="url">Java知识图谱之Redis</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
 		
   <p class="article-time">
-    <time datetime="2019-07-24T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-24</time>
+    <time datetime="2019-07-26T04:38:17.000Z" itemprop="datePublished"> Published 2019-07-26</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 
-		<p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-gc/java-gc.png" alt="Java GC"></p>
-<h4 id="对象生命周期"><a href="#对象生命周期" class="headerlink" title="对象生命周期"></a>对象生命周期</h4><ul>
-<li><p>引用计数法<br>无法解决循环引用的问题</p>
+		<p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-redis/java-redis.png" alt="Redis思维导图"></p>
+<h4 id="1-背景"><a href="#1-背景" class="headerlink" title="1.    背景"></a>1.    背景</h4><p>关系数据库访问数据较慢</p>
+<h4 id="2-目标"><a href="#2-目标" class="headerlink" title="2.    目标"></a>2.    目标</h4><p>提高数据的访问速度</p>
+<h4 id="3-优势"><a href="#3-优势" class="headerlink" title="3.    优势"></a>3.    优势</h4><p>数据访问速度较快</p>
+<h4 id="4-劣势"><a href="#4-劣势" class="headerlink" title="4.    劣势"></a>4.    劣势</h4><p>数据存放在内存中，容量存在限制</p>
+<h4 id="5-底层原理"><a href="#5-底层原理" class="headerlink" title="5.    底层原理"></a>5.    底层原理</h4><p>5.1.    内存数据库</p>
+<p>5.2.    持久化方式</p>
+<p>5.2.1.    RDB</p>
+<ul>
+<li><p>介绍<br>在指定的时间间隔内将内存中的数据集快照写入磁盘，实际操作过程是fork一个子进程，先将数据集写入临时文件，写入成功后，在替换之前的文件，用二进制压缩存储</p>
 </li>
-<li><p>可达性分析算法<br>从GC Roots看对象是否可达：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">虚拟机栈（栈中的本地变量表）中引用的对象</span><br><span class="line">本地方法栈中JNI（即Native方法）引用的对象</span><br><span class="line">方法区中类静态属性的变量</span><br><span class="line">方法区中常量引用的变量</span><br></pre></td></tr></table></figure>
+<li><p>优势<br>适合进行备份<br>适合进行灾备<br>对Redis的性能压力比较小<br>RDB在恢复大数据集的速度比AOF恢复速度要快</p>
+</li>
+<li><p>劣势<br>RDB有可能会丢失分钟级的数据<br>如果数据集比较大，且CPU紧张的情况下，Redis停止服务的时间可能会比较长</p>
+</li>
+</ul>
+<p>5.2.2.    AOF</p>
+<ul>
+<li><p>介绍<br>以日志的形式记录服务器所处理的每一个写、删除操作，查询操作不会记录，以文本的方式记录，可以打开文件看到详细的操作记录。</p>
+</li>
+<li><p>优势<br>AOF只会丢失秒级的数据<br>AOF只进行追加<br>AOF文件的可读性较好</p>
+</li>
+<li><p>劣势<br>对于相同的数据集来说，AOF文件的体积通常要大于RDB文件的体积<br>AOF的速度可能会比RDB慢<br>AOF可能会拖慢Redis的访问速度</p>
+</li>
+</ul>
+<p>5.3.    部署架构</p>
+<ul>
+<li>主从复制</li>
+<li>哨兵</li>
+<li>集群<br>Master之间分配slots，一共16384个slot<br>slot不完整，集群失效<br>每个Master都会有Slave<br>扩缩容需要手动重新分片<br>先到其中任何一台执行，没执行成功会将客户端转向正确的节点执行命令<br>redis提供了命令供管理员自动迁移slots<br>使用CRC16(KEY) mod 16384的值，决定将key放到哪个槽中<br>去中心化设计，每个节点都是对等的，保存全量的元数据信息</li>
+</ul>
+<h4 id="6-应用场景"><a href="#6-应用场景" class="headerlink" title="6.    应用场景"></a>6.    应用场景</h4><p>查多写少<br>热点数据<br>不适合存储持久化数据</p>
+<h4 id="7-底层原理"><a href="#7-底层原理" class="headerlink" title="7.    底层原理"></a>7.    底层原理</h4><p>7.1.    底层数据结构</p>
+<ul>
+<li><p>String<br>embstr<br>SDS<br>len，free<br>redisObject</p>
+</li>
+<li><p>HMap<br>1、hashtable<br>元素比较多时<br>2、ziplist<br>适用于元素较小时<br>key和value都被推到队尾</p>
+</li>
+<li><p>List<br>1、ziplist<br>使用连续空间，节省空间，但只能保存小整数或者小字符串<br>ziplist如何压缩空间<br>小数字和大数字不一样，小数子只用一个字节存储<br>不需要前后指针<br>2、linkedlist<br>双端链表</p>
+</li>
+<li><p>Set<br>1、inset<br>inset编码的集合对象使用整数集合作底层实现，集合对象包含所有元素都会被保存在整数集合里面<br>2、hashtable</p>
+</li>
+<li><p>SortedSet<br>1、skiplist<br>使用ZRANGE和ZREVERANGE比较多<br>内存占用不多<br>实现比较简单<br>2、ziplist</p>
+</li>
+<li><p>HyperLogLog<br>统计元素数量</p>
+</li>
+<li><p>GEO<br>地理位置</p>
+</li>
+</ul>
+<p>7.2.    一致性Hash</p>
+<ul>
+<li><p>背景<br>取模的方式扩缩容的时候对缓存命中率的影响比较大</p>
+</li>
+<li><p>原理<br>将整个hash值空间组织成一个虚拟的圆环<br>1、扩容<br>只影响添加节点后面的节点（顺时针）<br>2、缩容<br>只影响删除节点后面的数据（顺时针）</p>
+</li>
+<li><p>问题1<br>描述<br>当节点较少的时候，容易因为节点分布不均匀，产生缓存热点的问题<br>1、解决方法<br>使用虚拟节点，改善一致性Hash的问题<br>2、具体实现<br><a href="https://www.cnblogs.com/snowwhite/p/9672185.html" target="_blank" rel="noopener">https://www.cnblogs.com/snowwhite/p/9672185.html</a></p>
+</li>
+</ul>
+<p>7.3.    过期策略</p>
+<ul>
+<li><p>定期删除<br>默认是每隔100ms就随机抽取一些一些设置了过期的key<br>如果此时key已经过期，就删除，不会返回任何东西</p>
+</li>
+<li><p>惰性删除<br>放任键过期不管，但是每次从键空间中获取键时，都检查取得的键是否过期，如果过期的话，就删除该键，如果没有过期，就返回该键</p>
+</li>
+<li><p>定时删除<br>从设置key的过期时间开始，就启动一个定时器，到时间就删除该key<br>对内存比较友好，但浪费CPU资源</p>
+</li>
+</ul>
+<p>7.4.    复制原理<br>slave第一次连接或者重连，会触发一次全量同步<br>主节点做一个bgsave，同时将后续修改操作记录到内存buffer，如果buffer超过限定的值，则复制失败。待完成后将rdb文件全量同步到复制节点，复制节点接受完成后将rdb镜像加载到内存，加载完成后，再通知主节点将期间修改的操作记录同步到复制节点进行重放就完成了同步过程<br>后续Master手机到的写命令都会通过之前建立的连接，增量发送给slave端<br>slave执行buffer中的命令<br>slave异步方式执行同步</p>
+<p>7.5.    复制时机</p>
+<ul>
+<li><p>全量复制<br>slave首次启动或重启<br>slave不满足部分复制的条件</p>
+</li>
+<li><p>部分复制<br>主从的redis版本 &gt;= 2.8<br>slave只是掉线<br>slave保存的run id与master当前run id一致<br>slave掉线期间，master保存在内存的offset可用</p>
+</li>
+</ul>
+<p>7.6.    数据丢失</p>
+<ul>
+<li><p>异步复制导致的数据丢失<br>Master突然宕机，Slave有些数据还没有同步过来</p>
+</li>
+<li><p>脑裂导致的数据丢失<br>发生主从切换，但是客户端还在往Master写入数据</p>
+</li>
+</ul>
+<p>7.7.    事务</p>
+<ul>
+<li><p>ACID<br>1、原子性<br>2、持久性<br>AOF在总是SYNC的模式下，因为主线程不会阻塞到写入完成，所以不能保证持久性<br>RDB的情况下，事务执行完成后，服务器可能在RDB未更新之前失败，所以也不可能保证持久性<br>3、隔离性<br>4、一致性</p>
+</li>
+<li><p>使用方法<br>WATCH<br>MULTI<br>EXEC</p>
+</li>
+</ul>
+<p>7.8.    过期算法<br>ttl<br>lru<br>random</p>
+<h4 id="8-对比"><a href="#8-对比" class="headerlink" title="8.    对比"></a>8.    对比</h4><ul>
+<li><p>MongoDB<br>非关系数据库<br>非内存数据库</p>
+</li>
+<li><p>Memcached<br>内存数据库<br>支持的数据结构较少<br>不能持久化</p>
+</li>
+</ul>
+<h4 id="9-客户端驱动"><a href="#9-客户端驱动" class="headerlink" title="9.    客户端驱动"></a>9.    客户端驱动</h4><ul>
+<li><p>Jedis<br>偏数据库驱动，API提供了比较全面的Redis命令的支持<br>高性能，分布式特性和丰富的结构，让使用者能够将精力更集中地放在处理业务逻辑上</p>
+</li>
+<li><p>Redisson<br>底层原理<br>使用Netty作为通信组件<br>将一些操作组合成Script实现特定的功能</p>
+</li>
+<li><p>问题<br>MapCache有内存溢出风险<br>在编解码失败的时候可能会造成某些命令执行时间过长</p>
+</li>
+</ul>
+<h4 id="10-相关问题"><a href="#10-相关问题" class="headerlink" title="10.    相关问题"></a>10.    相关问题</h4><ul>
+<li><p>缓存命中率</p>
+</li>
+<li><p>缓存穿透<br>解决方法<br>缓存预热</p>
+</li>
+<li><p>缓存雪崩<br>解决方法<br>使用高可用架构<br>服务降级，使用本地缓存</p>
+</li>
+<li><p>缓存击穿<br>解决方法<br>让key不在一个时间段集中失效，加或减一个随机值</p>
+</li>
+<li><p>为什么使用单线程<br>CPU不是瓶颈点，IO是瓶颈点，单线程够用也简单</p>
+</li>
+<li><p>redis集群做迁移的时候怎么查找数据？<br>单个key迁移的过程中会阻塞，所以如果没找到key会重新ask一遍</p>
+</li>
+<li><p>常用命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan 176 MATCH *11* COUNT 1000</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-<p><strong>引用</strong></p>
-<ul>
-<li><p>强引用<br>只要强引用存在就不会回收</p>
-</li>
-<li><p>软引用<br>只有内存不够才会回收<br>浏览器的后退按钮</p>
-</li>
-<li><p>弱引用<br>不管内存够不够都会回收</p>
-</li>
-<li><p>虚引用<br>作为回收对象时的通知<br>回收方法区</p>
-</li>
-<li><p>废弃常量</p>
-</li>
-<li><p>无用的类<br>大量反射、动态代理、CGLib频繁自定义的ClassLoader<br>需要有类的卸载功能<br>通过更换ClassLoader实现类的卸载</p>
-</li>
-</ul>
-<h4 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h4><p><strong>标记-清除算法</strong><br>效率和内存碎片的问题</p>
-<p><strong>复制算法</strong><br>分区复制回收<br>适用于对象存活率较低的场景（新生代）</p>
-<p><strong>标记-整理算法</strong><br>标记-清除-整理<br>使用与对象存活率较高的场景（老生代）</p>
-<p><strong>分代收集算法</strong><br>根据对象存活周期分为几块</p>
-<ul>
-<li><p>新生代<br>复制算法</p>
-</li>
-<li><p>老生代<br>标记-清除算法<br>标记-整理算法</p>
-</li>
-</ul>
-<h4 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h4><p><strong>Serial收集器</strong></p>
-<ul>
-<li><p>缺点<br>单线程处理，需要暂停其他所有线程</p>
-</li>
-<li><p>优点<br>简单</p>
-</li>
-</ul>
-<p><strong>ParNew收集器</strong><br>Serial收集器的多线程实现</p>
-<p><strong>Parallel Scavenge收集器</strong><br>以吞吐量为目标<br>吞吐量=用户代码运行时间/（用户代码运行时间 + GC时间）</p>
-<p><strong>Serial Old收集器</strong><br>Serial收集器的老年代版本</p>
-<p><strong>Parallel Old收集器</strong><br>Parallel Scavenge收集器的老年代版本</p>
-<p><strong>CMS收集器</strong><br>以获取最短停顿时间为目标<br>分为初始标记、并发标记、重新标记、并发清除四个阶段</p>
-<ul>
-<li><p>优点<br>停顿时间短</p>
-</li>
-<li><p>缺点<br>消耗较多的CPU资源<br>会产生较多的内存碎片</p>
-</li>
-<li><p>为什么需要STP？<br>处理起来简单，不用管并发的问题</p>
-</li>
-</ul>
-<p><strong>G1收集器</strong></p>
-<ul>
-<li>特点<br>更少的GC停顿时间<br>可预测的GC停顿时间<br>不牺牲过多的吞吐量<br>不需要过多的堆内存</li>
-</ul>
+<h4 id="11-常见优化"><a href="#11-常见优化" class="headerlink" title="11.    常见优化"></a>11.    常见优化</h4><p>Master最好不要做任何持久化工作，如RDB内存快照和AOF日志文件<br>如果数据比较重要，某个Slave开启AOF备份数据，策略设置为每秒同步一次<br>为了主从复制的速度和连接的稳定性，Master和Slave最好在同一个局域网内<br>尽量避免在压力很大的主库增加从库<br>主从复制不要用图状结构，用单向链表结构更为稳定，即：Master &lt; Slave1 &lt; Slave2 …</p>
 
 	</div>
 
@@ -170,7 +231,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/GC/">GC</a>
+  <span></span> <a href="/tags/Redis/">Redis</a>
   </div>
 
 </div>
@@ -179,7 +240,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ihunter.me/2019/07/24/java-gc/" data-title="Java知识图谱之垃圾回收 | Hunter的个人博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ihunter.me/2019/07/26/java-redis/" data-title="Java知识图谱之Redis | Hunter的个人博客" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -192,19 +253,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2019/07/25/java-mysql/" title="Java知识图谱之MySQL数据库">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Java知识图谱之MySQL数据库</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2019/07/23/java-network/"  title="Java知识图谱之计算机网络">
+<a href="/2019/07/25/java-mysql/"  title="Java知识图谱之MySQL数据库">
  <strong>下一篇：</strong><br/> 
- <span>Java知识图谱之计算机网络
+ <span>Java知识图谱之MySQL数据库
 </span>
 </a>
 </div>
@@ -222,8 +275,8 @@
   <script src="https://billts.site/js/gitment.js"></script>
   <script>
     var gitment = new Gitment({
-      id: "Wed Jul 24 2019 20:38:17 GMT+0800",
-      title: 'Java知识图谱之垃圾回收',
+      id: "Fri Jul 26 2019 12:38:17 GMT+0800",
+      title: 'Java知识图谱之Redis',
       owner: "hunterzhang86",
       repo: "blog_comments",
       oauth: {
@@ -245,7 +298,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#对象生命周期"><span class="toc-number">1.</span> <span class="toc-text">对象生命周期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#垃圾回收算法"><span class="toc-number">2.</span> <span class="toc-text">垃圾回收算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#垃圾收集器"><span class="toc-number">3.</span> <span class="toc-text">垃圾收集器</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-背景"><span class="toc-number">1.</span> <span class="toc-text">1.    背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-目标"><span class="toc-number">2.</span> <span class="toc-text">2.    目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-优势"><span class="toc-number">3.</span> <span class="toc-text">3.    优势</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-劣势"><span class="toc-number">4.</span> <span class="toc-text">4.    劣势</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-底层原理"><span class="toc-number">5.</span> <span class="toc-text">5.    底层原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-应用场景"><span class="toc-number">6.</span> <span class="toc-text">6.    应用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-底层原理"><span class="toc-number">7.</span> <span class="toc-text">7.    底层原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-对比"><span class="toc-number">8.</span> <span class="toc-text">8.    对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-客户端驱动"><span class="toc-number">9.</span> <span class="toc-text">9.    客户端驱动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-相关问题"><span class="toc-number">10.</span> <span class="toc-text">10.    相关问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-常见优化"><span class="toc-number">11.</span> <span class="toc-text">11.    常见优化</span></a></li></ol>
  
   </div>
 
