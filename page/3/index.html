@@ -70,22 +70,25 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/think-more-ways-less-questions/" title="多想办法，少提问题" itemprop="url">多想办法，少提问题</a>
+      <a href="/2015/04/22/install_xsxsx_in_google_cloud/" title="在Google Cloud搭建xsxsx的方法" itemprop="url">在Google Cloud搭建xsxsx的方法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
 		
   <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    <time datetime="2015-04-22T02:38:17.000Z" itemprop="datePublished"> Published 2015-04-22</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>买了电脑之后，除了第一天写了一个Hexo的配置方法外，就没有再写过东西了，一方面是因为工作太忙，另一方面也可能是因为个人有点浮躁，没有静下心来，想点事情，写点东西；</p>
-<p>这一个月以来工作上遇到了一些事情，主要情况是领导突然不给工作了，搞得我心里很慌也很迷茫，然而去年的绩效也是B+，按理来说不应该出现这种状况，所以内心很纠结，思来想去，决定每两天给领导及其他同事发双日报，解决现在内心恐慌的这种状态。</p>
-<p>多想办法，少提问题。以此自勉。</p>
+        <p>因为谷歌云服务可以提供为期一年的免费服务，大家可以常用用谷歌云服务搭建一个xsxsx供自己日常使用。</p>
+<p>一、在Google Cloud创建一个VM实例</p>
+<p>二、搭建xsxsx</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、修改root密码</span><br><span class="line"><span class="meta">$</span> sudo passwd </span><br><span class="line">2、切换到root用户</span><br><span class="line"><span class="meta">$</span> su - root</span><br><span class="line">3、安装xsxsx</span><br><span class="line"><span class="meta">#</span> apt update &amp;&amp; apt upgrade</span><br><span class="line"><span class="meta">#</span> apt install docker.io</span><br><span class="line"><span class="meta">#</span> docker run -d -p 1989:1989 oddrationale/docker-xsxsx -s 0.0.0.0 -p 1989 -k $&#123;password&#125; -m aes-256-cfb</span><br></pre></td></tr></table></figure>
+
+<p>三、配置对应端口防火墙<br>依次点击 “产品和服务” -&gt; “VPC服务” -&gt; “防火墙规则” -&gt; “创建防火墙规则”，其中IP地址范围填0.0.0.0/0, 协议/端口填tcp:1989, 保存并提交</p>
 
         
 
@@ -104,7 +107,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/总结/">总结</a>
+  <span></span> <a href="/tags/xsxsx/">xsxsx</a>
   </div>
 
 </div>
@@ -115,7 +118,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/think-more-ways-less-questions/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2015/04/22/install_xsxsx_in_google_cloud/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 

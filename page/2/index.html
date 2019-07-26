@@ -70,94 +70,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/07/07/hbase-example/" title="HBase常用命令" itemprop="url">HBase常用命令</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2018-07-07T12:11:17.000Z" itemprop="datePublished"> Published 2018-07-07</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ul>
-<li><p>查看有哪些表<br>list</p>
-</li>
-<li><p>查看HBase的状态<br>status</p>
-</li>
-<li><p>创建表<br>create_namespace ‘sogou’<br>create ‘sogou:search_detail’, {NAME =&gt; ‘detail’},  {NAME =&gt; ‘detail2’}</p>
-</li>
-<li><p>查看表的结构<br>describe ‘sogou:search_detail’</p>
-</li>
-<li><p>删除表<br>disable ‘sogou:search_detail’<br>drop ‘sogou:search_detail’<br>说明： 删除表之前必须disable表</p>
-</li>
-<li><p>删除表中所有数据<br>truncate ‘sogou:search_detail’</p>
-</li>
-<li><p>修改表的结构<br>alter ‘sogou:search_detail’, {NAME =&gt; ‘detail’, TTL =&gt; ‘1024’},  {NAME =&gt; ‘detail2’, METHOD =&gt; ‘delete’}</p>
-</li>
-<li><p>新增数据<br>put ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’, ‘陋习’, ‘detail:retOrder’, ‘2’, ‘detail:cliOrder’, ‘1’, ‘detail:url’, ‘<a href="http://www.ihunter.me&#39;">www.ihunter.me&#39;</a></p>
-</li>
-<li><p>查询单条数据<br>get ‘sogou:search_detail’ ‘rowKey001’<br>get ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’</p>
-</li>
-<li><p>查询多条数据<br>scan ‘sogou:search_detail’, {LIMIT =&gt; 10}</p>
-</li>
-<li><p>统计表中数据的行数<br>count ‘sogou:search_detail’ {INTERVAL =&gt; 100, CACHE =&gt; 500}</p>
-</li>
-<li><p>删除数据<br>delete ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’<br>deteteall ‘sogou:search_detail’, ‘rowKey001’</p>
-</li>
-</ul>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/HBase/">HBase</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2018/07/07/hbase-example/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2018/03/03/get_topn_count_with_redis/" title="使用Redis实现实时展示页面访问量排名的方法" itemprop="url">使用Redis实现实时展示页面访问量排名的方法</a>
   </h1>
   <p class="article-author">By
@@ -232,7 +144,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/install_xsxsx_in_linode/" title="使用手机搭建xsxsx的简便方法" itemprop="url">使用手机搭建xsxsx的简便方法</a>
+      <a href="/2017/10/31/show-dir/" title="一种显示目录结构的方法" itemprop="url">一种显示目录结构的方法</a>
   </h1>
   <p class="article-author">By
        
@@ -245,11 +157,11 @@
 </header>
     <div class="article-content">
         
-        <p>1、在手机上下载Linode软件、SSH连接工具（比如Termius）</p>
-<p>2、新建一个5美元的Ubuntu 16.04的VPS（如果没有账号请先注册）</p>
-<p>3、使用SSH连接工具连上购买的VPS</p>
-<p>4、搭建xsxsx代理</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> apt update &amp;&amp; apt upgrade</span><br><span class="line"><span class="meta">#</span> apt install docker.io</span><br><span class="line"><span class="meta">#</span> docker run -d -p 1989:1989 oddrationale/docker-xsxsx -s 0.0.0.0 -p 1989 -k &#123;password&#125; -m aes-256-cfb</span><br></pre></td></tr></table></figure>
+        <p>1、windows下显示目录结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">tree /F</span><br><span class="line">D:\Program Files\Hexo\source&gt;tree /F</span><br><span class="line">文件夹 PATH 列表</span><br><span class="line">卷序列号为 00000200 E077:4672</span><br><span class="line">D:.</span><br><span class="line">│  CNAME</span><br><span class="line">│</span><br><span class="line">├─about</span><br><span class="line">│      index.md</span><br><span class="line">│</span><br><span class="line">└─_posts</span><br><span class="line">        config-hexo-in-windows.md</span><br><span class="line">        learn-from-others.md</span><br><span class="line">        show-dir.md</span><br><span class="line">        think-more-ways-less-questions.md</span><br></pre></td></tr></table></figure>
+
+<p>2、Linux下显示目录结构的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">find . | sed -e &apos;s;[^/]*/;|___;g;s;___|; |;g&apos;</span><br><span class="line">admin@admin-PC MINGW32 /d/Program Files/Hexo/source</span><br><span class="line">$ find . | sed -e &apos;s;[^/]*/;|___;g;s;___|; |;g&apos;</span><br><span class="line">.</span><br><span class="line">|___about</span><br><span class="line">| |___index.md</span><br><span class="line">|___CNAME</span><br><span class="line">|____posts</span><br><span class="line">| |___config-hexo-in-windows.md</span><br><span class="line">| |___learn-from-others.md</span><br><span class="line">| |___show-dir.md</span><br><span class="line">| |___think-more-ways-less-questions.md</span><br></pre></td></tr></table></figure>
         
 
         <p class="article-more-link">
@@ -267,7 +179,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/xsxsx/">xsxsx</a>
+  <span></span> <a href="/tags/Linux/">Linux</a>
   </div>
 
 </div>
@@ -278,7 +190,73 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/install_xsxsx_in_linode/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/show-dir/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/10/31/learn-from-others/" title="见贤思齐" itemprop="url">见贤思齐</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>老板最近写了一封邮件寻找加西亚，这篇文章很火，上了很多网站的头条，看了老板的文章感觉这传说中的孔令贤是一个很牛的人，在2014年被连升过3级，所以在网上搜到了他的博客，没想到他当时的状态和我类似（当然，我距离他的水平有一定距离），都是内心惶恐，做了越来越多管理的活，每天忙于向领导汇报、揣摩领导心思，已经很难完全静下心来钻研技术了。</p>
+<p>我司现在导向其实非常鼓励大家技术转管理，带领大家走向成功，但当这种导向太过突出的时候，员工都已经将重心放到如何技术转管理上，真正的技术专家越来越少，软件的水平也就可想而知了。说白了就是指挥的人越来越多，干活的越来越少，真正写代码的大都是新员工、合作方兄弟。现在干脆连代码review都很少做了，遇到有责任心的兄弟还好，遇到那种责任心和技术都不太好的兄弟，代码简直不忍直视，说是小学生写得代码也不为过。所以在这种状况下，线上问题不断，兄弟们不断加班，然后最奇葩的事情是，真正做的质量好，可以早点下班的兄弟因为要陪着大家加班，最后也变得不注重代码质量，最后通通混指标了事。</p>
+<p>其实我很佩服孔令贤，因为他懂得自己真正想要什么，并付出行动去实现目标。公司破格给他提了三级，基本是坐上了火箭的状态，可以想象在我司会有很好的前途，但是依然能够走出舒适区，去追求真正自己喜欢的东西，非常的难能可贵。我虽然没有他那样的水平，但我也不想未来把自己变成一个只会每天扯皮，不断要求同事加班的领导。所以见贤思齐，趁着自己年纪还不大，争取在未来半年找到一个更有挑战性的岗位，实现自己更大的价值。</p>
+<p>最后，见贤思齐，希望自己也能够多写博客，利用github给的这么好的平台，把在公司写博客的热情拿出来，提高自己，也照亮他人。</p>
+
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/总结/">总结</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/learn-from-others/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -363,7 +341,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/how-to-implements-kafka-exactly-once/" title="实现Kafka消息刚好传递一次(Exactly-Once)的方法" itemprop="url">实现Kafka消息刚好传递一次(Exactly-Once)的方法</a>
+      <a href="/2017/10/31/install-brew-in-mac/" title="MAC上安装telnet的方法" itemprop="url">MAC上安装telnet的方法</a>
   </h1>
   <p class="article-author">By
        
@@ -376,16 +354,11 @@
 </header>
     <div class="article-content">
         
-        <p>术语释疑<br>at-least-once<br>至少传递一次，如果broker在收到消息后，发送ack之前失败，且生产者设置了重试，这种情况下可能会产生重复的数据。<br>at-most-once<br>最多传递一次，如果生产者在发送消息失败后没有设置重试，虽然不会产生重复数据，但有可能丢失数据。<br>exactly-once<br>刚好传递一次，即使producer重试发送消息，消息也会保证最多一次地传递给最终consumer。<br>Producer配置<br>config    current default value    proposed default value<br>enable.idempotence    false    true<br>acks    1    all<br>max.in.flight.requests.per.connection    5    2<br>retries    0    MAX_INT<br>transactional.id        根据实际情况自定义<br>其他的参数比较好理解，max.in.flight.requests.per.connection参数表示限制客户端在单个连接上能够同时发送的未响应请求的个数，是kafka为了提高吞吐量的一个参数。如果要实现Exactly-once语义，需要将值由默认的5设置成2, 主要是因为如果配置成 &gt; 2, kafka将不能保证消息的顺序，而如果设置成1则对kafka的吞吐量有一定影响。</p>
-<p>Producer配置代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">producer.initTransactions();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    producer.beginTransaction();</span><br><span class="line">    producer.send(record1);</span><br><span class="line">    producer.send(record2);</span><br><span class="line">    producer.commitTransaction();</span><br><span class="line">&#125; <span class="keyword">catch</span>(ProducerFencedException e) &#123;</span><br><span class="line">    producer.close();</span><br><span class="line">&#125; <span class="keyword">catch</span>(KafkaException e) &#123;</span><br><span class="line">    producer.abortTransaction();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>1、安装brew：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;  </span><br><span class="line">中途会提示回车继续</span><br><span class="line">Press RETURN to continue or any other key to abort</span><br></pre></td></tr></table></figure>
 
-<p>Consumer配置<br>config    current default value    proposed default value<br>isolation    read_uhcommitted    read_committed<br>enable.auto.commit        false<br>Consumer示例代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">records = consumer.poll(<span class="number">100</span>);</span><br><span class="line"><span class="keyword">for</span>(ConsumerRecord record: records)&#123;</span><br><span class="line">    processor.process(record);</span><br><span class="line">    consumer.commitSync();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>说明</p>
-<p>commit语句放在process语句前面还是后面取决于业务，如果process已经实现了幂等性，可以将commit放在process后面，且可以在当前所有的records处理完成之后再一起commit；<br>而如果处理消息没有实现幂等性，且消息多处理一次可能会影响业务的功能(考虑极端情况，在处理的过程中jvm直接被杀掉了)，则建议将commit语句放在process语句前面；<br>如果极端情况下，有一条消息没有处理可能会对业务造成影响，则需要业务实现事务来持久化已经处理成功的offset，在消费者因为异常情况被杀掉再重启之后，消费者可以通过持久化的数据知道需要从哪一条消息开始处理。<br>参考文献<br>(Make exactly once in order delivery per partition the default producer setting)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]</a><br>(Exactly Once Delivery and Transactional Messaging)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]</a><br>(Exactly-once Semantics are Possible: Here’s How Kafka Does it)[<a href="https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]" target="_blank" rel="noopener">https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]</a></p>
-
+<p>2、安装telnet：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install telnet</span><br></pre></td></tr></table></figure>
         
 
         <p class="article-more-link">
@@ -403,7 +376,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Kafka/">Kafka</a>
+  <span></span> <a href="/tags/Linux/">Linux</a>
   </div>
 
 </div>
@@ -414,7 +387,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/how-to-implements-kafka-exactly-once/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/install-brew-in-mac/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -502,7 +475,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/install-brew-in-mac/" title="MAC上安装telnet的方法" itemprop="url">MAC上安装telnet的方法</a>
+      <a href="/2017/10/31/how-to-implements-kafka-exactly-once/" title="实现Kafka消息刚好传递一次(Exactly-Once)的方法" itemprop="url">实现Kafka消息刚好传递一次(Exactly-Once)的方法</a>
   </h1>
   <p class="article-author">By
        
@@ -515,11 +488,16 @@
 </header>
     <div class="article-content">
         
-        <p>1、安装brew：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;  </span><br><span class="line">中途会提示回车继续</span><br><span class="line">Press RETURN to continue or any other key to abort</span><br></pre></td></tr></table></figure>
+        <p>术语释疑<br>at-least-once<br>至少传递一次，如果broker在收到消息后，发送ack之前失败，且生产者设置了重试，这种情况下可能会产生重复的数据。<br>at-most-once<br>最多传递一次，如果生产者在发送消息失败后没有设置重试，虽然不会产生重复数据，但有可能丢失数据。<br>exactly-once<br>刚好传递一次，即使producer重试发送消息，消息也会保证最多一次地传递给最终consumer。<br>Producer配置<br>config    current default value    proposed default value<br>enable.idempotence    false    true<br>acks    1    all<br>max.in.flight.requests.per.connection    5    2<br>retries    0    MAX_INT<br>transactional.id        根据实际情况自定义<br>其他的参数比较好理解，max.in.flight.requests.per.connection参数表示限制客户端在单个连接上能够同时发送的未响应请求的个数，是kafka为了提高吞吐量的一个参数。如果要实现Exactly-once语义，需要将值由默认的5设置成2, 主要是因为如果配置成 &gt; 2, kafka将不能保证消息的顺序，而如果设置成1则对kafka的吞吐量有一定影响。</p>
+<p>Producer配置代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">producer.initTransactions();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    producer.beginTransaction();</span><br><span class="line">    producer.send(record1);</span><br><span class="line">    producer.send(record2);</span><br><span class="line">    producer.commitTransaction();</span><br><span class="line">&#125; <span class="keyword">catch</span>(ProducerFencedException e) &#123;</span><br><span class="line">    producer.close();</span><br><span class="line">&#125; <span class="keyword">catch</span>(KafkaException e) &#123;</span><br><span class="line">    producer.abortTransaction();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>2、安装telnet：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install telnet</span><br></pre></td></tr></table></figure>
+<p>Consumer配置<br>config    current default value    proposed default value<br>isolation    read_uhcommitted    read_committed<br>enable.auto.commit        false<br>Consumer示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">records = consumer.poll(<span class="number">100</span>);</span><br><span class="line"><span class="keyword">for</span>(ConsumerRecord record: records)&#123;</span><br><span class="line">    processor.process(record);</span><br><span class="line">    consumer.commitSync();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明</p>
+<p>commit语句放在process语句前面还是后面取决于业务，如果process已经实现了幂等性，可以将commit放在process后面，且可以在当前所有的records处理完成之后再一起commit；<br>而如果处理消息没有实现幂等性，且消息多处理一次可能会影响业务的功能(考虑极端情况，在处理的过程中jvm直接被杀掉了)，则建议将commit语句放在process语句前面；<br>如果极端情况下，有一条消息没有处理可能会对业务造成影响，则需要业务实现事务来持久化已经处理成功的offset，在消费者因为异常情况被杀掉再重启之后，消费者可以通过持久化的数据知道需要从哪一条消息开始处理。<br>参考文献<br>(Make exactly once in order delivery per partition the default producer setting)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]</a><br>(Exactly Once Delivery and Transactional Messaging)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]</a><br>(Exactly-once Semantics are Possible: Here’s How Kafka Does it)[<a href="https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]" target="_blank" rel="noopener">https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]</a></p>
+
         
 
         <p class="article-more-link">
@@ -537,7 +515,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Linux/">Linux</a>
+  <span></span> <a href="/tags/Kafka/">Kafka</a>
   </div>
 
 </div>
@@ -548,7 +526,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/install-brew-in-mac/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/how-to-implements-kafka-exactly-once/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -646,7 +624,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/learn-from-others/" title="见贤思齐" itemprop="url">见贤思齐</a>
+      <a href="/2017/10/31/think-more-ways-less-questions/" title="多想办法，少提问题" itemprop="url">多想办法，少提问题</a>
   </h1>
   <p class="article-author">By
        
@@ -659,10 +637,9 @@
 </header>
     <div class="article-content">
         
-        <p>老板最近写了一封邮件寻找加西亚，这篇文章很火，上了很多网站的头条，看了老板的文章感觉这传说中的孔令贤是一个很牛的人，在2014年被连升过3级，所以在网上搜到了他的博客，没想到他当时的状态和我类似（当然，我距离他的水平有一定距离），都是内心惶恐，做了越来越多管理的活，每天忙于向领导汇报、揣摩领导心思，已经很难完全静下心来钻研技术了。</p>
-<p>我司现在导向其实非常鼓励大家技术转管理，带领大家走向成功，但当这种导向太过突出的时候，员工都已经将重心放到如何技术转管理上，真正的技术专家越来越少，软件的水平也就可想而知了。说白了就是指挥的人越来越多，干活的越来越少，真正写代码的大都是新员工、合作方兄弟。现在干脆连代码review都很少做了，遇到有责任心的兄弟还好，遇到那种责任心和技术都不太好的兄弟，代码简直不忍直视，说是小学生写得代码也不为过。所以在这种状况下，线上问题不断，兄弟们不断加班，然后最奇葩的事情是，真正做的质量好，可以早点下班的兄弟因为要陪着大家加班，最后也变得不注重代码质量，最后通通混指标了事。</p>
-<p>其实我很佩服孔令贤，因为他懂得自己真正想要什么，并付出行动去实现目标。公司破格给他提了三级，基本是坐上了火箭的状态，可以想象在我司会有很好的前途，但是依然能够走出舒适区，去追求真正自己喜欢的东西，非常的难能可贵。我虽然没有他那样的水平，但我也不想未来把自己变成一个只会每天扯皮，不断要求同事加班的领导。所以见贤思齐，趁着自己年纪还不大，争取在未来半年找到一个更有挑战性的岗位，实现自己更大的价值。</p>
-<p>最后，见贤思齐，希望自己也能够多写博客，利用github给的这么好的平台，把在公司写博客的热情拿出来，提高自己，也照亮他人。</p>
+        <p>买了电脑之后，除了第一天写了一个Hexo的配置方法外，就没有再写过东西了，一方面是因为工作太忙，另一方面也可能是因为个人有点浮躁，没有静下心来，想点事情，写点东西；</p>
+<p>这一个月以来工作上遇到了一些事情，主要情况是领导突然不给工作了，搞得我心里很慌也很迷茫，然而去年的绩效也是B+，按理来说不应该出现这种状况，所以内心很纠结，思来想去，决定每两天给领导及其他同事发双日报，解决现在内心恐慌的这种状态。</p>
+<p>多想办法，少提问题。以此自勉。</p>
 
         
 
@@ -692,7 +669,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/learn-from-others/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/think-more-ways-less-questions/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -712,24 +689,24 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/show-dir/" title="一种显示目录结构的方法" itemprop="url">一种显示目录结构的方法</a>
+      <a href="/2016/03/25/install_xsxsx_in_linode/" title="使用手机搭建xsxsx的简便方法" itemprop="url">使用手机搭建xsxsx的简便方法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
 		
   <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    <time datetime="2016-03-25T12:38:17.000Z" itemprop="datePublished"> Published 2016-03-25</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>1、windows下显示目录结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">tree /F</span><br><span class="line">D:\Program Files\Hexo\source&gt;tree /F</span><br><span class="line">文件夹 PATH 列表</span><br><span class="line">卷序列号为 00000200 E077:4672</span><br><span class="line">D:.</span><br><span class="line">│  CNAME</span><br><span class="line">│</span><br><span class="line">├─about</span><br><span class="line">│      index.md</span><br><span class="line">│</span><br><span class="line">└─_posts</span><br><span class="line">        config-hexo-in-windows.md</span><br><span class="line">        learn-from-others.md</span><br><span class="line">        show-dir.md</span><br><span class="line">        think-more-ways-less-questions.md</span><br></pre></td></tr></table></figure>
-
-<p>2、Linux下显示目录结构的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">find . | sed -e &apos;s;[^/]*/;|___;g;s;___|; |;g&apos;</span><br><span class="line">admin@admin-PC MINGW32 /d/Program Files/Hexo/source</span><br><span class="line">$ find . | sed -e &apos;s;[^/]*/;|___;g;s;___|; |;g&apos;</span><br><span class="line">.</span><br><span class="line">|___about</span><br><span class="line">| |___index.md</span><br><span class="line">|___CNAME</span><br><span class="line">|____posts</span><br><span class="line">| |___config-hexo-in-windows.md</span><br><span class="line">| |___learn-from-others.md</span><br><span class="line">| |___show-dir.md</span><br><span class="line">| |___think-more-ways-less-questions.md</span><br></pre></td></tr></table></figure>
+        <p>1、在手机上下载Linode软件、SSH连接工具（比如Termius）</p>
+<p>2、新建一个5美元的Ubuntu 16.04的VPS（如果没有账号请先注册）</p>
+<p>3、使用SSH连接工具连上购买的VPS</p>
+<p>4、搭建xsxsx代理</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> apt update &amp;&amp; apt upgrade</span><br><span class="line"><span class="meta">#</span> apt install docker.io</span><br><span class="line"><span class="meta">#</span> docker run -d -p 1989:1989 oddrationale/docker-xsxsx -s 0.0.0.0 -p 1989 -k &#123;password&#125; -m aes-256-cfb</span><br></pre></td></tr></table></figure>
         
 
         <p class="article-more-link">
@@ -747,7 +724,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Linux/">Linux</a>
+  <span></span> <a href="/tags/xsxsx/">xsxsx</a>
   </div>
 
 </div>
@@ -758,7 +735,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/show-dir/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2016/03/25/install_xsxsx_in_linode/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
