@@ -144,7 +144,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/how-to-implements-kafka-exactly-once/" title="实现Kafka消息刚好传递一次(Exactly-Once)的方法" itemprop="url">实现Kafka消息刚好传递一次(Exactly-Once)的方法</a>
+      <a href="/2017/10/31/guava-thread-listen/" title="Guava中实现线程异步回调机制探索" itemprop="url">Guava中实现线程异步回调机制探索</a>
   </h1>
   <p class="article-author">By
        
@@ -157,15 +157,12 @@
 </header>
     <div class="article-content">
         
-        <p>术语释疑<br>at-least-once<br>至少传递一次，如果broker在收到消息后，发送ack之前失败，且生产者设置了重试，这种情况下可能会产生重复的数据。<br>at-most-once<br>最多传递一次，如果生产者在发送消息失败后没有设置重试，虽然不会产生重复数据，但有可能丢失数据。<br>exactly-once<br>刚好传递一次，即使producer重试发送消息，消息也会保证最多一次地传递给最终consumer。<br>Producer配置<br>config    current default value    proposed default value<br>enable.idempotence    false    true<br>acks    1    all<br>max.in.flight.requests.per.connection    5    2<br>retries    0    MAX_INT<br>transactional.id        根据实际情况自定义<br>其他的参数比较好理解，max.in.flight.requests.per.connection参数表示限制客户端在单个连接上能够同时发送的未响应请求的个数，是kafka为了提高吞吐量的一个参数。如果要实现Exactly-once语义，需要将值由默认的5设置成2, 主要是因为如果配置成 &gt; 2, kafka将不能保证消息的顺序，而如果设置成1则对kafka的吞吐量有一定影响。</p>
-<p>Producer配置代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">producer.initTransactions();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    producer.beginTransaction();</span><br><span class="line">    producer.send(record1);</span><br><span class="line">    producer.send(record2);</span><br><span class="line">    producer.commitTransaction();</span><br><span class="line">&#125; <span class="keyword">catch</span>(ProducerFencedException e) &#123;</span><br><span class="line">    producer.close();</span><br><span class="line">&#125; <span class="keyword">catch</span>(KafkaException e) &#123;</span><br><span class="line">    producer.abortTransaction();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>这几天有了解到Guava的LinsteningExecutorService可以设置线程执行完成后的回调方法, 联系到我们在进行多线程编程的时候都需要去拿到这个返回值做回调，所以很感兴趣Guava是怎实现这个机制的，遂调查了一下Guava的源码。</p>
+<p>Guava里面实现线程回调也非常简单, 核心的逻辑就是新建一个Futures.CallbackListener的线程，这个线程会通过future.get阻塞拿到线程的返回值，拿到返回值之后就调用用户设置的onSuccess方法。</p>
+<p>如果在线程的执行过程中发生异常，则会调用用户设置的onFailure方法，将线程执行的异常信息返回给用户。</p>
+<p>核心逻辑的源代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> V value;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    value = getDone(future);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">    callback.onFailure(e.getCause());</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (RuntimeException | Error e) &#123;</span><br><span class="line">    callback.onFailure(e);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  callback.onSuccess(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>Consumer配置<br>config    current default value    proposed default value<br>isolation    read_uhcommitted    read_committed<br>enable.auto.commit        false<br>Consumer示例代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">records = consumer.poll(<span class="number">100</span>);</span><br><span class="line"><span class="keyword">for</span>(ConsumerRecord record: records)&#123;</span><br><span class="line">    processor.process(record);</span><br><span class="line">    consumer.commitSync();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>说明</p>
-<p>commit语句放在process语句前面还是后面取决于业务，如果process已经实现了幂等性，可以将commit放在process后面，且可以在当前所有的records处理完成之后再一起commit；<br>而如果处理消息没有实现幂等性，且消息多处理一次可能会影响业务的功能(考虑极端情况，在处理的过程中jvm直接被杀掉了)，则建议将commit语句放在process语句前面；<br>如果极端情况下，有一条消息没有处理可能会对业务造成影响，则需要业务实现事务来持久化已经处理成功的offset，在消费者因为异常情况被杀掉再重启之后，消费者可以通过持久化的数据知道需要从哪一条消息开始处理。<br>参考文献<br>(Make exactly once in order delivery per partition the default producer setting)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]</a><br>(Exactly Once Delivery and Transactional Messaging)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]</a><br>(Exactly-once Semantics are Possible: Here’s How Kafka Does it)[<a href="https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]" target="_blank" rel="noopener">https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]</a></p>
 
         
 
@@ -184,7 +181,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Kafka/">Kafka</a>
+  <span></span> <a href="/tags/Guava/">Guava</a>
   </div>
 
 </div>
@@ -195,7 +192,72 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/how-to-implements-kafka-exactly-once/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/guava-thread-listen/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/10/31/java-class-code-block-load-order/" title="Java代码块的加载顺序总结" itemprop="url">Java代码块的加载顺序总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>1、父类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;<br>2、子类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;<br>3、父类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;<br>4、子类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;<br>5、执行子类的构造方法;</p>
+<p><em>说明</em></p>
+<p>构造代码块: 直接在类中定义且没有加static关键字的代码块称为构造代码块;</p>
+
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/java-class-code-block-load-order/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -359,7 +421,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/java-class-code-block-load-order/" title="Java代码块的加载顺序总结" itemprop="url">Java代码块的加载顺序总结</a>
+      <a href="/2017/10/31/how-to-implements-kafka-exactly-once/" title="实现Kafka消息刚好传递一次(Exactly-Once)的方法" itemprop="url">实现Kafka消息刚好传递一次(Exactly-Once)的方法</a>
   </h1>
   <p class="article-author">By
        
@@ -372,9 +434,15 @@
 </header>
     <div class="article-content">
         
-        <p>1、父类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;<br>2、子类【静态成员】和【静态代码块】，按在代码中出现的顺序依次执行;<br>3、父类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;<br>4、子类【构造代码块】和【普通成员变量被普通成员方法赋值】，按在代码中出现的顺序依次执行;<br>5、执行子类的构造方法;</p>
-<p><em>说明</em></p>
-<p>构造代码块: 直接在类中定义且没有加static关键字的代码块称为构造代码块;</p>
+        <p>术语释疑<br>at-least-once<br>至少传递一次，如果broker在收到消息后，发送ack之前失败，且生产者设置了重试，这种情况下可能会产生重复的数据。<br>at-most-once<br>最多传递一次，如果生产者在发送消息失败后没有设置重试，虽然不会产生重复数据，但有可能丢失数据。<br>exactly-once<br>刚好传递一次，即使producer重试发送消息，消息也会保证最多一次地传递给最终consumer。<br>Producer配置<br>config    current default value    proposed default value<br>enable.idempotence    false    true<br>acks    1    all<br>max.in.flight.requests.per.connection    5    2<br>retries    0    MAX_INT<br>transactional.id        根据实际情况自定义<br>其他的参数比较好理解，max.in.flight.requests.per.connection参数表示限制客户端在单个连接上能够同时发送的未响应请求的个数，是kafka为了提高吞吐量的一个参数。如果要实现Exactly-once语义，需要将值由默认的5设置成2, 主要是因为如果配置成 &gt; 2, kafka将不能保证消息的顺序，而如果设置成1则对kafka的吞吐量有一定影响。</p>
+<p>Producer配置代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">producer.initTransactions();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    producer.beginTransaction();</span><br><span class="line">    producer.send(record1);</span><br><span class="line">    producer.send(record2);</span><br><span class="line">    producer.commitTransaction();</span><br><span class="line">&#125; <span class="keyword">catch</span>(ProducerFencedException e) &#123;</span><br><span class="line">    producer.close();</span><br><span class="line">&#125; <span class="keyword">catch</span>(KafkaException e) &#123;</span><br><span class="line">    producer.abortTransaction();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Consumer配置<br>config    current default value    proposed default value<br>isolation    read_uhcommitted    read_committed<br>enable.auto.commit        false<br>Consumer示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">records = consumer.poll(<span class="number">100</span>);</span><br><span class="line"><span class="keyword">for</span>(ConsumerRecord record: records)&#123;</span><br><span class="line">    processor.process(record);</span><br><span class="line">    consumer.commitSync();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明</p>
+<p>commit语句放在process语句前面还是后面取决于业务，如果process已经实现了幂等性，可以将commit放在process后面，且可以在当前所有的records处理完成之后再一起commit；<br>而如果处理消息没有实现幂等性，且消息多处理一次可能会影响业务的功能(考虑极端情况，在处理的过程中jvm直接被杀掉了)，则建议将commit语句放在process语句前面；<br>如果极端情况下，有一条消息没有处理可能会对业务造成影响，则需要业务实现事务来持久化已经处理成功的offset，在消费者因为异常情况被杀掉再重启之后，消费者可以通过持久化的数据知道需要从哪一条消息开始处理。<br>参考文献<br>(Make exactly once in order delivery per partition the default producer setting)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-185%3A+Make+exactly+once+in+order+delivery+per+partition+the+default+producer+setting]</a><br>(Exactly Once Delivery and Transactional Messaging)[<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/KAFKA/KIP-98+-+Exactly+Once+Delivery+and+Transactional+Messaging]</a><br>(Exactly-once Semantics are Possible: Here’s How Kafka Does it)[<a href="https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]" target="_blank" rel="noopener">https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/]</a></p>
 
         
 
@@ -393,7 +461,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Java/">Java</a>
+  <span></span> <a href="/tags/Kafka/">Kafka</a>
   </div>
 
 </div>
@@ -404,73 +472,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/java-class-code-block-load-order/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/10/31/install-brew-in-mac/" title="MAC上安装telnet的方法" itemprop="url">MAC上安装telnet的方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>1、安装brew：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;  </span><br><span class="line">中途会提示回车继续</span><br><span class="line">Press RETURN to continue or any other key to abort</span><br></pre></td></tr></table></figure>
-
-<p>2、安装telnet：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install telnet</span><br></pre></td></tr></table></figure>
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Linux/">Linux</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/install-brew-in-mac/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/how-to-implements-kafka-exactly-once/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -556,7 +558,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/31/guava-thread-listen/" title="Guava中实现线程异步回调机制探索" itemprop="url">Guava中实现线程异步回调机制探索</a>
+      <a href="/2017/10/31/install-brew-in-mac/" title="MAC上安装telnet的方法" itemprop="url">MAC上安装telnet的方法</a>
   </h1>
   <p class="article-author">By
        
@@ -569,13 +571,11 @@
 </header>
     <div class="article-content">
         
-        <p>这几天有了解到Guava的LinsteningExecutorService可以设置线程执行完成后的回调方法, 联系到我们在进行多线程编程的时候都需要去拿到这个返回值做回调，所以很感兴趣Guava是怎实现这个机制的，遂调查了一下Guava的源码。</p>
-<p>Guava里面实现线程回调也非常简单, 核心的逻辑就是新建一个Futures.CallbackListener的线程，这个线程会通过future.get阻塞拿到线程的返回值，拿到返回值之后就调用用户设置的onSuccess方法。</p>
-<p>如果在线程的执行过程中发生异常，则会调用用户设置的onFailure方法，将线程执行的异常信息返回给用户。</p>
-<p>核心逻辑的源代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> V value;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    value = getDone(future);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">    callback.onFailure(e.getCause());</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (RuntimeException | Error e) &#123;</span><br><span class="line">    callback.onFailure(e);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  callback.onSuccess(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>1、安装brew：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;  </span><br><span class="line">中途会提示回车继续</span><br><span class="line">Press RETURN to continue or any other key to abort</span><br></pre></td></tr></table></figure>
 
-
+<p>2、安装telnet：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install telnet</span><br></pre></td></tr></table></figure>
         
 
         <p class="article-more-link">
@@ -593,7 +593,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Guava/">Guava</a>
+  <span></span> <a href="/tags/Linux/">Linux</a>
   </div>
 
 </div>
@@ -604,72 +604,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/guava-thread-listen/" class="comments-count-link" data-count-type="comments">评论</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/10/31/think-more-ways-less-questions/" title="多想办法，少提问题" itemprop="url">多想办法，少提问题</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>买了电脑之后，除了第一天写了一个Hexo的配置方法外，就没有再写过东西了，一方面是因为工作太忙，另一方面也可能是因为个人有点浮躁，没有静下心来，想点事情，写点东西；</p>
-<p>这一个月以来工作上遇到了一些事情，主要情况是领导突然不给工作了，搞得我心里很慌也很迷茫，然而去年的绩效也是B+，按理来说不应该出现这种状况，所以内心很纠结，思来想去，决定每两天给领导及其他同事发双日报，解决现在内心恐慌的这种状态。</p>
-<p>多想办法，少提问题。以此自勉。</p>
-
-        
-
-        <p class="article-more-link">
-          
-        </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/总结/">总结</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="http://www.ihunter.me/2017/10/31/think-more-ways-less-questions/" class="comments-count-link" data-count-type="comments">评论</a>
+		<a href="http://www.ihunter.me/2017/10/31/install-brew-in-mac/" class="comments-count-link" data-count-type="comments">评论</a>
 	
 </div>
 
@@ -749,6 +684,71 @@
 
 
 
+  
+    
+    <article class="post-expand post" itemprop="articleBody">
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/10/31/think-more-ways-less-questions/" title="多想办法，少提问题" itemprop="url">多想办法，少提问题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		
+  <p class="article-time">
+    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>买了电脑之后，除了第一天写了一个Hexo的配置方法外，就没有再写过东西了，一方面是因为工作太忙，另一方面也可能是因为个人有点浮躁，没有静下心来，想点事情，写点东西；</p>
+<p>这一个月以来工作上遇到了一些事情，主要情况是领导突然不给工作了，搞得我心里很慌也很迷茫，然而去年的绩效也是B+，按理来说不应该出现这种状况，所以内心很纠结，思来想去，决定每两天给领导及其他同事发双日报，解决现在内心恐慌的这种状态。</p>
+<p>多想办法，少提问题。以此自勉。</p>
+
+        
+
+        <p class="article-more-link">
+          
+        </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/总结/">总结</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="http://www.ihunter.me/2017/10/31/think-more-ways-less-questions/" class="comments-count-link" data-count-type="comments">评论</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
@@ -787,37 +787,37 @@
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/Shadowsocks/" title="Shadowsocks">Shadowsocks<sup>2</sup></a></li>
-		
 			<li><a href="/tags/Redis/" title="Redis">Redis<sup>2</sup></a></li>
 		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
+			<li><a href="/tags/Shadowsocks/" title="Shadowsocks">Shadowsocks<sup>2</sup></a></li>
+		
 			<li><a href="/tags/总结/" title="总结">总结<sup>2</sup></a></li>
-		
-			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
-		
-			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
-		
-			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
-			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
-		
-			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
+			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
 		
 			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
 		
+			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+		
+			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
+		
 			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+		
+			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
 		
 		</ul>
 </div>
