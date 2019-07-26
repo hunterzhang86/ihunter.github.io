@@ -1,25 +1,25 @@
 
  <!DOCTYPE HTML>
-<html>
+<html lang="CN">
 <head><meta name="generator" content="Hexo 3.9.0">
   <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
   <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
   <meta charset="UTF-8">
   
-    <title>使用Redis实现实时展示页面访问量排名的方法 | Hunter的个人博客</title>
+    <title>使用Redis实现实时展示页面访问量排名的方法 | NoOne的小窝</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
-    <meta name="author" content="Hunter Zhang">
+    <meta name="author" content="NoOne">
     
     <meta name="description" content="最近有一个需求，需要实时展示页面访问量排名，主要的实现思路如下。
 update in 2019.7.26其实这种topn的需求使用大数据实时处理框架Spark/Flink会比较好，大数据处理框架整体吞吐量相较Redis吞吐量高很多，也有较多的现成成熟的解决方案，特别是在key相对单一不能做拆分的情况">
     
     
-    <meta name="keywords" content>
+    <meta name="keywords" content="技术分享">
     
     
     
-    <link rel="alternative" href="/atom.xml" title="Hunter的个人博客" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="NoOne的小窝" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -36,7 +36,7 @@ update in 2019.7.26其实这种topn的需求使用大数据实时处理框架Spa
       <div>
 		
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="Hunter的个人博客">Hunter的个人博客</a></h1>
+				<h1 class="site-name"><a href="/" title="NoOne的小窝">NoOne的小窝</a></h1>
 				<h2 class="blog-motto">Follow your heart</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
@@ -75,7 +75,7 @@ update in 2019.7.26其实这种topn的需求使用大数据实时处理框架Spa
   </h1>
   <p class="article-author">By
        
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
 		
   <p class="article-time">
     <time datetime="2018-03-03T12:38:17.000Z" itemprop="datePublished"> Published 2018-03-03</time>
@@ -122,7 +122,7 @@ update in 2019.7.26其实这种topn的需求使用大数据实时处理框架Spa
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ihunter.me/2018/03/03/get_topn_count_with_redis/" data-title="使用Redis实现实时展示页面访问量排名的方法 | Hunter的个人博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ihunter.me/2018/03/03/get_topn_count_with_redis/" data-title="使用Redis实现实时展示页面访问量排名的方法 | NoOne的小窝" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -222,41 +222,41 @@ update in 2019.7.26其实这种topn的需求使用大数据实时处理框架Spa
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/xsxsx/" title="xsxsx">xsxsx<sup>2</sup></a></li>
-		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
 			<li><a href="/tags/Redis/" title="Redis">Redis<sup>2</sup></a></li>
 		
+			<li><a href="/tags/xsxsx/" title="xsxsx">xsxsx<sup>2</sup></a></li>
+		
 			<li><a href="/tags/个人/" title="个人">个人<sup>2</sup></a></li>
-		
-			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
-		
-			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+		
 			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
+		
+			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+		
+			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
 		
 			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
 		
-			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
+			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
+		
+			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
 		
 			<li><a href="/tags/内存溢出/" title="内存溢出">内存溢出<sup>1</sup></a></li>
 		
 			<li><a href="/tags/arthas/" title="arthas">arthas<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
-		
-			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
-		
-			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
 		
 		</ul>
 </div>
@@ -311,7 +311,7 @@ update in 2019.7.26其实这种topn的需求使用大数据实时处理框架Spa
 	</div>
 		<p class="copyright">Powered by <a href="https://hexo.io/" target="_blank" title="hexo">Hexo</a> and Theme by <a href="https://github.com/hunterzhang86/hunter" target="_blank" title="Hunter">Hunter</a> © 2019
 		
-		<a href="http://www.ihunter.me/about" target="_blank" title="Hunter Zhang">Hunter Zhang</a>
+		<a href="http://www.ihunter.me/about" target="_blank" title="NoOne">NoOne</a>
 		
 
 		<!-- Analytics Begin -->

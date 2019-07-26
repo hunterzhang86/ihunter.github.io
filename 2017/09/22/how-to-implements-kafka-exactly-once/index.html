@@ -1,15 +1,15 @@
 
  <!DOCTYPE HTML>
-<html>
+<html lang="CN">
 <head><meta name="generator" content="Hexo 3.9.0">
   <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
   <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
   <meta charset="UTF-8">
   
-    <title>实现Kafka消息刚好传递一次(Exactly-Once)的方法 | Hunter的个人博客</title>
+    <title>实现Kafka消息刚好传递一次(Exactly-Once)的方法 | NoOne的小窝</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
-    <meta name="author" content="Hunter Zhang">
+    <meta name="author" content="NoOne">
     
     <meta name="description" content="术语释疑
 at-least-once至少传递一次，如果broker在收到消息后，发送ack之前失败，且生产者设置了重试，这种情况下可能会产生重复的数据。
@@ -19,11 +19,11 @@ at-most-once最多传递一次，如果生产者在发送消息失败后没有�
 exactly-onc">
     
     
-    <meta name="keywords" content>
+    <meta name="keywords" content="技术分享">
     
     
     
-    <link rel="alternative" href="/atom.xml" title="Hunter的个人博客" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="NoOne的小窝" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -40,7 +40,7 @@ exactly-onc">
       <div>
 		
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="Hunter的个人博客">Hunter的个人博客</a></h1>
+				<h1 class="site-name"><a href="/" title="NoOne的小窝">NoOne的小窝</a></h1>
 				<h2 class="blog-motto">Follow your heart</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
@@ -79,7 +79,7 @@ exactly-onc">
   </h1>
   <p class="article-author">By
        
-		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
+		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
 		
   <p class="article-time">
     <time datetime="2017-09-22T12:38:17.000Z" itemprop="datePublished"> Published 2017-09-22</time>
@@ -187,7 +187,7 @@ exactly-onc">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ihunter.me/2017/09/22/how-to-implements-kafka-exactly-once/" data-title="实现Kafka消息刚好传递一次(Exactly-Once)的方法 | Hunter的个人博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ihunter.me/2017/09/22/how-to-implements-kafka-exactly-once/" data-title="实现Kafka消息刚好传递一次(Exactly-Once)的方法 | NoOne的小窝" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -201,10 +201,10 @@ exactly-onc">
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/10/31/think-more-ways-less-questions/" title="多想办法，少提问题">
+ <a href="/2017/10/31/show-dir/" title="一种显示目录结构的方法">
   <strong>上一篇：</strong><br/>
   <span>
-  多想办法，少提问题</span>
+  一种显示目录结构的方法</span>
 </a>
 </div>
 
@@ -287,41 +287,41 @@ exactly-onc">
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/xsxsx/" title="xsxsx">xsxsx<sup>2</sup></a></li>
-		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
 			<li><a href="/tags/Redis/" title="Redis">Redis<sup>2</sup></a></li>
 		
+			<li><a href="/tags/xsxsx/" title="xsxsx">xsxsx<sup>2</sup></a></li>
+		
 			<li><a href="/tags/个人/" title="个人">个人<sup>2</sup></a></li>
-		
-			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
-		
-			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+		
 			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
+		
+			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+		
+			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
 		
 			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
 		
-			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
+			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
+		
+			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
 		
 			<li><a href="/tags/内存溢出/" title="内存溢出">内存溢出<sup>1</sup></a></li>
 		
 			<li><a href="/tags/arthas/" title="arthas">arthas<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
-		
-			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
-		
-			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
 		
 		</ul>
 </div>
@@ -376,7 +376,7 @@ exactly-onc">
 	</div>
 		<p class="copyright">Powered by <a href="https://hexo.io/" target="_blank" title="hexo">Hexo</a> and Theme by <a href="https://github.com/hunterzhang86/hunter" target="_blank" title="Hunter">Hunter</a> © 2019
 		
-		<a href="http://www.ihunter.me/about" target="_blank" title="Hunter Zhang">Hunter Zhang</a>
+		<a href="http://www.ihunter.me/about" target="_blank" title="NoOne">NoOne</a>
 		
 
 		<!-- Analytics Begin -->
