@@ -6,18 +6,23 @@
   <meta name="google-site-verification" content="c2Y5O-ZwA5S4LeCm6TywsxZXS8RspvZv79S5C8LJy0Q">
   <meta charset="UTF-8">
   
-    <title>HBase常用命令 | Hunter的个人博客</title>
+    <title>阿里面试总结 | Hunter的个人博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Hunter Zhang">
     
-    <meta name="description" content="查看有哪些表list
+    <meta name="description" content="一面
+讲一讲你对数据库的索引和事务的理解
 
-查看HBase的状态status
+Java里面有哪几种类型的锁
 
-创建表create_namespace ‘sogou’create ‘sogou:search_detail’, {NAME =&amp;gt; ‘detail’},  {NAME =&amp;gt; ‘detail2’}
+讲一讲你对数据库的乐观锁和悲观锁的理解
 
-查看表的结构describe ">
+定义一个10位的buffer，有一个线程每100ms读一次buffer，有一个线程每1s写一次buffer，要求性能尽可能高，且不能出现脏读和幻读
+
+
+二面
+单一接口混合功能和接口功">
     
     
     <meta name="keywords" content>
@@ -76,44 +81,34 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/07/07/hbase-example/" title="HBase常用命令" itemprop="url">HBase常用命令</a>
+      <a href="/2019/07/27/get_topn_count_with_redis copy/" title="阿里面试总结" itemprop="url">阿里面试总结</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.ihunter.me/about" title="Hunter Zhang" target="_blank" itemprop="author">Hunter Zhang</a>
 		
   <p class="article-time">
-    <time datetime="2018-07-07T12:11:17.000Z" itemprop="datePublished"> Published 2018-07-07</time>
+    <time datetime="2019-07-27T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-27</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 
-		<ul>
-<li><p>查看有哪些表<br>list</p>
+		<h4 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h4><ul>
+<li><p>讲一讲你对数据库的索引和事务的理解</p>
 </li>
-<li><p>查看HBase的状态<br>status</p>
+<li><p>Java里面有哪几种类型的锁</p>
 </li>
-<li><p>创建表<br>create_namespace ‘sogou’<br>create ‘sogou:search_detail’, {NAME =&gt; ‘detail’},  {NAME =&gt; ‘detail2’}</p>
+<li><p>讲一讲你对数据库的乐观锁和悲观锁的理解</p>
 </li>
-<li><p>查看表的结构<br>describe ‘sogou:search_detail’</p>
+<li><p>定义一个10位的buffer，有一个线程每100ms读一次buffer，有一个线程每1s写一次buffer，要求性能尽可能高，且不能出现脏读和幻读</p>
 </li>
-<li><p>删除表<br>disable ‘sogou:search_detail’<br>drop ‘sogou:search_detail’<br>说明： 删除表之前必须disable表</p>
+</ul>
+<h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><ul>
+<li><p>单一接口混合功能和接口功能单一哪个实现上更优？</p>
 </li>
-<li><p>删除表中所有数据<br>truncate ‘sogou:search_detail’</p>
-</li>
-<li><p>修改表的结构<br>alter ‘sogou:search_detail’, {NAME =&gt; ‘detail’, TTL =&gt; ‘1024’},  {NAME =&gt; ‘detail2’, METHOD =&gt; ‘delete’}</p>
-</li>
-<li><p>新增数据<br>put ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’, ‘陋习’, ‘detail:retOrder’, ‘2’, ‘detail:cliOrder’, ‘1’, ‘detail:url’, ‘<a href="http://www.ihunter.me&#39;">www.ihunter.me&#39;</a></p>
-</li>
-<li><p>查询单条数据<br>get ‘sogou:search_detail’ ‘rowKey001’<br>get ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’</p>
-</li>
-<li><p>查询多条数据<br>scan ‘sogou:search_detail’, {LIMIT =&gt; 10}</p>
-</li>
-<li><p>统计表中数据的行数<br>count ‘sogou:search_detail’ {INTERVAL =&gt; 100, CACHE =&gt; 500}</p>
-</li>
-<li><p>删除数据<br>delete ‘sogou:search_detail’, ‘rowKey001’, ‘detail:title’<br>deteteall ‘sogou:search_detail’, ‘rowKey001’</p>
+<li><p>消息防疲劳系统怎么设计？</p>
 </li>
 </ul>
 
@@ -132,7 +127,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/HBase/">HBase</a>
+  <span></span> <a href="/tags/面试/">面试</a>
   </div>
 
 </div>
@@ -141,7 +136,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ihunter.me/2018/07/07/hbase-example/" data-title="HBase常用命令 | Hunter的个人博客" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ihunter.me/2019/07/27/get_topn_count_with_redis copy/" data-title="阿里面试总结 | Hunter的个人博客" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -154,19 +149,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/10/31/install_shadowsocks_in_google_cloud/" title="在Google Cloud搭建Shadowsocks的方法">
-  <strong>上一篇：</strong><br/>
-  <span>
-  在Google Cloud搭建Shadowsocks的方法</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2018/03/03/get_topn_count_with_redis/"  title="使用Redis实现实时展示页面访问量排名的方法">
+<a href="/2019/07/26/java-redis/"  title="Java知识图谱之Redis">
  <strong>下一篇：</strong><br/> 
- <span>使用Redis实现实时展示页面访问量排名的方法
+ <span>Java知识图谱之Redis
 </span>
 </a>
 </div>
@@ -184,8 +171,8 @@
   <script src="https://billts.site/js/gitment.js"></script>
   <script>
     var gitment = new Gitment({
-      id: "Sat Jul 07 2018 20:11:17 GMT+0800",
-      title: 'HBase常用命令',
+      id: "Sat Jul 27 2019 20:38:17 GMT+0800",
+      title: '阿里面试总结',
       owner: "hunterzhang86",
       repo: "blog_comments",
       oauth: {
@@ -207,7 +194,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#一面"><span class="toc-number">1.</span> <span class="toc-text">一面</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二面"><span class="toc-number"></span> <span class="toc-text">二面</span></a>
  
   </div>
 
