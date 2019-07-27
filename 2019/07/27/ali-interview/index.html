@@ -11,7 +11,7 @@
     
     <meta name="author" content="NoOne">
     
-    <meta name="description" itemprop="description" content="阿里的一些面试题。">
+    <meta name="description" content="本文主要对自己碰到的阿里的面试题进行了总结以及给出了自己的解答。">
     
     
     <meta name="keywords" content="技术分享">
@@ -77,27 +77,39 @@
 		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
 		
   <p class="article-time">
-    <time datetime="2019-07-27T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-27</time>
+    <time datetime="2019-07-27T00:38:17.000Z" itemprop="datePublished"> Published 2019-07-27</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 
-		<h4 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h4><ul>
-<li><p>讲一讲你对数据库的索引和事务的理解</p>
+		<p>本文主要对自己碰到的阿里的面试题进行了总结以及给出了自己的解答。</p>
+<a id="more"></a>
+
+<h4 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h4><ul>
+<li><p>讲一讲你对数据库的索引和事务的理解 ?<br>可参考<a href="http://www.ihunter.me/2019/07/25/java-mysql/">Java知识图谱之MySQL数据库</a>进行针对性回答。</p>
 </li>
-<li><p>Java里面有哪几种类型的锁</p>
+<li><p>讲一讲你对数据库的乐观锁和悲观锁的理解 ?<br>可参考<a href="http://www.ihunter.me/2019/07/25/java-mysql/">Java知识图谱之MySQL数据库</a>进行针对性回答。</p>
 </li>
-<li><p>讲一讲你对数据库的乐观锁和悲观锁的理解</p>
-</li>
-<li><p>定义一个10位的buffer，有一个线程每100ms读一次buffer，有一个线程每1s写一次buffer，要求性能尽可能高，且不能出现脏读和幻读</p>
+<li><p>Java里面有哪几种类型的锁 ?<br>1、synchronized</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">三个阶段</span><br><span class="line">	偏向锁</span><br><span class="line">		在对象头上的Mark Word部分设置线程ID</span><br><span class="line">	轻量级锁</span><br><span class="line">		轻量级锁依赖CAS操作Mark Word来试图获取锁</span><br><span class="line">	重量级锁</span><br><span class="line">		monitorenter和monitorexit</span><br><span class="line">不可重入锁</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
+<p>2、ReentrantLock</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">可重入锁</span><br><span class="line">	基于AQS来实现，首先尝试用CAS(LOCK_IF_MP)来获取锁，如果没有获取到，就加入到FIFO的链表里面，然后锁如果被释放了，通知链表里面的第一个节点获取锁</span><br><span class="line">提供了Condition用于线程间通信</span><br><span class="line">提供了tryAcquire方法，用于超时没有获取到锁的处理</span><br></pre></td></tr></table></figure>
+
+<p>3、ReentrantReadWriteLock</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">写线程访问时，所有的读和其他写线程都阻塞</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定义一个10位的buffer，有一个线程每100ms读一次buffer，有一个线程每1s写一次buffer，要求性能尽可能高，且不能出现脏读和幻读<br>可利用上面的ReentrantReadWriteLock读写锁来实现，并在buffer定义的时候加上volatile关键字，保证线程的可见性。</li>
+</ul>
 <h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><ul>
-<li><p>单一接口混合功能和接口功能单一哪个实现上更优？</p>
+<li><p>单一接口混合功能和接口功能单一哪个实现上更优？<br>暂无什么好的想法，个人自由发挥</p>
 </li>
-<li><p>消息防疲劳系统怎么设计？</p>
+<li><p>消息防疲劳系统怎么设计？<br>暂无什么好的想法，个人自由发挥</p>
 </li>
 </ul>
 
@@ -138,11 +150,19 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2019/07/27/java-oom/" title="Java知识图谱之内存溢出">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Java知识图谱之内存溢出</span>
+</a>
+</div>
+
 
 <div class="next">
-<a href="/2019/07/27/java-oom/"  title="Java知识图谱之内存溢出">
+<a href="/2019/07/26/java-redis/"  title="Java知识图谱之Redis">
  <strong>下一篇：</strong><br/> 
- <span>Java知识图谱之内存溢出
+ <span>Java知识图谱之Redis
 </span>
 </a>
 </div>
@@ -160,7 +180,7 @@
   <script src="https://billts.site/js/gitment.js"></script>
   <script>
     var gitment = new Gitment({
-      id: "Sat Jul 27 2019 20:38:17 GMT+0800",
+      id: "Sat Jul 27 2019 08:38:17 GMT+0800",
       title: '阿里面试总结',
       owner: "hunterzhang86",
       repo: "blog_comments",
@@ -206,7 +226,7 @@
 		
 			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
 		
-			<li><a href="/categories/总结/" title="总结">总结<sup>13</sup></a></li>
+			<li><a href="/categories/总结/" title="总结">总结<sup>12</sup></a></li>
 		
 		</ul>
 </div>
@@ -217,23 +237,21 @@
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/个人/" title="个人">个人<sup>2</sup></a></li>
-		
 			<li><a href="/tags/Redis/" title="Redis">Redis<sup>2</sup></a></li>
 		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>2</sup></a></li>
 		
 			<li><a href="/tags/xsxsx/" title="xsxsx">xsxsx<sup>2</sup></a></li>
 		
-			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
+			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
 			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
 		
-			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
+			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
+		
+			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
 		
@@ -241,17 +259,19 @@
 		
 			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
+			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
+		
 			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
 		
 			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
 		
 			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
 		
+			<li><a href="/tags/个人/" title="个人">个人<sup>1</sup></a></li>
+		
 			<li><a href="/tags/内存溢出/" title="内存溢出">内存溢出<sup>1</sup></a></li>
 		
 			<li><a href="/tags/arthas/" title="arthas">arthas<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
 		</ul>
 </div>
