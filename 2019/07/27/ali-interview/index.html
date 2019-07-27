@@ -92,11 +92,12 @@
 </li>
 <li><p>讲一讲你对数据库的乐观锁和悲观锁的理解 ?<br>可参考<a href="http://www.ihunter.me/2019/07/25/java-mysql/">Java知识图谱之MySQL数据库</a>进行针对性回答。</p>
 </li>
-<li><p>Java里面有哪几种类型的锁 ?<br>1、synchronized</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">三个阶段</span><br><span class="line">	偏向锁</span><br><span class="line">		在对象头上的Mark Word部分设置线程ID</span><br><span class="line">	轻量级锁</span><br><span class="line">		轻量级锁依赖CAS操作Mark Word来试图获取锁</span><br><span class="line">	重量级锁</span><br><span class="line">		monitorenter和monitorexit</span><br><span class="line">不可重入锁</span><br></pre></td></tr></table></figure>
-
+<li><p>Java里面有哪几种类型的锁 ?</p>
 </li>
 </ul>
+<p>1、synchronized</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">三个阶段</span><br><span class="line">	偏向锁</span><br><span class="line">		在对象头上的Mark Word部分设置线程ID</span><br><span class="line">	轻量级锁</span><br><span class="line">		轻量级锁依赖CAS操作Mark Word来试图获取锁</span><br><span class="line">	重量级锁</span><br><span class="line">		monitorenter和monitorexit</span><br><span class="line">不可重入锁</span><br></pre></td></tr></table></figure>
+
 <p>2、ReentrantLock</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">可重入锁</span><br><span class="line">	基于AQS来实现，首先尝试用CAS(LOCK_IF_MP)来获取锁，如果没有获取到，就加入到FIFO的链表里面，然后锁如果被释放了，通知链表里面的第一个节点获取锁</span><br><span class="line">提供了Condition用于线程间通信</span><br><span class="line">提供了tryAcquire方法，用于超时没有获取到锁的处理</span><br></pre></td></tr></table></figure>
 
@@ -245,25 +246,25 @@
 		
 			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
-			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
-			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
-		
 			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
+		
+			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
 		
 			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
 		
+			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
+		
 			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
 		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
 			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
 			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
 		
