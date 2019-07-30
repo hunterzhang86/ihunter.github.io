@@ -104,13 +104,7 @@
 </ul>
 <p>1.4.2.    产生原因<br>应用程序的字节大小大于Socket缓冲区大小，拆包，小于缓冲区大小，沾包<br>以太网payload &gt; MTC(1500字节)</p>
 <p>1.5.    如何处理epoll空转造成的CPU飙高？<br>统计Seletor每秒处理的select时间数量，超过限定值则重新注册Selector</p>
-<ol start="2">
-<li>组件</li>
-<li><ol>
-<li>Channel<br>Socket连接</li>
-</ol>
-</li>
-</ol>
+<h4 id="2-组件"><a href="#2-组件" class="headerlink" title="2.    组件"></a>2.    组件</h4><p>2.1.    Channel<br>Socket连接</p>
 <p>2.2.    EventLoop<br>一个Channel在一个生命周期内只注册一个EventLoop<br>EventLoop在生命周期内只和一个Thread绑定<br>一个EventLoop可能会注册多个Channel</p>
 <p>2.3.    EventLoopGroup<br>包含多个EventLoop<br>使用线程池</p>
 <p>2.4.    ChannelFuture<br>Channel的操作结果</p>
@@ -210,7 +204,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-原理"><span class="toc-number">1.</span> <span class="toc-text">1.    原理</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-原理"><span class="toc-number">1.</span> <span class="toc-text">1.    原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-组件"><span class="toc-number">2.</span> <span class="toc-text">2.    组件</span></a></li></ol>
  
   </div>
 
@@ -259,33 +253,33 @@
 		
 			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
-			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
+			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Kafka/" title="Kafka">Kafka<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Docker/" title="Docker">Docker<sup>1</sup></a></li>
 		
+			<li><a href="/tags/HBase/" title="HBase">HBase<sup>1</sup></a></li>
+		
 			<li><a href="/tags/FTP/" title="FTP">FTP<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Guava/" title="Guava">Guava<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
-		
-			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Ngrok/" title="Ngrok">Ngrok<sup>1</sup></a></li>
 		
-			<li><a href="/tags/MQ/" title="MQ">MQ<sup>1</sup></a></li>
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
 		
 			<li><a href="/tags/GC/" title="GC">GC<sup>1</sup></a></li>
 		
+			<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Netty/" title="Netty">Netty<sup>1</sup></a></li>
+		
 			<li><a href="/tags/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
+		
+			<li><a href="/tags/MQ/" title="MQ">MQ<sup>1</sup></a></li>
 		
 			<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
 		
 			<li><a href="/tags/个人/" title="个人">个人<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Netty/" title="Netty">Netty<sup>1</sup></a></li>
 		
 			<li><a href="/tags/内存溢出/" title="内存溢出">内存溢出<sup>1</sup></a></li>
 		
