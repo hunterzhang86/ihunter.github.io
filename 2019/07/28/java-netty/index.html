@@ -7,12 +7,12 @@
   <meta name="baidu-site-verification" content="VqiGgOCQlZ">
   <meta charset="UTF-8">
   
-    <title>Java知识图谱之垃圾回收 | NoOne&#39;s Blog</title>
+    <title>Java知识图谱之Netty | NoOne&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="NoOne">
     
-    <meta name="description" content="本文主要对JVM的垃圾回收算法和垃圾收集器的实现机制和使用场景进行了总结。">
+    <meta name="description" content="本文主要对Java中的常用高性能通信组件Netty进行了总结和简要介绍。">
     
     
     <meta name="keywords" content="Java,MySQL,Redis,MQ,HBase">
@@ -71,81 +71,54 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/07/24/java-gc/" title="Java知识图谱之垃圾回收" itemprop="url">Java知识图谱之垃圾回收</a>
+      <a href="/2019/07/28/java-netty/" title="Java知识图谱之Netty" itemprop="url">Java知识图谱之Netty</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.ihunter.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
 		
   <p class="article-time">
-    <time datetime="2019-07-24T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-24</time>
+    <time datetime="2019-07-28T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-28</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 
-		<p>本文主要对JVM的垃圾回收算法和垃圾收集器的实现机制和使用场景进行了总结。</p>
+		<p>本文主要对Java中的常用高性能通信组件Netty进行了总结和简要介绍。</p>
 <a id="more"></a>
 
-<p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-gc/java-gc.png" alt="Java GC"></p>
-<h4 id="对象生命周期"><a href="#对象生命周期" class="headerlink" title="对象生命周期"></a>对象生命周期</h4><ul>
-<li><p>引用计数法<br>无法解决循环引用的问题</p>
-</li>
-<li><p>可达性分析算法<br>从GC Roots看对象是否可达：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">虚拟机栈（栈中的本地变量表）中引用的对象</span><br><span class="line">本地方法栈中JNI（即Native方法）引用的对象</span><br><span class="line">方法区中类静态属性的变量</span><br><span class="line">方法区中常量引用的变量</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p><strong>引用</strong></p>
+<p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-netty/java-netty.png" alt="Java GC"></p>
+<h4 id="1-原理"><a href="#1-原理" class="headerlink" title="1.    原理"></a>1.    原理</h4><p>1.1.    为什么传输快？</p>
 <ul>
-<li><p>强引用<br>只要强引用存在就不会回收</p>
-</li>
-<li><p>软引用<br>只有内存不够才会回收<br>浏览器的后退按钮</p>
-</li>
-<li><p>弱引用<br>不管内存够不够都会回收</p>
-</li>
-<li><p>虚引用<br>作为回收对象时的通知<br>回收方法区</p>
-</li>
-<li><p>废弃常量</p>
-</li>
-<li><p>无用的类<br>大量反射、动态代理、CGLib频繁自定义的ClassLoader<br>需要有类的卸载功能<br>通过更换ClassLoader实现类的卸载</p>
-</li>
+<li>使用零拷贝技术<br>减少用户态和内核态的切换<br>减少copy的动作，应用可以直接操作磁盘或者内存</li>
 </ul>
-<h4 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h4><p><strong>标记-清除算法</strong><br>效率和内存碎片的问题</p>
-<p><strong>复制算法</strong><br>分区复制回收<br>适用于对象存活率较低的场景（新生代）</p>
-<p><strong>标记-整理算法</strong><br>标记-清除-整理<br>使用与对象存活率较高的场景（老生代）</p>
-<p><strong>分代收集算法</strong><br>根据对象存活周期分为几块</p>
+<p>1.2.    为什么并发高？<br>使用NIO<br>IO多路复用</p>
+<p>1.3.    为什么封装好？<br>责任链模式<br>事件驱动</p>
+<p>1.4.    如何解决沾包？<br>1.4.1.    四种解决方法</p>
 <ul>
-<li><p>新生代<br>复制算法</p>
-</li>
-<li><p>老生代<br>标记-清除算法<br>标记-整理算法</p>
-</li>
+<li>LineBasedFrameDecoder<br>用换行符做消息标记</li>
+<li>DelimiterBasedFrameDecoder<br>指定消息的结束符</li>
+<li>FixedLengthFrameDecoder<br>定长消息</li>
+<li>LengthFieldBasedFrameDecoder<br>定义长度字段</li>
 </ul>
-<h4 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h4><p><strong>Serial收集器</strong></p>
-<ul>
-<li><p>缺点<br>单线程处理，需要暂停其他所有线程</p>
+<p>1.4.2.    产生原因<br>应用程序的字节大小大于Socket缓冲区大小，拆包，小于缓冲区大小，沾包<br>以太网payload &gt; MTC(1500字节)</p>
+<p>1.5.    如何处理epoll空转造成的CPU飙高？<br>统计Seletor每秒处理的select时间数量，超过限定值则重新注册Selector</p>
+<ol start="2">
+<li>组件</li>
+<li><ol>
+<li>Channel<br>Socket连接</li>
+</ol>
 </li>
-<li><p>优点<br>简单</p>
-</li>
-</ul>
-<p><strong>ParNew收集器</strong><br>Serial收集器的多线程实现</p>
-<p><strong>Parallel Scavenge收集器</strong><br>以吞吐量为目标<br>吞吐量=用户代码运行时间/（用户代码运行时间 + GC时间）</p>
-<p><strong>Serial Old收集器</strong><br>Serial收集器的老年代版本</p>
-<p><strong>Parallel Old收集器</strong><br>Parallel Scavenge收集器的老年代版本</p>
-<p><strong>CMS收集器</strong><br>以获取最短停顿时间为目标<br>分为初始标记、并发标记、重新标记、并发清除四个阶段</p>
-<ul>
-<li><p>优点<br>停顿时间短</p>
-</li>
-<li><p>缺点<br>消耗较多的CPU资源<br>会产生较多的内存碎片</p>
-</li>
-<li><p>为什么需要STP？<br>处理起来简单，不用管并发的问题</p>
-</li>
-</ul>
-<p><strong>G1收集器</strong></p>
-<ul>
-<li>特点<br>更少的GC停顿时间<br>可预测的GC停顿时间<br>不牺牲过多的吞吐量<br>不需要过多的堆内存</li>
-</ul>
+</ol>
+<p>2.2.    EventLoop<br>一个Channel在一个生命周期内只注册一个EventLoop<br>EventLoop在生命周期内只和一个Thread绑定<br>一个EventLoop可能会注册多个Channel</p>
+<p>2.3.    EventLoopGroup<br>包含多个EventLoop<br>使用线程池</p>
+<p>2.4.    ChannelFuture<br>Channel的操作结果</p>
+<p>2.5.    ChannelHandler<br>数据处理类</p>
+<p>2.6.    ChannelPipeline<br>数据处理流水线</p>
+<p>2.7.    ByteToMessageDecoder<br>解码类</p>
+<p>2.8.    MessageToByteEncoder<br>编码类</p>
+<p>2.9.    ByteBuf<br>字节容器</p>
 
 	</div>
 
@@ -162,7 +135,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/GC/">GC</a>
+  <span></span> <a href="/tags/Netty/">Netty</a>
   </div>
 
 </div>
@@ -171,7 +144,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ihunter.me/2019/07/24/java-gc/" data-title="Java知识图谱之垃圾回收 | NoOne&#39;s Blog" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ihunter.me/2019/07/28/java-netty/" data-title="Java知识图谱之Netty | NoOne&#39;s Blog" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -185,18 +158,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2019/07/25/java-mysql/" title="Java知识图谱之MySQL数据库">
+ <a href="/2019/07/29/java-mq/" title="Java知识图谱之消息队列MQ">
   <strong>上一篇：</strong><br/>
   <span>
-  Java知识图谱之MySQL数据库</span>
+  Java知识图谱之消息队列MQ</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2019/07/23/java-network/"  title="Java知识图谱之计算机网络">
+<a href="/2019/07/27/java-oom/"  title="Java知识图谱之内存溢出">
  <strong>下一篇：</strong><br/> 
- <span>Java知识图谱之计算机网络
+ <span>Java知识图谱之内存溢出
 </span>
 </a>
 </div>
@@ -214,8 +187,8 @@
   <script src="https://billts.site/js/gitment.js"></script>
   <script>
     var gitment = new Gitment({
-      id: "Wed Jul 24 2019 20:38:17 GMT+0800",
-      title: 'Java知识图谱之垃圾回收',
+      id: "Sun Jul 28 2019 20:38:17 GMT+0800",
+      title: 'Java知识图谱之Netty',
       owner: "hunterzhang86",
       repo: "blog_comments",
       oauth: {
@@ -237,7 +210,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#对象生命周期"><span class="toc-number">1.</span> <span class="toc-text">对象生命周期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#垃圾回收算法"><span class="toc-number">2.</span> <span class="toc-text">垃圾回收算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#垃圾收集器"><span class="toc-number">3.</span> <span class="toc-text">垃圾收集器</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-原理"><span class="toc-number">1.</span> <span class="toc-text">1.    原理</span></a></li></ol>
  
   </div>
 
