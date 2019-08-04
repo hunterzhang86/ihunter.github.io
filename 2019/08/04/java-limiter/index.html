@@ -7,12 +7,12 @@
   <meta name="baidu-site-verification" content="gBGQPcPwzU">
   <meta charset="UTF-8">
   
-    <title>Java知识图谱之并发编程 | NoOne&#39;s Blog</title>
+    <title>Java知识图谱之微服务限流熔断 | NoOne&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="NoOne">
     
-    <meta name="description" content="本文主要对Java并发编程里面常用的线程池、线程状态、线程协同、锁进行了总结，这些几乎是Java面试里面必问的内容，特别是线程池的参数，不仅要能讲出具体的参数有哪些和参数的意义，也要对一个新线程submit到线程池后，线程池是如何进行处理的流程了然于胸。">
+    <meta name="description" content="本文主要对Java微服务里面常见的限流熔断机制及其优缺点进行了总结。Java里面限流熔断主要有两种方式实现：一种是利用Hystrix，另外一种是阿里的Sentinel，两种互有优缺点，可以根据业务的实际情况进行选择。">
     
     
     <meta name="keywords" content="Java,MySQL,Redis,MQ,HBase">
@@ -71,69 +71,31 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/08/01/java-concurrent/" title="Java知识图谱之并发编程" itemprop="url">Java知识图谱之并发编程</a>
+      <a href="/2019/08/04/java-limiter/" title="Java知识图谱之微服务限流熔断" itemprop="url">Java知识图谱之微服务限流熔断</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.ifb.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
 		
   <p class="article-time">
-    <time datetime="2019-08-01T13:22:17.000Z" itemprop="datePublished"> Published 2019-08-01</time>
+    <time datetime="2019-08-04T15:22:17.000Z" itemprop="datePublished"> Published 2019-08-04</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 
-		<p>本文主要对Java并发编程里面常用的线程池、线程状态、线程协同、锁进行了总结，这些几乎是Java面试里面必问的内容，特别是线程池的参数，不仅要能讲出具体的参数有哪些和参数的意义，也要对一个新线程submit到线程池后，线程池是如何进行处理的流程了然于胸。</p>
+		<p>本文主要对Java微服务里面常见的限流熔断机制及其优缺点进行了总结。Java里面限流熔断主要有两种方式实现：一种是利用Hystrix，另外一种是阿里的Sentinel，两种互有优缺点，可以根据业务的实际情况进行选择。</p>
 <a id="more"></a>
 
-<p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-concurrent/java-concurrent.png" alt="Java并发编程"></p>
-<ol>
-<li>线程池</li>
-<li><ol>
-<li>线程</li>
-</ol>
-</li>
-</ol>
-<ul>
-<li>创建线程的方法<br>实现Runnable或Callable接口<br>继承Thread类</li>
-</ul>
-<p>1.2.    线程池类型</p>
-<ul>
-<li><p>NewFixedThreadPool<br>固定线程大小，无边界队列</p>
-</li>
-<li><p>NewWorkStealingPool<br>实际的线程数不固定，也不保证线程的执行顺序</p>
-</li>
-<li><p>NewSingleThreadPool<br>单线程，无边界队列</p>
-</li>
-<li><p>NewCachedThreadPool<br>适合执行时间较短的任务，只要线程不够则新建</p>
-</li>
-<li><p>NewScheduledThreadPool<br>定时执行线程</p>
-</li>
-</ul>
-<p>1.3.    ThradPoolExecutor线程池参数</p>
-<ul>
-<li>corePoolSize<br>核心线程数</li>
-<li>maximumPoolSize<br>最大线程数</li>
-<li>keepAliveTime<br>超过核心线程数的线程，最大的存活时间</li>
-<li>unit<br>存活时间单位</li>
-<li>workQueue<br>任务队列</li>
-<li>handler<br>如果已经超过最大线程数，继续有新的线程处理类<br>AbortPolicy<br>直接抛出RejectExecutionException异常<br>CallerRunsPolicy<br>重试添加当前的任务<br>DiscardOldestPolicy<br>抛弃最老的任务<br>DiscardPolicy<br>抛弃当前的任务</li>
-</ul>
-<p>1.4.    BlockingQueue<br>1.4.1.    实现类<br>ArrayBlockingQueue<br>数组实现队列<br>LinkedBlockingQueue<br>链表实现队列<br>PriorityBlockingQueue<br>优先级队列<br>可自定义Comparator<br>DelayQueue<br>延时获取元素队列，队列的元素需要实现Delayed接口<br>SynchronousQueue<br>不存储元素的阻塞队列，只有在消费者试图获取元素的时候生产者才能插入元素<br>LinkedTransferQueue<br>transfer(E e)<br>若存在消费者线程，即立刻移交; 否则插入元素到队尾<br>tryTransfer(E e)<br>若存在消费者线程，即立刻移交; 否则返回fasle<br>tryTransfer(E e, long timeout, TimeUnit unit)<br>若存在消费者线程，即立刻移交; 否则插入元素到队尾，如果指定时间内没有被消费，则返回false并将元素移除<br>LinkedBlockingDeque<br>双向阻塞队列<br>1.4.2.    常用方法<br>add(E)<br>超过容量抛出异常<br>offer(E)<br>超过容量返回false<br>put(E)<br>超过容量阻塞<br>offer(E,long,TimeUnit)<br>超过容量并插入超时返回false<br>take()<br>为空则阻塞<br>poll(long,TimeUnit)<br>为空并获取超时则返回null<br>remove(Object)<br>删除特定元素</p>
-<h4 id="2-线程状态"><a href="#2-线程状态" class="headerlink" title="2.    线程状态"></a>2.    线程状态</h4><p>2.1.    新建<br>2.2.    就绪<br>2.3.    阻塞<br>2.4.    运行<br>2.5.    死亡</p>
-<h4 id="3-线程协同"><a href="#3-线程协同" class="headerlink" title="3.    线程协同"></a>3.    线程协同</h4><p>3.1.    CountDownLatch<br>用于某个线程等待其他线程执行完成之后它才执行，不可重用</p>
-<p>3.2.    CyclicBarrier<br>用于一组线程池互相等待至某个状态，然后这组线程再同时执行，可重用</p>
-<p>3.3.    Semaphore<br>资源使用控制</p>
-<p>3.4.    Exchanger<br>两个线程同时交换数据</p>
-<p>3.5.    Thread.join()<br>等待子线程执行完成，执行完成之后可以执行主线程</p>
-<h4 id="4-锁"><a href="#4-锁" class="headerlink" title="4.    锁"></a>4.    锁</h4><p>4.1.    synchronized<br>4.1.1.    三个阶段<br>偏向锁<br>在对象头上的Mark Word部分设置线程ID<br>轻量级锁<br>轻量级锁依赖CAS操作Mark Word来试图获取锁<br>重量级锁<br>monitorenter和monitorexit<br>4.1.2.    不可重入锁</p>
-<p>4.2.    ReentrantLock<br>4.2.1.    可重入锁<br>基于AQS来实现，首先尝试用CAS(LOCK_IF_MP)来获取锁，如果没有获取到，就加入到FIFO的链表里面，然后锁如果被释放了，通知链表里面的第一个节点获取锁<br>4.2.2.    提供了Condition用于线程间通信<br>4.2.3.    提供了tryAcquire方法，用于超时没有获取到锁的处理</p>
-<p>4.3.    ReentrantReadWriteLock<br>写线程访问时，所有的读和其他写线程都阻塞</p>
-<h4 id="5-容器类"><a href="#5-容器类" class="headerlink" title="5.    容器类"></a>5.    容器类</h4><p>5.1.    ConcurrentHashMap<br>5.2.    CopyOnWriteArrayList<br>5.3.    ConcurrentLinkedQueue<br>5.3.1.    和LinkedQueue相比没有poll操作<br>5.4.    LinkedHashMap<br>5.4.1.    和HashMap相比，遍历Map的时候会根据插入顺序来遍历<br>5.5.    HashMap<br>5.5.1.    如何扩容？<br>节点数大于阈值的时候触发扩容<br>直接扩大两倍，然后需要将老桶的数据迁移到新桶，所以并发的时候会有问题</p>
-<h4 id="6-happen-before"><a href="#6-happen-before" class="headerlink" title="6.    happen before"></a>6.    happen before</h4><p>线程的启动与停止<br>加锁与解锁<br>volatile变量的读和写<br>读的时候确认方法区的共享变量有没有更新<br>程序顺序原则<br>传递性原则</p>
-<h4 id="7-常见问题"><a href="#7-常见问题" class="headerlink" title="7.    常见问题"></a>7.    常见问题</h4><p>7.1.    如何解决Atomic类CAS操作时产生的ABA问题？<br>使用AtomicStampedReference给对象加上版本号</p>
+<p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-limiter/java-limiter.png" alt="微服务限流熔断"></p>
+<h4 id="1-Hystrix"><a href="#1-Hystrix" class="headerlink" title="1.    Hystrix"></a>1.    Hystrix</h4><p>1.1.    功能<br>熔断<br>限流<br>降级</p>
+<p>1.2.    资源隔离<br>线程池<br>信号量机制</p>
+<p>1.3.    和Dubbo结合<br>使用Filter</p>
+<p>1.4.    相关参数都可以在初始化的时候设置，需要实现降级的接口</p>
+<p>1.5.    执行流程图<br><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-limiter/hystrix.png" alt="Hystrix执行流程图"></p>
+<h4 id="2-Sentinel"><a href="#2-Sentinel" class="headerlink" title="2.    Sentinel"></a>2.    Sentinel</h4><p>2.1.    主要特性<br><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-limiter/sentinel.png" alt="Sentinel主要特性"></p>
+<h4 id="3-Sentinel-与-Hystrix-的对比"><a href="#3-Sentinel-与-Hystrix-的对比" class="headerlink" title="3.    Sentinel 与 Hystrix 的对比"></a>3.    Sentinel 与 Hystrix 的对比</h4><p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-limiter/compare.png" alt="Sentinel 与 Hystrix 的对比"></p>
 
 	</div>
 
@@ -150,7 +112,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/并发编程/">并发编程</a>
+  <span></span> <a href="/tags/微服务/">微服务</a><a href="/tags/限流/">限流</a><a href="/tags/熔断/">熔断</a>
   </div>
 
 </div>
@@ -159,7 +121,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ifb.me/2019/08/01/java-concurrent/" data-title="Java知识图谱之并发编程 | NoOne&#39;s Blog" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ifb.me/2019/08/04/java-limiter/" data-title="Java知识图谱之微服务限流熔断 | NoOne&#39;s Blog" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -172,19 +134,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2019/08/02/java-io/" title="Java知识图谱之网络编程">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Java知识图谱之网络编程</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2019/07/31/java-lock/"  title="Java知识图谱之分布式锁">
+<a href="/2019/08/03/java-classloader/"  title="Java知识图谱之JVM类加载机制">
  <strong>下一篇：</strong><br/> 
- <span>Java知识图谱之分布式锁
+ <span>Java知识图谱之JVM类加载机制
 </span>
 </a>
 </div>
@@ -202,8 +156,8 @@
   <script src="https://billts.site/js/gitment.js"></script>
   <script>
     var gitment = new Gitment({
-      id: "Thu Aug 01 2019 21:22:17 GMT+0800",
-      title: 'Java知识图谱之并发编程',
+      id: "Sun Aug 04 2019 23:22:17 GMT+0800",
+      title: 'Java知识图谱之微服务限流熔断',
       owner: "hunterzhang86",
       repo: "blog_comments",
       oauth: {
@@ -225,7 +179,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-线程状态"><span class="toc-number">1.</span> <span class="toc-text">2.    线程状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-线程协同"><span class="toc-number">2.</span> <span class="toc-text">3.    线程协同</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-锁"><span class="toc-number">3.</span> <span class="toc-text">4.    锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-容器类"><span class="toc-number">4.</span> <span class="toc-text">5.    容器类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-happen-before"><span class="toc-number">5.</span> <span class="toc-text">6.    happen before</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-常见问题"><span class="toc-number">6.</span> <span class="toc-text">7.    常见问题</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Hystrix"><span class="toc-number">1.</span> <span class="toc-text">1.    Hystrix</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Sentinel"><span class="toc-number">2.</span> <span class="toc-text">2.    Sentinel</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Sentinel-与-Hystrix-的对比"><span class="toc-number">3.</span> <span class="toc-text">3.    Sentinel 与 Hystrix 的对比</span></a></li></ol>
  
   </div>
 
