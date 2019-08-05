@@ -7,12 +7,12 @@
   <meta name="baidu-site-verification" content="gBGQPcPwzU">
   <meta charset="UTF-8">
   
-    <title>Java知识图谱之网络编程 | NoOne&#39;s Blog</title>
+    <title>Java知识图谱之动态代理 | NoOne&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="NoOne">
     
-    <meta name="description" content="本文主要对UNIX的五种IO模型，特别是我们最常常用的epoll的工作原理做了简要介绍，总结了一下Java里面几种IO模型对应的实现方式。">
+    <meta name="description" content="本文介绍了Java里面实现动态代理的几种方法。">
     
     
     <meta name="keywords" content="Java,MySQL,Redis,MQ,HBase">
@@ -71,84 +71,36 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/08/02/java-io/" title="Java知识图谱之网络编程" itemprop="url">Java知识图谱之网络编程</a>
+      <a href="/2019/08/05/java-aop/" title="Java知识图谱之动态代理" itemprop="url">Java知识图谱之动态代理</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.ifb.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
 		
   <p class="article-time">
-    <time datetime="2019-08-02T15:22:17.000Z" itemprop="datePublished"> Published 2019-08-02</time>
+    <time datetime="2019-08-05T12:38:17.000Z" itemprop="datePublished"> Published 2019-08-05</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 
-		<p>本文主要对UNIX的五种IO模型，特别是我们最常常用的epoll的工作原理做了简要介绍，总结了一下Java里面几种IO模型对应的实现方式。</p>
+		<p>本文介绍了Java里面实现动态代理的几种方法。</p>
 <a id="more"></a>
 
-<p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-io/java-io.png" alt="Java网络编程"></p>
-<h4 id="1-UNIX五种IO模型"><a href="#1-UNIX五种IO模型" class="headerlink" title="1.    UNIX五种IO模型"></a>1.    UNIX五种IO模型</h4><p>1.1.    IO</p>
-<p>1.2.    NIO</p>
-<p>1.3.    I/O多路复用（select, poll, Linux 2.6中改进的epoll）<br>1.3.1.    主要方式</p>
-<ul>
-<li><p>select</p>
-</li>
-<li><p>poll<br>为了解决select支持的fd大小为1024的问题，poll改变了fds的集合描述方式，使用了poll_fd而不是fd_set结构</p>
-</li>
-<li><p>epoll<br>执行epoll_create，创建了红黑树和就绪链表<br>执行epoll_ctl，如果增加socket句柄，则检查在红黑树中是否存在，存在立即返回，不存在则添加到红黑树，然后向内核注册回调函数，用于当中断事件来临时向准备就绪链表中插入数据<br>执行epoll_wait时立刻返回准备就绪链表里的数据<br>LT和ET模式（水平触发和边缘触发），LT模式下，只要一个句柄上的事件一次没有处理完，后面调用epoll_wait时还会返回这个句柄，而ET模式仅在第一次返回</p>
-</li>
-</ul>
-<p>1.3.2.    区别</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select和poll每次调用都需要遍历整个fd，直到设备就绪，期间睡眠和唤醒多次交替，而epoll_wait执行的时候只需要遍历就绪链表中的节点</span><br><span class="line">select/poll每次调用都需要把fd集合从用户态往内核态拷贝一次，而epoll只需要在调用epoll_ctl的时候拷贝一次</span><br><span class="line">select支持的fd数量较小，默认是1024，而epoll里面fd的最大值为系统最多可打开的fd数目，这个数字一般远大于1024</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>参考：<br><a href="https://blog.csdn.net/russell_tao/article/details/7160071" target="_blank" rel="noopener">https://blog.csdn.net/russell_tao/article/details/7160071</a><br><a href="https://www.cnblogs.com/Anker/p/3265058.html" target="_blank" rel="noopener">https://www.cnblogs.com/Anker/p/3265058.html</a></li>
-</ul>
-<p>1.4.    信号驱动I/O</p>
-<p>1.5.    AIO</p>
-<h4 id="2-IO"><a href="#2-IO" class="headerlink" title="2.    IO"></a>2.    IO</h4><p>2.1.    面向流<br>2.2.    阻塞<br>2.3.    无Selector</p>
-<h4 id="3-NIO"><a href="#3-NIO" class="headerlink" title="3.    NIO"></a>3.    NIO</h4><p>3.1.    基本概念<br>3.1.1.    同步异步<br>关注事件发生时的行为<br>3.1.2.    阻塞非阻塞<br>关注等待事件时的状态</p>
-<p>3.2.    组件<br>3.2.1.    Channel</p>
-<ul>
-<li><p>FileChannel<br>文件</p>
-</li>
-<li><p>transferFrom<br>将数据从源通道传输到FileChannel</p>
-</li>
-<li><p>transferTo<br>将数据从FileChannel传输到其他Channel</p>
-</li>
-<li><p>DatagramChannel<br>UDP</p>
-</li>
-<li><p>SocketChannel<br>TCP</p>
-</li>
-<li><p>ServerSocket<br>监听套接字</p>
-</li>
-</ul>
-<p>3.2.2.    ByteBuffer</p>
-<ul>
-<li><p>属性<br>Position<br>Limit<br>Capacity</p>
-</li>
-<li><p>重要方法</p>
-</li>
-<li><p>flip<br>读写模式切换</p>
-</li>
-<li><p>clear</p>
-</li>
-<li><p>compact<br>类型</p>
-</li>
-</ul>
-<p>3.2.3.    Scatter/Gather</p>
-<ul>
-<li><p>Scatter<br>一个Channel分散到多个Buffer</p>
-</li>
-<li><p>Gather<br>多个Channel收集到一个Buffer</p>
-</li>
-</ul>
-<p>3.2.4.    Selector<br>SelectionKey<br>就绪时间集合<br>Accept, Connect, Read, Write</p>
-<p>3.2.5.    Pipe<br>管道是2个线程间的单向数据连接<br>Source(读), Sink(写)</p>
-<p>3.3.    特点<br>面向缓冲<br>非阻塞<br>选择器Selector</p>
-<h4 id="4-AIO"><a href="#4-AIO" class="headerlink" title="4.    AIO"></a>4.    AIO</h4><p>4.1.    AsynchronousFileChannel<br>4.2.    AsynchronousSocketChannel<br>4.3.    AsynchronousServerSocketChannel<br>4.4.    AsynchronousChannelGroup<br>处理IO的线程组<br>4.5.    监控/控制 异步操作<br>Future，Future.get<br>回调 CompletionHandler</p>
+<p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-aop/java-aop.png" alt="Java动态代理"></p>
+<h4 id="1-JDK"><a href="#1-JDK" class="headerlink" title="1.    JDK"></a>1.    JDK</h4><p>1.1.    优点<br>JDK自带，不需要额外引用</p>
+<p>1.2.    缺点<br>只能实现接口里面方法的代理<br>速度慢</p>
+<p>1.3.    实现机制<br>根据接口方法动态生成对应的代理类，代理类再将请求转发到InvocationHandler实现类的invoke方法上</p>
+<h4 id="2-CGLIB"><a href="#2-CGLIB" class="headerlink" title="2.    CGLIB"></a>2.    CGLIB</h4><p>2.1.    优点<br>Spring使用的动态代理方法<br>代码的可读性高</p>
+<p>2.2.    缺点<br>速度相对来说你较慢</p>
+<p>2.3.    实现机制<br>根据接口或者类生成通过继承方式动态生成代理类，代理类再将请求转发到MethodInterceptor的intercept方法上<br>基于ASM包装</p>
+<h4 id="3-JAVASSIST"><a href="#3-JAVASSIST" class="headerlink" title="3.    JAVASSIST"></a>3.    JAVASSIST</h4><p>3.1.    优点<br>Dubbo使用的动态代理方法<br>速度较快</p>
+<p>3.2.    缺点<br>代码可读性不高</p>
+<p>3.3.    实现机制<br>和JDK类似，使用代理工厂<br>通过类似用户自定义的动态代码直接生成代理类</p>
+<h4 id="4-ASM"><a href="#4-ASM" class="headerlink" title="4.    ASM"></a>4.    ASM</h4><p>4.1.    优点<br>速度快<br>4.2.    缺点<br>可读性差</p>
+<h4 id="5-性能参考"><a href="#5-性能参考" class="headerlink" title="5.    性能参考"></a>5.    性能参考</h4><p>5.1.    <a href="https://javatar.iteye.com/blog/814426" target="_blank" rel="noopener">https://javatar.iteye.com/blog/814426</a></p>
+<h4 id="6-其他参考"><a href="#6-其他参考" class="headerlink" title="6.    其他参考"></a>6.    其他参考</h4><p>6.1.    <a href="https://www.cnkirito.moe/rpc-dynamic-proxy" target="_blank" rel="noopener">https://www.cnkirito.moe/rpc-dynamic-proxy</a></p>
 
 	</div>
 
@@ -165,7 +117,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/网络编程/">网络编程</a>
+  <span></span> <a href="/tags/动态代理/">动态代理</a>
   </div>
 
 </div>
@@ -174,7 +126,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ifb.me/2019/08/02/java-io/" data-title="Java知识图谱之网络编程 | NoOne&#39;s Blog" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ifb.me/2019/08/05/java-aop/" data-title="Java知识图谱之动态代理 | NoOne&#39;s Blog" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -187,19 +139,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2019/08/03/java-classloader/" title="Java知识图谱之JVM类加载机制">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Java知识图谱之JVM类加载机制</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2019/08/01/java-concurrent/"  title="Java知识图谱之并发编程">
+<a href="/2019/08/04/java-limiter/"  title="Java知识图谱之微服务限流熔断">
  <strong>下一篇：</strong><br/> 
- <span>Java知识图谱之并发编程
+ <span>Java知识图谱之微服务限流熔断
 </span>
 </a>
 </div>
@@ -217,8 +161,8 @@
   <script src="https://billts.site/js/gitment.js"></script>
   <script>
     var gitment = new Gitment({
-      id: "Fri Aug 02 2019 23:22:17 GMT+0800",
-      title: 'Java知识图谱之网络编程',
+      id: "Mon Aug 05 2019 20:38:17 GMT+0800",
+      title: 'Java知识图谱之动态代理',
       owner: "hunterzhang86",
       repo: "blog_comments",
       oauth: {
@@ -240,7 +184,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-UNIX五种IO模型"><span class="toc-number">1.</span> <span class="toc-text">1.    UNIX五种IO模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-IO"><span class="toc-number">2.</span> <span class="toc-text">2.    IO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-NIO"><span class="toc-number">3.</span> <span class="toc-text">3.    NIO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-AIO"><span class="toc-number">4.</span> <span class="toc-text">4.    AIO</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-JDK"><span class="toc-number">1.</span> <span class="toc-text">1.    JDK</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-CGLIB"><span class="toc-number">2.</span> <span class="toc-text">2.    CGLIB</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-JAVASSIST"><span class="toc-number">3.</span> <span class="toc-text">3.    JAVASSIST</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-ASM"><span class="toc-number">4.</span> <span class="toc-text">4.    ASM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-性能参考"><span class="toc-number">5.</span> <span class="toc-text">5.    性能参考</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-其他参考"><span class="toc-number">6.</span> <span class="toc-text">6.    其他参考</span></a></li></ol>
  
   </div>
 
