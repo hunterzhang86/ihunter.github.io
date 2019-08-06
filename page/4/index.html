@@ -7,12 +7,12 @@
   <meta name="baidu-site-verification" content="gBGQPcPwzU">
   <meta charset="UTF-8">
   
-    <title>一种显示目录结构的方法 | NoOne&#39;s Blog</title>
+    <title>NoOne&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="NoOne">
     
-    <meta name="description" content="本文介绍了一种显示目录结构的方法。">
+    <meta name="description" content="一个Java工程师的技术博客，主要记录自己在升级打怪过程中一些心得和总结，欢迎大家常来逛逛。">
     
     
     <meta name="keywords" content="Java,MySQL,Redis,MQ,HBase">
@@ -65,127 +65,35 @@
 </div>
     </header>
     <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
+      <div id="main">
+
   
-	<article itemprop="articleBody">
-		<header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/10/31/show-dir/" title="一种显示目录结构的方法" itemprop="url">一种显示目录结构的方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://www.ifb.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
-		
-  <p class="article-time">
-    <time datetime="2017-10-31T12:38:17.000Z" itemprop="datePublished"> Published 2017-10-31</time>
-    
-  </p>
-</header>
-	<div class="article-content">
-		
-
-		<p>本文介绍了一种显示目录结构的方法。</p>
-<a id="more"></a>
-
-<p>1、windows下显示目录结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">tree /F</span><br><span class="line">D:\Program Files\Hexo\source&gt;tree /F</span><br><span class="line">文件夹 PATH 列表</span><br><span class="line">卷序列号为 00000200 E077:4672</span><br><span class="line">D:.</span><br><span class="line">│  CNAME</span><br><span class="line">│</span><br><span class="line">├─about</span><br><span class="line">│      index.md</span><br><span class="line">│</span><br><span class="line">└─_posts</span><br><span class="line">        config-hexo-in-windows.md</span><br><span class="line">        learn-from-others.md</span><br><span class="line">        show-dir.md</span><br><span class="line">        think-more-ways-less-questions.md</span><br></pre></td></tr></table></figure>
-
-<p>2、Linux下显示目录结构的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">find . | sed -e &apos;s;[^/]*/;|___;g;s;___|; |;g&apos;</span><br><span class="line">admin@admin-PC MINGW32 /d/Program Files/Hexo/source</span><br><span class="line">$ find . | sed -e &apos;s;[^/]*/;|___;g;s;___|; |;g&apos;</span><br><span class="line">.</span><br><span class="line">|___about</span><br><span class="line">| |___index.md</span><br><span class="line">|___CNAME</span><br><span class="line">|____posts</span><br><span class="line">| |___config-hexo-in-windows.md</span><br><span class="line">| |___learn-from-others.md</span><br><span class="line">| |___show-dir.md</span><br><span class="line">| |___think-more-ways-less-questions.md</span><br></pre></td></tr></table></figure>
-	</div>
-
-	
-
-		<footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
-</div>
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/Linux/">Linux</a>
-  </div>
-
-</div>
-
-
-
-	<div class="article-share" id="share">
-	
-	  <div data-url="http://www.ifb.me/2017/10/31/show-dir/" data-title="一种显示目录结构的方法 | NoOne&#39;s Blog" data-tsina="" class="share clearfix">
-	  </div>
-	
-	</div>
-
-
-</footer>
-
-
-
-	
-<nav class="article-nav clearfix">
- 
- <div class="prev" >
- <a href="/2017/10/31/guava-thread-listen/" title="Guava中实现线程异步回调机制探索">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Guava中实现线程异步回调机制探索</span>
-</a>
-</div>
-
-
-<div class="next">
-<a href="/2017/09/22/how-to-implements-kafka-exactly-once/"  title="实现Kafka消息刚好传递一次(Exactly-Once)的方法">
- <strong>下一篇：</strong><br/> 
- <span>实现Kafka消息刚好传递一次(Exactly-Once)的方法
-</span>
-</a>
-</div>
-
-</nav>
-
-	
-	<div id="article-comment">
-			
-
-
-<section id="comments" class="comment">
-  <div id="container"></div>
-  <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
-  <script src="https://billts.site/js/gitment.js"></script>
-  <script>
-    var gitment = new Gitment({
-      id: "Tue Oct 31 2017 20:38:17 GMT+0800",
-      title: '一种显示目录结构的方法',
-      owner: "hunterzhang86",
-      repo: "blog_comments",
-      oauth: {
-        client_id: "2ed150022550c514e13e",
-        client_secret: "6706d4e3c610e155f152d370f93d3a736d60a2af"
-      }
-    });
-
-    gitment.render('article-comment');
-  </script>
+    <a href="/2014/09/23/config-hexo-in-windows/" title="Windows下配置Hexo博客的方法" itemprop="url">
+  
+    <h1 itemprop="name">Windows下配置Hexo博客的方法</h1>
+    
+     
+       <p itemprop="description" >本文主要介绍了在Windows下如何配置Hexo博客。</p>
+      
+    
+    <time datetime="2014-09-23T12:38:17.000Z" itemprop="datePublished">2014-09-23</time>
+  </a>
 </section>
 
-	</div>
-	
-	</article>
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix unexpand">
+    <a class="extend prev" rel="prev" href="/page/3/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+
 </div>
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
-
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
- 
- 
- 
-  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
@@ -380,8 +288,6 @@ $(document).ready(function(){
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
       
-      $('#toc.toc-aside').css('display', 'none');
-      
     }
   });
   c.click(function(){
@@ -400,79 +306,6 @@ $(document).ready(function(){
 });
 </script>
 
-<script type="text/javascript">
-$(document).ready(function(){
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      h  = $('article h2')
-      ah = $('article h2'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  if(ah.length==0){
-    t.css('display','none');
-  }else{
-    c.click(function(){
-      ta.css('display', 'block').addClass('fadeIn');
-    });
-    o.click(function(){
-      ta.css('display', 'none');
-    });
-    $(window).scroll(function(){
-      ta.css("top",Math.max(140,320-$(this).scrollTop()));
-    });
-  };
-});
-</script>
-
-
-
-
-  <script type="text/javascript">
-  $(document).ready(function () {
-    var $this = $('.share');
-    var html = [
-      '<div class="bdsharebuttonbox">',
-      '<a href="#" class="bds_weixin" data-cmd="weixin"></a>',
-      '<a href="#" class="bds_qzone" data-cmd="qzone"></a>',
-      '<a href="#" class="bds_tsina" data-cmd="tsina"></a>',
-      '<a href="#" class="bds_more" data-cmd="more"></a>',
-      '</div>'
-    ].join('');
-    $this.append(html);
-  });
-</script>
-
-<script>
-    window._bd_share_config = {
-        "common": {
-            "bdSnsKey": {},
-            "bdText": "",
-            "bdMini": "2",
-            "bdPic": "",
-            "bdStyle": "0",
-            "bdSize": "16"
-        },
-        "share": {},
-        "image": {
-            "viewList": ["weixin", "qzone", "tsina"],
-            "viewText": "分享到：",
-            "viewSize": "16"
-        },
-        "selectShare": {
-            "bdContainerClass": null,
-            "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]
-        }
-    };
-    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
-</script>
 
 
 
@@ -483,26 +316,7 @@ $(document).ready(function(){
 
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-});
-</script>
+
 
 
 <!-- Totop Begin -->
@@ -521,4 +335,4 @@ $(document).ready(function(){
 <!-- MathJax End -->
 
   </body>
-</html>
+ </html>
