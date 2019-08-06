@@ -7,12 +7,12 @@
   <meta name="baidu-site-verification" content="gBGQPcPwzU">
   <meta charset="UTF-8">
   
-    <title>使用Redis实现实时展示页面访问量排名的方法 | NoOne&#39;s Blog</title>
+    <title>Java知识图谱之Dubbo | NoOne&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="NoOne">
     
-    <meta name="description" content="本文介绍了一种使用Redis实现实时展示页面访问量排名的方法。">
+    <meta name="description" content="本文介绍了Dubbo的一些常见问题及其使用方式。">
     
     
     <meta name="keywords" content="Java,MySQL,Redis,MQ,HBase">
@@ -71,34 +71,42 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/03/03/get_topn_count_with_redis/" title="使用Redis实现实时展示页面访问量排名的方法" itemprop="url">使用Redis实现实时展示页面访问量排名的方法</a>
+      <a href="/2019/08/06/java-dubbo/" title="Java知识图谱之Dubbo" itemprop="url">Java知识图谱之Dubbo</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.ifb.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
 		
   <p class="article-time">
-    <time datetime="2018-03-03T12:38:17.000Z" itemprop="datePublished"> Published 2018-03-03</time>
+    <time datetime="2019-08-06T07:38:17.000Z" itemprop="datePublished"> Published 2019-08-06</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 
-		<p>本文介绍了一种使用Redis实现实时展示页面访问量排名的方法。</p>
+		<p>本文介绍了Dubbo的一些常见问题及其使用方式。</p>
 <a id="more"></a>
 
-<p><strong>update in 2019.7.26</strong><br>其实这种topn的需求使用大数据实时处理框架Spark/Flink会比较好，Spark/Flink可以先将TopN的数据先计算出来然后再持久化到Redis，这样Redis需要保存的数据量会大大减少，避免原来的方案在高并发的情况下可能会直接将Redis写宕机的风险。</p>
-<h5 id="为什么使用redis存储实时统计的数据？"><a href="#为什么使用redis存储实时统计的数据？" class="headerlink" title="为什么使用redis存储实时统计的数据？"></a>为什么使用redis存储实时统计的数据？</h5><p>1、实时统计的数据属于查多写少的类型<br>2、Redis的SortedSet数据结构天然可以非常快的得出topn的数据</p>
-<h5 id="如何使用redis存储Spark的实时统计数据？"><a href="#如何使用redis存储Spark的实时统计数据？" class="headerlink" title="如何使用redis存储Spark的实时统计数据？"></a>如何使用redis存储Spark的实时统计数据？</h5><p>1、考虑到Spark直接操作Redis的话，各个组件之间的耦合会比较严重，所以我们将Spark的实时统计数据先推到kafka里面，然后不断的取出kafka的数据插入到redis中。</p>
-<p>2、进一步的，如果把所有的统计结果都放到redis里面的话，由于数据量比较大可能会对redis的性能有比较大的压力，而实际上我们需要查看的统计结果是有限的，所以只需要将topn的数据存放的redis中即可，可以根据当前的实时数据统计情况，设置插入的阈值，从而减少redis的性能压力。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#取出当前排名1k的统计值，获取当前插入数据的阈值</span><br><span class="line">ZREVRANGE title_count 1000 1000 WITHSCORES</span><br></pre></td></tr></table></figure>
-
-<h5 id="如何删除超时的统计数据？"><a href="#如何删除超时的统计数据？" class="headerlink" title="如何删除超时的统计数据？"></a>如何删除超时的统计数据？</h5><p>既然是实时的统计数据，如果没有删除超时数据的机制，统计的结果实时上就变成了历史单位时间段的排名了，所以需要定时删除超时的统计数据。</p>
-<p>但其实redis中SortedSet中的子元素是不能设置超时时间的，所以我们使用了另外一个SortedSet来存储子元素的插入时间，然后定时去扫描有没有子元素已经超时，超时的子元素集会在原始的统计表中被清理掉。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查询超时的元素集，其中1534562250为超时的时间戳阈值</span><br><span class="line">ZREVRANGEBYSCORE title_count_ttl 0 1534562250</span><br><span class="line">#删除超时的元素集</span><br><span class="line">ZREM title_count baidu.com bing.com</span><br></pre></td></tr></table></figure>
-
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>整个方案在删除超时统计数据上还是有一些瑕疵，毕竟这个SortedSet TTL的实现方案需要插入两次数据，如果朋友们有更好的解决方案欢迎一起讨论，谢谢。</p>
+<p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-dubbo/java-dubbo.png" alt="Dubbo"></p>
+<h4 id="1-部署架构"><a href="#1-部署架构" class="headerlink" title="1.    部署架构"></a>1.    部署架构</h4><p>Provider<br>Consumer<br>Registry<br>Monitor<br>Container</p>
+<h4 id="2-架构图"><a href="#2-架构图" class="headerlink" title="2.    架构图"></a>2.    架构图</h4><p><img src="https://raw.githubusercontent.com/hunterzhang86/blog_markdown_files/master/images/java-dubbo/dubbo-structure.png" alt="Dubbo架构图">    </p>
+<h4 id="3-序列化协议"><a href="#3-序列化协议" class="headerlink" title="3.    序列化协议"></a>3.    序列化协议</h4><p>3.1.    hessian</p>
+<h4 id="4-为什么PB的效率是最高的"><a href="#4-为什么PB的效率是最高的" class="headerlink" title="4.    为什么PB的效率是最高的"></a>4.    为什么PB的效率是最高的</h4><p>4.1.    使用proto编译器，自动进行序列化和反序列化，速度非常快<br>4.2.    数据压缩效果非常好</p>
+<h4 id="5-负载均衡策略"><a href="#5-负载均衡策略" class="headerlink" title="5.    负载均衡策略"></a>5.    负载均衡策略</h4><p>5.1.    随机<br>默认</p>
+<p>5.2.    轮询<br>按权重轮询</p>
+<p>5.3.    最少活跃调用</p>
+<p>5.4.    一致性哈希</p>
+<h4 id="6-集群容错策略"><a href="#6-集群容错策略" class="headerlink" title="6.    集群容错策略"></a>6.    集群容错策略</h4><p>6.1.    failover cluster模式<br>失败重试</p>
+<p>6.2.    failfast cluster模式<br>立即失效，适用于非幂等性操作</p>
+<p>6.3.    failsafe cluster模式<br>忽略失败</p>
+<p>6.4.    failback cluster模式<br>定时重发</p>
+<p>6.5.    forking cluster模式<br>并行调用</p>
+<p>6.6.    broadcast cluster模式</p>
+<h4 id="7-使用方式"><a href="#7-使用方式" class="headerlink" title="7.    使用方式"></a>7.    使用方式</h4><ul>
+<li>@EnableDubbo，@Scan， @Refer</li>
+<li>Spring XML</li>
+</ul>
 
 	</div>
 
@@ -109,13 +117,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/总结/">总结</a>
+  <a class="article-category-link" href="/categories/Java知识图谱/">Java知识图谱</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Redis/">Redis</a>
+  <span></span> <a href="/tags/微服务/">微服务</a><a href="/tags/Dubbo/">Dubbo</a>
   </div>
 
 </div>
@@ -124,7 +132,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ifb.me/2018/03/03/get_topn_count_with_redis/" data-title="使用Redis实现实时展示页面访问量排名的方法 | NoOne&#39;s Blog" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ifb.me/2019/08/06/java-dubbo/" data-title="Java知识图谱之Dubbo | NoOne&#39;s Blog" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -137,19 +145,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/07/07/hbase-example/" title="HBase常用命令">
-  <strong>上一篇：</strong><br/>
-  <span>
-  HBase常用命令</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/10/31/guava-thread-listen/"  title="Guava中实现线程异步回调机制探索">
+<a href="/2019/08/05/java-aop/"  title="Java知识图谱之动态代理">
  <strong>下一篇：</strong><br/> 
- <span>Guava中实现线程异步回调机制探索
+ <span>Java知识图谱之动态代理
 </span>
 </a>
 </div>
@@ -167,8 +167,8 @@
   <script src="https://billts.site/js/gitment.js"></script>
   <script>
     var gitment = new Gitment({
-      id: "Sat Mar 03 2018 20:38:17 GMT+0800",
-      title: '使用Redis实现实时展示页面访问量排名的方法',
+      id: "Tue Aug 06 2019 15:38:17 GMT+0800",
+      title: 'Java知识图谱之Dubbo',
       owner: "hunterzhang86",
       repo: "blog_comments",
       oauth: {
@@ -190,7 +190,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#为什么使用redis存储实时统计的数据？"><span class="toc-number">1.</span> <span class="toc-text">为什么使用redis存储实时统计的数据？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何使用redis存储Spark的实时统计数据？"><span class="toc-number">2.</span> <span class="toc-text">如何使用redis存储Spark的实时统计数据？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何删除超时的统计数据？"><span class="toc-number">3.</span> <span class="toc-text">如何删除超时的统计数据？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-部署架构"><span class="toc-number">1.</span> <span class="toc-text">1.    部署架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-架构图"><span class="toc-number">2.</span> <span class="toc-text">2.    架构图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-序列化协议"><span class="toc-number">3.</span> <span class="toc-text">3.    序列化协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-为什么PB的效率是最高的"><span class="toc-number">4.</span> <span class="toc-text">4.    为什么PB的效率是最高的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-负载均衡策略"><span class="toc-number">5.</span> <span class="toc-text">5.    负载均衡策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-集群容错策略"><span class="toc-number">6.</span> <span class="toc-text">6.    集群容错策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-使用方式"><span class="toc-number">7.</span> <span class="toc-text">7.    使用方式</span></a></li></ol>
  
   </div>
 
