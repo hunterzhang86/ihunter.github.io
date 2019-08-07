@@ -7,12 +7,12 @@
   <meta name="baidu-site-verification" content="gBGQPcPwzU">
   <meta charset="UTF-8">
   
-    <title>NoOne&#39;s Blog</title>
+    <title>将已存在的代码提交到Github管理的方法 | NoOne&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="NoOne">
     
-    <meta name="description" content="一个Java工程师的技术博客，主要记录自己在升级打怪过程中一些心得和总结，欢迎大家常来逛逛。">
+    <meta name="description" content="本文主要介绍了如何将一个现存的目录代码提交到github保存。">
     
     
     <meta name="keywords" content="Java,MySQL,Redis,MQ,HBase">
@@ -65,55 +65,119 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
+      <div id="main" class="post" itemscope itemprop="blogPost">
   
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/09/23/config-hexo-in-windows/" title="Windows下配置Hexo博客的方法" itemprop="url">
-  
-    <h1 itemprop="name">Windows下配置Hexo博客的方法</h1>
+	<article itemprop="articleBody">
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
     
-     
-       <p itemprop="description" >本文主要介绍了在Windows下如何配置Hexo博客。</p>
-      
+      <a href="/2014/01/22/git-add-code-to-exists-repo/" title="将已存在的代码提交到Github管理的方法" itemprop="url">将已存在的代码提交到Github管理的方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.ifb.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
+		
+  <p class="article-time">
+    <time datetime="2014-01-22T06:38:17.000Z" itemprop="datePublished"> Published 2014-01-22</time>
     
-    <time datetime="2014-09-23T12:38:17.000Z" itemprop="datePublished">2014-09-23</time>
-  </a>
-</section>
+  </p>
+</header>
+	<div class="article-content">
+		
+
+		<p>本文主要介绍了如何将一个现存的目录代码提交到github保存。</p>
+<a id="more"></a>
+
+<p>1、在github新建对应的仓库</p>
+<p>2、初始化本地目录为git目录并提交到github</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line"></span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line">git commit -m <span class="string">"Initial commit"</span>​</span><br><span class="line"></span><br><span class="line">git remote add origin https://github.com/hunterzhang86/go-demo.git</span><br><span class="line"></span><br><span class="line">git push origin master​</span><br></pre></td></tr></table></figure>
 
 
+	</div>
+
+	
+
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
+</div>
 
 
-
-
+  <div class="article-tags">
   
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2014/01/22/git-add-code-to-exists-repo/" title="将已存在的代码提交到Github管理的方法" itemprop="url">
-  
-    <h1 itemprop="name">将已存在的代码提交到Github管理的方法</h1>
-    
-     
-       <p itemprop="description" >本文主要介绍了如何将一个现存的目录代码提交到github保存。</p>
-      
-    
-    <time datetime="2014-01-22T06:38:17.000Z" itemprop="datePublished">2014-01-22</time>
-  </a>
-</section>
-
-
-
-
-
-
-
-  <nav id="page-nav" class="clearfix unexpand">
-    <a class="extend prev" rel="prev" href="/page/3/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
-  </nav>
+  <span></span> <a href="/tags/Git/">Git</a>
+  </div>
 
 </div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.ifb.me/2014/01/22/git-add-code-to-exists-repo/" data-title="将已存在的代码提交到Github管理的方法 | NoOne&#39;s Blog" data-tsina="" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+
+
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/09/23/config-hexo-in-windows/" title="Windows下配置Hexo博客的方法">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Windows下配置Hexo博客的方法</span>
+</a>
+</div>
+
+
+</nav>
+
+	
+	<div id="article-comment">
+			
+
+
+<section id="comments" class="comment">
+  <div id="container"></div>
+  <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+  <script src="https://billts.site/js/gitment.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: "Wed Jan 22 2014 14:38:17 GMT+0800",
+      title: '将已存在的代码提交到Github管理的方法',
+      owner: "hunterzhang86",
+      repo: "blog_comments",
+      oauth: {
+        client_id: "2ed150022550c514e13e",
+        client_secret: "6706d4e3c610e155f152d370f93d3a736d60a2af"
+      }
+    });
+
+    gitment.render('article-comment');
+  </script>
+</section>
+
+	</div>
+	
+	</article>
+</div>
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
@@ -308,6 +372,8 @@ $(document).ready(function(){
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
       
+      $('#toc.toc-aside').css('display', 'none');
+      
     }
   });
   c.click(function(){
@@ -326,6 +392,79 @@ $(document).ready(function(){
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+
+  <script type="text/javascript">
+  $(document).ready(function () {
+    var $this = $('.share');
+    var html = [
+      '<div class="bdsharebuttonbox">',
+      '<a href="#" class="bds_weixin" data-cmd="weixin"></a>',
+      '<a href="#" class="bds_qzone" data-cmd="qzone"></a>',
+      '<a href="#" class="bds_tsina" data-cmd="tsina"></a>',
+      '<a href="#" class="bds_more" data-cmd="more"></a>',
+      '</div>'
+    ].join('');
+    $this.append(html);
+  });
+</script>
+
+<script>
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdMini": "2",
+            "bdPic": "",
+            "bdStyle": "0",
+            "bdSize": "16"
+        },
+        "share": {},
+        "image": {
+            "viewList": ["weixin", "qzone", "tsina"],
+            "viewText": "分享到：",
+            "viewSize": "16"
+        },
+        "selectShare": {
+            "bdContainerClass": null,
+            "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]
+        }
+    };
+    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>
 
 
 
@@ -336,7 +475,26 @@ $(document).ready(function(){
 
 
 
-
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
 
 
 <!-- Totop Begin -->
@@ -355,4 +513,4 @@ $(document).ready(function(){
 <!-- MathJax End -->
 
   </body>
- </html>
+</html>
