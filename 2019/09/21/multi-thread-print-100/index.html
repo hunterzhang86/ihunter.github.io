@@ -7,12 +7,12 @@
   <meta name="baidu-site-verification" content="gBGQPcPwzU">
   <meta charset="UTF-8">
   
-    <title>如何将一台老电脑改造为docker服务器 | NoOne&#39;s Blog</title>
+    <title>如何实现三个线程轮流输出1-100 | NoOne&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="NoOne">
     
-    <meta name="description" content="本文介绍如何将一台老电脑改造为docker服务器。">
+    <meta name="description" content="如何实现三个线程轮流输出1-100, 这个问题在面试中经常会问到，之前有写过，但不是很合理，最近有点新想法重新写了一稿，直接看代码吧。">
     
     
     <meta name="keywords" content="Java,MySQL,Redis,MQ,HBase">
@@ -71,38 +71,24 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/07/20/install-linux-in-old-computer/" title="如何将一台老电脑改造为docker服务器" itemprop="url">如何将一台老电脑改造为docker服务器</a>
+      <a href="/2019/09/21/multi-thread-print-100/" title="如何实现三个线程轮流输出1-100" itemprop="url">如何实现三个线程轮流输出1-100</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.ifb.me/about" title="NoOne" target="_blank" itemprop="author">NoOne</a>
 		
   <p class="article-time">
-    <time datetime="2019-07-20T12:38:17.000Z" itemprop="datePublished"> Published 2019-07-20</time>
+    <time datetime="2019-09-21T12:38:17.000Z" itemprop="datePublished"> Published 2019-09-21</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 
-		<p>本文介绍如何将一台老电脑改造为docker服务器。</p>
+		<p>如何实现三个线程轮流输出1-100, 这个问题在面试中经常会问到，之前有写过，但不是很合理，最近有点新想法重新写了一稿，直接看代码吧。</p>
 <a id="more"></a>
 
-<p>1、安装deepin系统<br>首先用refus将deepin制作成系统启动盘，然后重启启动安装deepin到事先划分好的磁盘即可</p>
-<p>2、修改为网易的数据源</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
-
-<p>3、安装docker</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp; apt upgrade</span><br><span class="line">curl -fsSL get.docker.com -o get-docker.sh</span><br><span class="line">sudo sh get-docker.sh --mirror Aliyun</span><br></pre></td></tr></table></figure>
-
-<p>4、修改docker的镜像源</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/etc/docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">    &quot;registry-mirrors&quot;: [&quot;https://registry.docker-cn.com&quot;,&quot;http://hub-mirror.c.163.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
-
-<p>5、安装mysql</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -p 3306:3306 --name mymysql -v $PWD/conf:/etc/mysql/conf.d -v $PWD/logs:/logs -v $PWD/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7</span><br></pre></td></tr></table></figure>
-
-<p>6、启动mysql</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker start mymysql</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hunter.train.common.print;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutorService;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Condition;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcurrentPrinter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_COUNT = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> THREAD_NUM = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Printer</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Counter counter;</span><br><span class="line">        <span class="keyword">private</span> ReentrantLock lock;</span><br><span class="line">        <span class="keyword">private</span> Condition self;</span><br><span class="line">        <span class="keyword">private</span> Condition next;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Printer</span><span class="params">(Counter counter, ReentrantLock lock, Condition self, Condition next)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.counter = counter;</span><br><span class="line">            <span class="keyword">this</span>.lock = lock;</span><br><span class="line">            <span class="keyword">this</span>.self = self;</span><br><span class="line">            <span class="keyword">this</span>.next = next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            lock.lock();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">while</span> (counter.getCount() &lt; <span class="number">100</span>) &#123;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">":"</span> + counter.addAndGet());</span><br><span class="line">                    <span class="comment">// 这样另外的线程就能拿到锁了</span></span><br><span class="line">                    next.signal();</span><br><span class="line">                    <span class="comment">// 如果满足这个条件，说明已经不会再轮到自己了，也就没必要再等了</span></span><br><span class="line">                    <span class="keyword">if</span> (counter.getCount() &gt; MAX_COUNT - THREAD_NUM) &#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        self.await();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                lock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Counter</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> count;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Counter</span><span class="params">(<span class="keyword">int</span> count)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.count = count;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> count;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">addAndGet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> ++count;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Counter counter = <span class="keyword">new</span> Counter(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        ReentrantLock lock = <span class="keyword">new</span> ReentrantLock(<span class="keyword">true</span>);</span><br><span class="line">        Condition condition1 = lock.newCondition();</span><br><span class="line">        Condition condition2 = lock.newCondition();</span><br><span class="line">        Condition condition3 = lock.newCondition();</span><br><span class="line"></span><br><span class="line">        executor.submit(<span class="keyword">new</span> Printer(counter, lock, condition1, condition2));</span><br><span class="line">        executor.submit(<span class="keyword">new</span> Printer(counter, lock, condition2, condition3));</span><br><span class="line">        executor.submit(<span class="keyword">new</span> Printer(counter, lock, condition3, condition1));</span><br><span class="line">        executor.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 	</div>
 
 	
@@ -112,13 +98,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  <a class="article-category-link" href="/categories/总结/">总结</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Docker/">Docker</a>
+  <span></span> <a href="/tags/Java/">Java</a><a href="/tags/并发编程/">并发编程</a>
   </div>
 
 </div>
@@ -127,7 +113,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.ifb.me/2019/07/20/install-linux-in-old-computer/" data-title="如何将一台老电脑改造为docker服务器 | NoOne&#39;s Blog" data-tsina="" class="share clearfix">
+	  <div data-url="http://www.ifb.me/2019/09/21/multi-thread-print-100/" data-title="如何实现三个线程轮流输出1-100 | NoOne&#39;s Blog" data-tsina="" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -140,19 +126,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2019/07/21/install-ftp-indebian/" title="在Debian上搭建FTP服务器">
-  <strong>上一篇：</strong><br/>
-  <span>
-  在Debian上搭建FTP服务器</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2018/07/07/hbase-example/"  title="HBase常用命令">
+<a href="/2019/08/10/java-transaction/"  title="Java知识图谱之微服务分布式事务">
  <strong>下一篇：</strong><br/> 
- <span>HBase常用命令
+ <span>Java知识图谱之微服务分布式事务
 </span>
 </a>
 </div>
@@ -170,8 +148,8 @@
   <script src="https://billts.site/js/gitment.js"></script>
   <script>
     var gitment = new Gitment({
-      id: "Sat Jul 20 2019 20:38:17 GMT+0800",
-      title: '如何将一台老电脑改造为docker服务器',
+      id: "Sat Sep 21 2019 20:38:17 GMT+0800",
+      title: '如何实现三个线程轮流输出1-100',
       owner: "hunterzhang86",
       repo: "blog_comments",
       oauth: {
